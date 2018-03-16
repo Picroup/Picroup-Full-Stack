@@ -1,0 +1,37 @@
+{
+  "name": "Picroup-Full-Stack",
+  "version": "1.0.0",
+  "description": "Picroup's front end and back end.",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Picroup/Picroup-Full-Stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Picroup/Picroup-Full-Stack/issues"
+  },
+  "homepage": "https://github.com/Picroup/Picroup-Full-Stack#readme",
+  "dependencies": {
+    "apollo-server-express": "^1.3.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "graphql": "^0.12.0",
+    "jsonwebtoken": "^8.1.1",
+    "minio": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0"
+  }
+}
