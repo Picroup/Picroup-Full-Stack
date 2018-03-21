@@ -4,7 +4,7 @@
   "description": "Picroup's front end and back end.",
   "main": "index.js",
   "scripts": {
-    "server": "node server"
+    "start": "node server"
   },
   "repository": {
     "type": "git",
