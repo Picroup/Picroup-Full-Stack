@@ -8,7 +8,12 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
-const graphql = graphqlExpress({ schema });
+const formatError = (error) => {
+  const code = (error.originalError) ? error.originalError.code : null;
+  return { ...error, code }
+};
+
+const graphql = graphqlExpress({ schema, formatError });
 const graphiql = graphiqlExpress({ endpointURL: '/graphql' });
 
 export { graphql, graphiql };
