@@ -5,7 +5,7 @@ import {
   MONGODB_PORT as port,
   MONGODB_USER as user,
   MONGODB_PASSWORD as pass,
-} from "../../config";
+} from "../config";
 
 export const connectMongoose = () => {
 
