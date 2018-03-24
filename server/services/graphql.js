@@ -9,8 +9,10 @@ const schema = makeExecutableSchema({
 });
 
 const formatError = (error) => {
-  const code = (error.originalError) ? error.originalError.code : null;
-  return { ...error, code }
+  return {
+    ...error,
+    code: error.originalError && error.originalError.code
+  }
 };
 
 const graphql = graphqlExpress({ schema, formatError });
