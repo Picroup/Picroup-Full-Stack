@@ -15,3 +15,6 @@ export const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
 
 export const JWT_SECRET = process.env.JWT_SECRET;
 
+export const PAGE_LIMIT = 24;
+
+

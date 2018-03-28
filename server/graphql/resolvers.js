@@ -3,6 +3,7 @@ import {createSaltedPassword} from "../usecase/crypto";
 import {loginUserNotFoundError} from "./errors";
 import Medium from "../usecase/mongoose/Medium";
 import {startTimestampFromRankBy} from "../usecase/model/SortBy";
+import {PAGE_LIMIT} from "../config";
 
 
 export default {
@@ -21,21 +22,15 @@ export default {
 
       const media = await Medium.find(condition)
         .sort({endedAt: -1})
-        .limit(1)
+        .limit(PAGE_LIMIT)
         .exec();
 
-      const newCursor = media.last() && media.last().endedAt;
-
-      const countCondition = {
-        ...condition,
-        endedAt: { $lt: newCursor }
-      };
-      const remain = await Medium.count(countCondition);
+      const hasMore = media.length === PAGE_LIMIT;
+      const newCursor = hasMore ? media.last().endedAt : null;
 
       return {
         cursor: newCursor,
-        media,
-        remain
+        media
       }
     }
 },

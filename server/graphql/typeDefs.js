@@ -51,8 +51,7 @@ export default `
   }
   
   type CursorMedia {
-    cursor: Float!
+    cursor: Float
     media: [Medium]!
-    remain: Int!
   }
 `;
