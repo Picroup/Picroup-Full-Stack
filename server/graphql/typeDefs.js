@@ -2,16 +2,23 @@ export default `
   type Query { 
     login(username: String!, password: String!): User!
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
+    interestedMedia(userId: ID!, cursor: Float): CursorMedia!
+    followings(userId: ID!, cursor: Float): CursorUsers!
+    followers(userId: ID!, cursor: Float): CursorUsers!
   }
   
   type Mutation {
     register(username: String!, password: String!): User!
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, category: MediumCategory!): Medium!
+    followUser(userId: ID!, toUserId: ID!): User!
+    unfollowUser(userId: ID!, toUserId: ID!): User!
   }
   
   type User {
     _id: ID!
     username: String!
+    followingsCount: Int!
+    followersCount: Int!
   }
   
   type Medium {
@@ -53,5 +60,10 @@ export default `
   type CursorMedia {
     cursor: Float
     media: [Medium]!
+  }
+  
+  type CursorUsers {
+    cursor: Float
+    users: [User]!
   }
 `;

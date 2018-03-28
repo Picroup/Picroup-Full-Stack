@@ -3,33 +3,33 @@ import {getCurrentTimestamp} from "../../libraries/date";
 
 const schema = new Schema({
   userId: {
+    type: Schema.Types.ObjectId,
     required: true,
-    type: String
   },
   createdAt: {
-    required: true,
     type: Number,
+    required: true,
     default: getCurrentTimestamp
   },
   endedAt: {
-    required: true,
     type: Number,
+    required: true,
     default: getCurrentTimestamp
   },
   category: {
+    type: String,
     required: true,
-    type: String
   },
   kind: {
+    type: String,
     required: true,
-    type: String
   },
   detail: {
     type: Object
   },
   minioId: {
+    type: String,
     required: true,
-    type: String
   }
 });
 
