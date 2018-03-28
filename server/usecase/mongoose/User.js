@@ -3,12 +3,22 @@ import mongoose, { Schema } from 'mongoose';
 const schema = new Schema({
   username: {
     type: String,
-    unique: true,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
+  },
+  followingsCount: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  followersCount: {
+    type: Number,
+    required: true,
+    default: 0
   }
 });
 
