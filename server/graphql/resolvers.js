@@ -6,6 +6,7 @@ import {startTimestampFromRankBy} from "../usecase/model/SortBy";
 import {PAGE_LIMIT} from "../config";
 import FollowUserLink from "../usecase/mongoose/FollowUserLink";
 import {modelsByIds} from "../libraries/mongoose"
+import mongoose from 'mongoose';
 
 export default {
   Query: {
@@ -37,10 +38,23 @@ export default {
     },
 
     interestedMedia: async (_, { userId, cursor }) => {
+      const links = await FollowUserLink.find({userId});
+      const followingUserIds = links.map(link => link.toUserId).concat(new mongoose.Types.ObjectId(userId));
+
+      let predicate = {userId: { $in: followingUserIds }};
+      if (cursor) { predicate.createdAt = { $lt: cursor } }
+
+      const media = await Medium.find(predicate)
+        .sort({createdAt: -1})
+        .limit(PAGE_LIMIT)
+        .exec();
+
+      const hasMore = media.length === PAGE_LIMIT;
+      const newCursor = hasMore ? media.last().createdAt : null;
 
       return {
-        cursor: null,
-        media: []
+        cursor: newCursor,
+        media
       }
     },
 
