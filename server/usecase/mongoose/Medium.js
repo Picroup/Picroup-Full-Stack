@@ -16,6 +16,10 @@ const schema = new Schema({
     type: Number,
     default: getCurrentTimestamp
   },
+  category: {
+    required: true,
+    type: String
+  },
   kind: {
     required: true,
     type: String
