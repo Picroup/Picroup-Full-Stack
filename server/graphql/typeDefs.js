@@ -3,6 +3,8 @@ export default `
     login(username: String!, password: String!): User!
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
     interestedMedia(userId: ID!, cursor: Float): CursorMedia!
+    followings(userId: ID!, cursor: Float): CursorUsers!
+    followers(userId: ID!, cursor: Float): CursorUsers!
   }
   
   type Mutation {
@@ -58,5 +60,10 @@ export default `
   type CursorMedia {
     cursor: Float
     media: [Medium]!
+  }
+  
+  type CursorUsers {
+    cursor: Float
+    users: [User]!
   }
 `;

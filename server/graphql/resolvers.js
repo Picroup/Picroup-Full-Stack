@@ -5,6 +5,7 @@ import Medium from "../usecase/mongoose/Medium";
 import {startTimestampFromRankBy} from "../usecase/model/SortBy";
 import {PAGE_LIMIT} from "../config";
 import FollowUserLink from "../usecase/mongoose/FollowUserLink";
+import {modelsByIds} from "../libraries/mongoose"
 
 export default {
   Query: {
@@ -40,6 +41,48 @@ export default {
       return {
         cursor: null,
         media: []
+      }
+    },
+
+    followings: async (_, { userId, cursor }) => {
+      let predicate = { userId };
+      if (cursor) { predicate.createdAt = { $lt: cursor } }
+
+      const links = await FollowUserLink.find(predicate)
+        .sort({createdAt: -1})
+        .limit(PAGE_LIMIT)
+        .exec();
+
+      const followingUserIds = links.map(link => link.toUserId);
+      const users = await modelsByIds(User, followingUserIds);
+
+      const hasMore = links.length === PAGE_LIMIT;
+      const newCursor = hasMore ? links.last().createdAt : null;
+
+      return {
+        cursor: newCursor,
+        users
+      }
+    },
+
+    followers: async (_, { userId, cursor }) => {
+      let predicate = { toUserId: userId };
+      if (cursor) { predicate.createdAt = { $lt: cursor } }
+
+      const links = await FollowUserLink.find(predicate)
+        .sort({createdAt: -1})
+        .limit(PAGE_LIMIT)
+        .exec();
+
+      const followerUserIds = links.map(link => link.userId);
+      const users = await modelsByIds(User, followerUserIds);
+
+      const hasMore = links.length === PAGE_LIMIT;
+      const newCursor = hasMore ? links.last().createdAt : null;
+
+      return {
+        cursor: newCursor,
+        users
       }
     }
 },
