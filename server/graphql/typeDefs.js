@@ -1,11 +1,9 @@
 export default `
   type Query { 
-    login(username: String!, password: String!): User!
+    login(username: String!, password: String!): User
+    user(userId: ID!): User
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
-    interestedMedia(userId: ID!, cursor: Float): CursorMedia!
-    followings(userId: ID!, cursor: Float): CursorUsers!
-    followers(userId: ID!, cursor: Float): CursorUsers!
-  }
+ }
   
   type Mutation {
     register(username: String!, password: String!): User!
@@ -19,7 +17,11 @@ export default `
     username: String!
     followingsCount: Int!
     followersCount: Int!
-  }
+    followings(cursor: Float): CursorUsers!
+    followers(cursor: Float): CursorUsers!
+    media(cursor: Float): CursorMedia!
+    interestedMedia(cursor: Float): CursorMedia!
+ }
   
   type Medium {
     _id: ID!
