@@ -12,6 +12,7 @@ export default `
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
+    starMedium(userId: ID!, mediumId: ID!): Medium!
   }
   
   type User {

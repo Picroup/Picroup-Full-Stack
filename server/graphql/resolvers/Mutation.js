@@ -3,6 +3,8 @@ import {createSaltedPassword} from "../../usecase/crypto";
 import FollowUserLink from "../../usecase/mongoose/FollowUserLink";
 import User from "../../usecase/mongoose/User";
 import Comment from "../../usecase/mongoose/Comment";
+import StarMediumLink from "../../usecase/mongoose/StarMediumLink";
+import {oneWeek} from "../../libraries/date/index";
 
 export default {
 
@@ -24,7 +26,7 @@ export default {
   },
 
   followUser: async (_, {userId, toUserId}) => {
-    const unique = userId + toUserId;
+    const unique = `${userId}_${toUserId}`;
     const followUserLink = new FollowUserLink({
       unique,
       userId,
@@ -36,7 +38,7 @@ export default {
   },
 
   unfollowUser: async (_, {userId, toUserId}) => {
-    const unique = userId + toUserId;
+    const unique = `${userId}_${toUserId}`;
     const removed = await FollowUserLink.remove({ unique });
     const nothingRemoved = removed.n === 0;
     if (nothingRemoved) { return await User.findOne({_id: userId})}
@@ -55,4 +57,15 @@ export default {
     await Medium.findOneAndUpdate({_id: mediumId}, { $inc: { commentsCount: 1 } });
     return saved;
   },
+
+  starMedium: async (_, {userId, mediumId}) => {
+    const unique = `${userId}_${mediumId}`;
+    const starMediumLink = new StarMediumLink({
+      unique,
+      userId,
+      mediumId,
+    });
+    await starMediumLink.save();
+    return await Medium.findOneAndUpdate({_id: mediumId}, { $inc: {endedAt: oneWeek} }, {new: true})
+  }
 };
