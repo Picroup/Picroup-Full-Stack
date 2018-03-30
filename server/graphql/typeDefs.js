@@ -37,6 +37,14 @@ export default `
     comments(cursor: Float): CursorComments!
   }
   
+  type Comment {
+    _id: ID!
+    userId: ID!
+    mediumId: ID!
+    createdAt: Float!
+    content: String!
+  }
+  
   enum MediumCategory {
     popular
     laughing
@@ -51,15 +59,15 @@ export default `
     image
   }
   
-  type MediumDetail {
-    width: Float
-    aspectRatio: Float
-  }
-  
   enum RankBy {
     today
     thisWeek
     thisMonth
+  }
+  
+  type MediumDetail {
+    width: Float
+    aspectRatio: Float
   }
   
   type CursorMedia {
@@ -70,14 +78,6 @@ export default `
   type CursorUsers {
     cursor: Float
     items: [User]!
-  }
-  
-  type Comment {
-    _id: ID!
-    userId: ID!
-    mediumId: ID!
-    createdAt: Float!
-    content: String!
   }
   
   type CursorComments {
