@@ -29,7 +29,7 @@ export default {
 
     return {
       cursor: newCursor,
-      media
+      items: media
     }
   },
 };
