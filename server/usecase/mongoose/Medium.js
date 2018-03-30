@@ -30,6 +30,11 @@ const schema = new Schema({
   minioId: {
     type: String,
     required: true,
+  },
+  commentsCount: {
+    type: Number,
+    required: true,
+    default: 0
   }
 });
 

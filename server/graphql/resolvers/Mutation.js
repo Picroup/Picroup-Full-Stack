@@ -2,6 +2,7 @@ import Medium from "../../usecase/mongoose/Medium";
 import {createSaltedPassword} from "../../usecase/crypto";
 import FollowUserLink from "../../usecase/mongoose/FollowUserLink";
 import User from "../../usecase/mongoose/User";
+import Comment from "../../usecase/mongoose/Comment";
 
 export default {
 
@@ -41,5 +42,17 @@ export default {
     if (nothingRemoved) { return await User.findOne({_id: userId})}
     await User.findOneAndUpdate({_id: toUserId}, { $inc: {followersCount: -1} });
     return await User.findOneAndUpdate({_id: userId}, { $inc: {followingsCount: -1} }, {new: true})
-  }
+  },
+
+  saveComment: async (_, { userId, mediumId, content }) => {
+
+    const comment = new Comment({
+      userId,
+      mediumId,
+      content,
+    });
+    const saved = await comment.save();
+    await Medium.findOneAndUpdate({_id: mediumId}, { $inc: { commentsCount: 1 } });
+    return saved;
+  },
 };

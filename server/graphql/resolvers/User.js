@@ -24,7 +24,7 @@ export default {
 
     return {
       cursor: newCursor,
-      users
+      items: users
     }
   },
 
@@ -45,7 +45,7 @@ export default {
 
     return {
       cursor: newCursor,
-      users
+      items: users
     }
   },
 
@@ -66,7 +66,7 @@ export default {
 
     return {
       cursor: newCursor,
-      media
+      items: media
     }
   },
 
@@ -85,7 +85,7 @@ export default {
 
     return {
       cursor: newCursor,
-      media
+      items: media
     }
   }
 }

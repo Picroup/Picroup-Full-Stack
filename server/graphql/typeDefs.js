@@ -10,6 +10,7 @@ export default `
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, category: MediumCategory!): Medium!
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
+    saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
   }
   
   type User {
@@ -32,6 +33,16 @@ export default `
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
+    commentsCount: Int!
+    comments(cursor: Float): CursorComments!
+  }
+  
+  type Comment {
+    _id: ID!
+    userId: ID!
+    mediumId: ID!
+    createdAt: Float!
+    content: String!
   }
   
   enum MediumCategory {
@@ -48,24 +59,29 @@ export default `
     image
   }
   
-  type MediumDetail {
-    width: Float
-    aspectRatio: Float
-  }
-  
   enum RankBy {
     today
     thisWeek
     thisMonth
   }
   
+  type MediumDetail {
+    width: Float
+    aspectRatio: Float
+  }
+  
   type CursorMedia {
     cursor: Float
-    media: [Medium]!
+    items: [Medium]!
   }
   
   type CursorUsers {
     cursor: Float
-    users: [User]!
+    items: [User]!
+  }
+  
+  type CursorComments {
+    cursor: Float
+    items: [Comment]!
   }
 `;
