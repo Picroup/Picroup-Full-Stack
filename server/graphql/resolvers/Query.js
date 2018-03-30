@@ -3,6 +3,8 @@ import Medium from "../../usecase/mongoose/Medium";
 import {createSaltedPassword} from "../../usecase/crypto";
 import User from "../../usecase/mongoose/User";
 import { PAGE_LIMIT } from '../../config'
+import {cursorQuery} from "../../libraries/mongoose";
+import {getCurrentTimestamp} from "../../libraries/date";
 
 export default {
 
@@ -15,22 +17,18 @@ export default {
 
   rankedMedia: async (_, { category, rankBy, cursor }) => {
     const startTimestamp = startTimestampFromRankBy(rankBy);
-    let predicate = { createdAt: { $gt: startTimestamp } };
+    let predicate = {
+      createdAt: { $gt: startTimestamp },
+      endedAt: { $lt: getCurrentTimestamp() }
+    };
     if (category) predicate.category = category;
-    if (cursor) predicate.endedAt = { $lt: cursor };
 
-    const media = await Medium.find(predicate)
-      .sort({endedAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
-
-    const hasMore = media.length === PAGE_LIMIT;
-    const newCursor = hasMore ? media.last().endedAt : null;
-
-    return {
-      cursor: newCursor,
-      items: media
-    }
+    return await cursorQuery({
+      Model: Medium,
+      predicate,
+      sortBy: 'endedAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
   },
 
   medium: async (_, { mediumId }) => await Medium.findOne({_id: mediumId}),

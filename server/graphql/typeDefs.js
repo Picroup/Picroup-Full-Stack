@@ -37,6 +37,7 @@ export default `
     minioId: ID!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
+    stared(userId: ID!): Boolean!
   }
   
   type Comment {
