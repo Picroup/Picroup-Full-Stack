@@ -32,4 +32,7 @@ export default {
       items: media
     }
   },
+
+  medium: async (_, { mediumId }) => await Medium.findOne({_id: mediumId}),
+
 };

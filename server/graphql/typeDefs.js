@@ -3,6 +3,7 @@ export default `
     login(username: String!, password: String!): User
     user(userId: ID!): User
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
+    medium(mediumId: ID!): Medium
  }
   
   type Mutation {
