@@ -5,3 +5,11 @@ if (!Array.prototype.last) {
   }
 }
 
+if (!Array.prototype.popped) {
+  Array.prototype.popped = function() {
+    this.pop();
+    return this;
+  }
+}
+
+

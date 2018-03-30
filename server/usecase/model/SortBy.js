@@ -1,8 +1,5 @@
 import {getCurrentTimestamp} from "../../libraries/date";
-
-const oneDay = 24 * 3600;
-const oneWeek = 7 * oneDay;
-const maybeOneMonth = 30 * oneDay;
+import {maybeOneMonth, oneDay, oneWeek} from "../../libraries/date/index";
 
 const startTimestampFromRankBy = (rankBy) => {
   switch (rankBy) {

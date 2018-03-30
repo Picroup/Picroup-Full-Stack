@@ -3,6 +3,7 @@ export default `
     login(username: String!, password: String!): User
     user(userId: ID!): User
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
+    medium(mediumId: ID!): Medium
  }
   
   type Mutation {
@@ -11,6 +12,7 @@ export default `
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
+    starMedium(userId: ID!, mediumId: ID!): Medium!
   }
   
   type User {
@@ -35,6 +37,7 @@ export default `
     minioId: ID!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
+    stared(userId: ID!): Boolean!
   }
   
   type Comment {
