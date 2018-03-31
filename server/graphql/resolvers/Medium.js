@@ -1,6 +1,6 @@
 import {PAGE_LIMIT} from "../../config";
-import Comment from "../../usecase/mongoose/Comment";
-import StarMediumLink from "../../usecase/mongoose/StarMediumLink";
+import Comment from "../../usecases/mongoose/Comment";
+import StarMediumLink from "../../usecases/mongoose/StarMediumLink";
 import {cursorQuery} from "../../libraries/mongoose";
 
 

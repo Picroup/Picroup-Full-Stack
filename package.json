@@ -38,6 +38,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "jest": "^22.4.3"
+    "jest": "^22.4.3",
+    "mongodb-memory-server": "^1.7.3"
   }
 }

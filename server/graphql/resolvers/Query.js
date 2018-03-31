@@ -1,7 +1,7 @@
-import {startTimestampFromRankBy} from "../../usecase/model/SortBy";
-import Medium from "../../usecase/mongoose/Medium";
-import {createSaltedPassword} from "../../usecase/crypto";
-import User from "../../usecase/mongoose/User";
+import {startTimestampFromRankBy} from "../../usecases/model/SortBy";
+import Medium from "../../usecases/mongoose/Medium";
+import {createSaltedPassword} from "../../usecases/crypto";
+import User from "../../usecases/mongoose/User";
 import { PAGE_LIMIT } from '../../config'
 import {cursorQuery} from "../../libraries/mongoose";
 import {getCurrentTimestamp} from "../../libraries/date";

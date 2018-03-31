@@ -10,14 +10,15 @@ export const modelsByIds = async (Model, ids) => {
   return await Model.aggregate(query);
 };
 
-export const cursorQuery =  ({ Model, predicate, sortBy, ascending }) => async ({cursor, limit}) => {
+export const cursorQuery =  ({ Model, predicate, sortBy, ascending, projection }) => async ({cursor, limit}) => {
   predicate = predicate || {};
+  limit = limit || 12;
   const gtOrLt = ascending > 0 ? '$gt' : '$lt';
-  if (cursor) { predicate[sortBy] =  { [gtOrLt]: cursor } }
+  if (cursor !== null) { predicate[sortBy] =  { [gtOrLt]: cursor } }
 
   const queryCount = limit + 1;
 
-  const items = await Model.find(predicate)
+  const items = await Model.find(predicate, projection)
     .sort({[sortBy]: ascending})
     .limit(queryCount)
     .exec();
