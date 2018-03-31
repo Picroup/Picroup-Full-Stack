@@ -1,9 +1,9 @@
-import Medium from "../../usecase/mongoose/Medium";
-import {createSaltedPassword} from "../../usecase/crypto";
-import FollowUserLink from "../../usecase/mongoose/FollowUserLink";
-import User from "../../usecase/mongoose/User";
-import Comment from "../../usecase/mongoose/Comment";
-import StarMediumLink from "../../usecase/mongoose/StarMediumLink";
+import Medium from "../../usecases/mongoose/Medium";
+import {createSaltedPassword} from "../../usecases/crypto";
+import FollowUserLink from "../../usecases/mongoose/FollowUserLink";
+import User from "../../usecases/mongoose/User";
+import Comment from "../../usecases/mongoose/Comment";
+import StarMediumLink from "../../usecases/mongoose/StarMediumLink";
 import {oneWeek} from "../../libraries/date/index";
 
 export default {

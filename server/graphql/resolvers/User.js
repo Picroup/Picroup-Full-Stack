@@ -1,9 +1,9 @@
-import Medium from "../../usecase/mongoose/Medium";
+import Medium from "../../usecases/mongoose/Medium";
 import {PAGE_LIMIT} from "../../config";
 import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
-import FollowUserLink from "../../usecase/mongoose/FollowUserLink";
+import FollowUserLink from "../../usecases/mongoose/FollowUserLink";
 import mongoose from "mongoose";
-import User from "../../usecase/mongoose/User";
+import User from "../../usecases/mongoose/User";
 
 export default {
 
