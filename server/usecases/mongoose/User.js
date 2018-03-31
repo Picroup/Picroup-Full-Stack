@@ -23,7 +23,7 @@ const schema = new Schema({
   reputation: {
     type: Number,
     required: true,
-    default: 10
+    default: 0
   }
 });
 

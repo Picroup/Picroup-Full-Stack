@@ -3,15 +3,15 @@ import {getCurrentTimestamp} from "../../libraries/date";
 
 const schema = new Schema({
   userId: {
-    typ: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true
   },
   toUserId: {
-    typ: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true
   },
   mediumId: {
-    typ: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: false
   },
   unique: {
