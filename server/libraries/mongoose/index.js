@@ -31,3 +31,7 @@ export const cursorQuery =  ({ Model, predicate, sortBy, ascending, projection }
     items
   }
 };
+
+export const incrementByKey = async ({Model, _id, key, number}) => {
+  return await Model.findById(_id, { $inc: {[key]: number} }, {new: true});
+};

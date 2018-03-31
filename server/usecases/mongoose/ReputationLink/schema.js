@@ -1,5 +1,5 @@
-import mongoose, {Schema} from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
@@ -39,6 +39,4 @@ const schema = new Schema({
   }
 });
 
-const ReputationLink = mongoose.model('ReputationLink', schema, 'reputationLinks');
-
-export default ReputationLink;
+export default schema;
