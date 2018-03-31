@@ -5,6 +5,8 @@ import User from "../../usecases/mongoose/User";
 import Comment from "../../usecases/mongoose/Comment";
 import StarMediumLink from "../../usecases/mongoose/StarMediumLink";
 import {oneWeek} from "../../libraries/date/index";
+import ReputationLink from "../../usecases/mongoose/ReputationLink";
+import {FOLLOW_USER, SAVE_MEDIUM, STAR_MEDIUM} from "../../usecases/model/ReputationKind";
 
 export default {
 
@@ -22,7 +24,25 @@ export default {
       kind: 'image',
       detail: { width, aspectRatio }
     });
-    return await medium.save();
+    const savedMedium = await medium.save();
+
+    const mediumId = savedMedium._id;
+    const kind = SAVE_MEDIUM;
+    const reputationUnique = `${kind}_${mediumId}`;
+    const value = 1;
+
+    const reputation = new ReputationLink({
+      userId,
+      mediumId,
+      toUserId: userId,
+      kind,
+      unique: reputationUnique,
+      value
+    });
+    await reputation.save();
+
+    await User.findOneAndUpdate({_id: userId}, {$inc: { reputation: value }});
+    return savedMedium;
   },
 
   followUser: async (_, {userId, toUserId}) => {
@@ -34,7 +54,24 @@ export default {
     });
     await followUserLink.save();
     await User.findOneAndUpdate({_id: toUserId}, { $inc: {followersCount: 1} });
-    return await User.findOneAndUpdate({_id: userId}, { $inc: {followingsCount: 1} }, {new: true})
+    const updatedUser = await User.findOneAndUpdate({_id: userId}, { $inc: {followingsCount: 1} }, {new: true});
+
+    const kind = FOLLOW_USER;
+    const reputationUnique = `${kind}_${userId}_${toUserId}`;
+    const value = 50;
+
+    const reputation = new ReputationLink({
+      userId,
+      toUserId,
+      kind,
+      unique: reputationUnique,
+      value
+    });
+
+    await reputation.save();
+    await User.findOneAndUpdate({_id: toUserId}, { $inc: { reputation: value } });
+
+    return updatedUser;
   },
 
   unfollowUser: async (_, {userId, toUserId}) => {
@@ -66,6 +103,26 @@ export default {
       mediumId,
     });
     await starMediumLink.save();
-    return await Medium.findOneAndUpdate({_id: mediumId}, { $inc: {endedAt: oneWeek} }, {new: true})
+
+    const updatedMedium = await Medium.findOneAndUpdate({_id: mediumId}, { $inc: {endedAt: oneWeek} }, {new: true});
+
+    const toUserId = updatedMedium.userId;
+    const kind = STAR_MEDIUM;
+    const reputationUnique = `${kind}_${userId}_${mediumId}`;
+    const value = 10;
+
+    const reputation = new ReputationLink({
+      userId,
+      mediumId,
+      toUserId,
+      kind,
+      unique: reputationUnique,
+      value
+    });
+
+    await reputation.save();
+    await User.findOneAndUpdate({_id: toUserId}, {$inc: { reputation: value }});
+
+    return updatedMedium
   }
 };

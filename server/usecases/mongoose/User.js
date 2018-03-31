@@ -19,6 +19,11 @@ const schema = new Schema({
     type: Number,
     required: true,
     default: 0
+  },
+  reputation: {
+    type: Number,
+    required: true,
+    default: 0
   }
 });
 
