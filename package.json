@@ -4,7 +4,9 @@
   "description": "Picroup's front end and back end.",
   "main": "server",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "jest": "^22.4.3"
   }
 }
