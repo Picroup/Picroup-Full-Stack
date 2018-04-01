@@ -2,7 +2,6 @@ import schema from './schema';
 import User from "./index";
 import {incrementByKey} from "../../../libraries/mongoose";
 
-
 schema.statics.increaseFollowingsCount = async (userId) =>{
   return await incrementByKey({
     Model: User,
