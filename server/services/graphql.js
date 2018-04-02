@@ -1,7 +1,22 @@
 import {graphiqlExpress, graphqlExpress} from "apollo-server-express";
 import {makeExecutableSchema} from "graphql-tools/dist/index";
-import resolvers from "../graphql/resolvers";
+import {createResolvers} from "../graphql/resolvers";
 import typeDefs from "../graphql/typeDefs";
+import User from "../usecases/mongoose/User";
+import Medium from "../usecases/mongoose/Medium";
+import Comment from "../usecases/mongoose/Comment";
+import FollowUserLink from "../usecases/mongoose/FollowUserLink";
+import StarMediumLink from "../usecases/mongoose/StarMediumLink";
+import ReputationLink from "../usecases/mongoose/ReputationLink";
+
+const resolvers = createResolvers({dependency: {
+    User,
+    Medium,
+    Comment,
+    FollowUserLink,
+    StarMediumLink,
+    ReputationLink,
+  }});
 
 const schema = makeExecutableSchema({
   typeDefs,

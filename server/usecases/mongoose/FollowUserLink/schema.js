@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date/index";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
@@ -22,6 +22,4 @@ const schema = new Schema({
   },
 });
 
-const FollowUserLink = mongoose.model('FollowUserLink', schema, 'followUserLinks');
-
-export default FollowUserLink;
+export default schema;

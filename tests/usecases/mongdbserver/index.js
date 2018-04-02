@@ -1,6 +1,6 @@
 import MongodbMemoryServer from "mongodb-memory-server";
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000000;
 
 export const createMongoServer = () => new MongodbMemoryServer({binary: {version: '3.6.2'}});
 

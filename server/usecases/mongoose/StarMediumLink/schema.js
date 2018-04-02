@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date/index";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
@@ -22,6 +22,4 @@ const schema = new Schema({
   }
 });
 
-const StarMediumLink = mongoose.model('StarMediumLink', schema, 'starMediumLinks');
-
-export default StarMediumLink
+export default schema;

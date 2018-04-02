@@ -1,5 +1,5 @@
-import mongoose , { Schema } from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date/index";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
@@ -21,6 +21,4 @@ const schema = new Schema({
   }
 });
 
-const Comment = mongoose.model('Comment', schema, 'comments');
-
-export default Comment;
+export default schema
