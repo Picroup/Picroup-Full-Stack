@@ -1,10 +1,10 @@
 import {PAGE_LIMIT} from "../../config";
-import Comment from "../../usecases/mongoose/Comment";
-import StarMediumLink from "../../usecases/mongoose/StarMediumLink";
 import {cursorQuery} from "../../libraries/mongoose";
 
-
-export default {
+export const createMediumResolver = ({dependency: {
+  Comment,
+  StarMediumLink
+}}) => ({
 
   comments: async ({_id: mediumId}, { cursor }) => {
     return await cursorQuery({
@@ -22,4 +22,4 @@ export default {
       .count()
       .exec();
   },
-};
+});

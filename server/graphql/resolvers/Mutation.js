@@ -1,13 +1,14 @@
-import Medium from "../../usecases/mongoose/Medium";
 import {createSaltedPassword} from "../../usecases/crypto";
-import FollowUserLink from "../../usecases/mongoose/FollowUserLink";
-import User from "../../usecases/mongoose/User";
-import Comment from "../../usecases/mongoose/Comment";
-import StarMediumLink from "../../usecases/mongoose/StarMediumLink";
 import {oneWeek} from "../../libraries/date/index";
-import ReputationLink from "../../usecases/mongoose/ReputationLink";
 
-export default {
+export const createMutationResolver = ({dependency: {
+  User,
+  Medium,
+  Comment,
+  FollowUserLink,
+  StarMediumLink,
+  ReputationLink,
+}}) => ({
 
   register: async (_, args) => {
     args.password = createSaltedPassword(args.password);
@@ -52,4 +53,4 @@ export default {
     await User.increaseReputation({userId: toUserId, reputation: reputation.value});
     return updatedMedium
   }
-};
+});

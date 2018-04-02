@@ -2,7 +2,7 @@ import schema from './schema';
 import User from "./index";
 import {incrementByKey} from "../../../libraries/mongoose";
 
-schema.statics.increaseFollowingsCount = async (userId) =>{
+schema.statics.increaseFollowingsCount = async (userId) => {
   return await incrementByKey({
     Model: User,
     _id: userId,
@@ -11,7 +11,7 @@ schema.statics.increaseFollowingsCount = async (userId) =>{
   });
 };
 
-schema.statics.decreaseFollowingsCount = async (userId) =>{
+schema.statics.decreaseFollowingsCount = async (userId) => {
   return await incrementByKey({
     Model: User,
     _id: userId,
@@ -20,7 +20,7 @@ schema.statics.decreaseFollowingsCount = async (userId) =>{
   });
 };
 
-schema.statics.increaseFollowersCount = async (userId) =>{
+schema.statics.increaseFollowersCount = async (userId) => {
   return await incrementByKey({
     Model: User,
     _id: userId,
@@ -29,7 +29,7 @@ schema.statics.increaseFollowersCount = async (userId) =>{
   });
 };
 
-schema.statics.decreaseFollowersCount = async (userId) =>{
+schema.statics.decreaseFollowersCount = async (userId) => {
   return await incrementByKey({
     Model: User,
     _id: userId,
@@ -38,7 +38,7 @@ schema.statics.decreaseFollowersCount = async (userId) =>{
   });
 };
 
-schema.statics.increaseReputation = async ({userId, reputation}) =>{
+schema.statics.increaseReputation = async ({userId, reputation}) => {
   return await incrementByKey({
     Model: User,
     _id: userId,

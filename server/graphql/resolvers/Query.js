@@ -1,12 +1,13 @@
 import {startTimestampFromRankBy} from "../../usecases/model/SortBy";
-import Medium from "../../usecases/mongoose/Medium";
 import {createSaltedPassword} from "../../usecases/crypto";
-import User from "../../usecases/mongoose/User";
 import { PAGE_LIMIT } from '../../config'
 import {cursorQuery} from "../../libraries/mongoose";
 import {getCurrentTimestamp} from "../../libraries/date";
 
-export default {
+export const createQueryResolver = ({dependency: {
+  User,
+  Medium,
+}}) => ({
 
   login: async (_, args) => {
     args.password = createSaltedPassword(args.password);
@@ -33,4 +34,4 @@ export default {
 
   medium: async (_, { mediumId }) => await Medium.findOne({_id: mediumId}),
 
-};
+});

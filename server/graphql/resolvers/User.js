@@ -1,11 +1,12 @@
-import Medium from "../../usecases/mongoose/Medium";
 import {PAGE_LIMIT} from "../../config";
 import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
-import FollowUserLink from "../../usecases/mongoose/FollowUserLink";
 import mongoose from "mongoose";
-import User from "../../usecases/mongoose/User";
 
-export default {
+export const createUserResolver = ({dependency: {
+  User,
+  Medium,
+  FollowUserLink,
+}}) => ({
 
   followings: async ({_id: userId}, { cursor }) => {
     const { cursor: newCursor, items: links } = await cursorQuery({
@@ -61,4 +62,4 @@ export default {
       ascending: -1
     })({cursor, limit: PAGE_LIMIT});
   }
-}
+});
