@@ -4,9 +4,18 @@ import User from "../../../server/usecases/mongoose/User";
 import Medium from "../../../server/usecases/mongoose/Medium";
 import {connectMongoServer, createMongoServer} from "../../usecases/mongdbserver";
 import {createQueryResolver} from "../../../server/graphql/resolvers/Query";
+import {createSaltedPassword} from "../../../server/usecases/crypto/index";
 
 let mongoServer;
 let login;
+
+const importData = async () => {
+  await User.create({ username: 'luojie', password: createSaltedPassword('123') });
+};
+
+const clearData = async () => {
+  await User.remove({});
+};
 
 beforeAll(async () => {
 
@@ -18,29 +27,32 @@ beforeAll(async () => {
       Medium,
   }}).login;
 
-  await User.create({ username: 'luojie', password: '6fc5175c4d1a0834ec6f77898e481e734ac77da45ae9ac91c0e100d853eb672d' });
+  await importData();
 });
 
 afterAll(async () => {
+  await clearData();
   await mongoose.disconnect();
   mongoServer.stop()
 });
 
 describe("Resolver Query", () => {
 
-  it('should test resolver query login', async () => {
-
+  it('should test resolver query login basic', async () => {
     const user = await login({}, {username: 'luojie', password: '123'});
-
-    console.log('user', user);
-
-    // expect(cursorModels.cursor).toEqual(null);
-    // expect(cursorModels.items).toEqual(expectContains([
-    //   { createdAt: 0 },
-    //   { createdAt: 1 },
-    //   { createdAt: 2 },
-    // ]));
-
+    expect(user).toMatchObject({
+      username: 'luojie',
+      password: createSaltedPassword('123'),
+      reputation: 0,
+      followingsCount: 0,
+      followersCount: 0,
+    });
   });
+
+  it('should test resolver query login not exist', async () => {
+    const user = await login({}, {username: 'luojie', password: '1234'});
+    expect(user).toBeNull();
+  });
+
 
 });
