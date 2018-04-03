@@ -23,7 +23,7 @@ afterAll(async () => {
 
 describe('Resolver Mutation followUser', () => {
 
-  describe('followUser basic', async () => {
+  describe('basic', async () => {
 
     const userIdKey = '5ab992fe05b6e9bf4c253b53';
     const toUserIdKey = '5abb34e67f9f4cf1429de9b0';

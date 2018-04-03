@@ -6,8 +6,6 @@ import {createSaltedPassword} from "../../../../server/usecases/crypto/index";
 let mongoService;
 let register;
 
-const clearData = async () => await User.remove({});
-
 beforeAll(async () => {
   mongoService = new MongoTestService({});
   await mongoService.start();
@@ -20,35 +18,39 @@ afterAll(async () => {
 
 describe('Resolver Mutation register', () => {
 
-  it('should test register basic', async () => {
+  describe('basic', async () => {
 
-    await register({}, {username: 'luojie', password: '123'});
+    afterEach(async () => await User.remove({}));
 
-    const user = await User.findOne({
-      username: 'luojie',
-      password: createSaltedPassword('123')
+    it('should test success', async () => {
+
+      await register({}, {username: 'luojie', password: '123'});
+
+      const user = await User.findOne({
+        username: 'luojie',
+        password: createSaltedPassword('123')
+      });
+
+      expect(user).toMatchObject({
+        username: 'luojie',
+        password: createSaltedPassword('123')
+      });
+
     });
 
-    expect(user).toMatchObject({
-      username: 'luojie',
-      password: createSaltedPassword('123')
+    it('should test not found', async () => {
+
+      await register({}, {username: 'luojie', password: '123'});
+
+      const user = await User.findOne({
+        username: 'luojie',
+        password: createSaltedPassword('12')
+      });
+
+      expect(user).toBeNull();
+
     });
 
-    await clearData();
-  });
-
-  it('should test register not found', async () => {
-
-    await register({}, {username: 'luojie', password: '123'});
-
-    const user = await User.findOne({
-      username: 'luojie',
-      password: createSaltedPassword('12')
-    });
-
-    expect(user).toBeNull();
-
-    await clearData();
   });
 
 });
