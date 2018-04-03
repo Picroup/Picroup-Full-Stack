@@ -1,6 +1,7 @@
 import {PAGE_LIMIT} from "../../config";
 import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
 import mongoose from "mongoose";
+import ReputationLink from "../../usecases/mongoose/ReputationLink";
 
 export const createUserResolver = ({dependency: {
   User,
@@ -71,5 +72,14 @@ export const createUserResolver = ({dependency: {
       sortBy: 'createdAt',
       ascending: -1
     })({cursor, limit: PAGE_LIMIT});
-  }
+  },
+
+  reputationLinks: async ({_id: userId},{ cursor }) => {
+    return await cursorQuery({
+      Model: ReputationLink,
+      predicate: {toUserId:userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+  },
 });
