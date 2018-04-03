@@ -1,16 +1,16 @@
 import schema from './schema';
-import {FOLLOW_USER, reputationValue, SAVE_MEDIUM, STAR_MEDIUM} from "../../model/ReputationKind";
+import ReputationKind from "../../model/ReputationKind";
 import ReputationLink from "./index";
 
-const uniqueBySaveMedium = (mediumId) => `${SAVE_MEDIUM}_${mediumId}`;
-const uniqueByStarMedium = ({userId, mediumId}) => `${STAR_MEDIUM}_${userId}_${mediumId}`;
-const uniqueByFollowUser = ({userId, toUserId}) => `${FOLLOW_USER}_${userId}_${toUserId}`;
+const uniqueBySaveMedium = (mediumId) => `${ReputationKind.saveMedium}_${mediumId}`;
+const uniqueByStarMedium = ({userId, mediumId}) => `${ReputationKind.starMedium}_${userId}_${mediumId}`;
+const uniqueByFollowUser = ({userId, toUserId}) => `${ReputationKind.followUser}_${userId}_${toUserId}`;
 
 schema.statics.savePostMediumLink = async ({userId, mediumId, toUserId}) => {
 
-  const kind = SAVE_MEDIUM;
+  const kind = ReputationKind.saveMedium;
   const reputationUnique = uniqueBySaveMedium(mediumId);
-  const value = reputationValue(kind);
+  const value = ReputationKind.reputationValue(kind);
 
   const reputation = new ReputationLink({
     userId,
@@ -26,9 +26,9 @@ schema.statics.savePostMediumLink = async ({userId, mediumId, toUserId}) => {
 
 schema.statics.saveStarMediumLink = async ({userId, mediumId, toUserId}) => {
 
-  const kind = STAR_MEDIUM;
+  const kind = ReputationKind.starMedium;
   const reputationUnique = uniqueByStarMedium({userId, mediumId});
-  const value = reputationValue(kind);
+  const value = ReputationKind.reputationValue(kind);
 
   const reputation = new ReputationLink({
     userId,
@@ -44,9 +44,9 @@ schema.statics.saveStarMediumLink = async ({userId, mediumId, toUserId}) => {
 
 schema.statics.saveFollowUserLink = async ({userId, toUserId}) => {
 
-  const kind = FOLLOW_USER;
+  const kind = ReputationKind.followUser;
   const reputationUnique = uniqueByFollowUser({userId, toUserId});
-  const value = reputationValue(kind);
+  const value = ReputationKind.reputationValue(kind);
 
   const reputation = new ReputationLink({
     userId,

@@ -2,8 +2,10 @@ import MongoTestService from "../../../usecases/mongdbserver/MongoTestService";
 import mutationResolver from "./mutationResolver";
 import {ObjectId} from "../../../../server/libraries/mongoose/index";
 import User from "../../../../server/usecases/mongoose/User/index";
-import {FOLLOW_USER, reputationValue} from "../../../../server/usecases/model/ReputationKind";
+import ReputationKind from "../../../../server/usecases/model/ReputationKind";
 import FollowUserLink from "../../../../server/usecases/mongoose/FollowUserLink/index";
+import Notification from "../../../../server/usecases/mongoose/Notification/index";
+import NotificationKind from "../../../../server/usecases/model/NotificationKind";
 
 let mongoService;
 let followUser;
@@ -45,6 +47,7 @@ describe('Resolver Mutation followUser', () => {
     const user = await User.findById(userId);
     const toUser = await User.findById(toUserId);
     const link = await FollowUserLink.findOne({userId, toUserId});
+    const notification = await Notification.findOne({userId, toUserId, kind: NotificationKind.followUser});
 
     expect(user).toMatchObject({
       _id: userId,
@@ -59,13 +62,20 @@ describe('Resolver Mutation followUser', () => {
       username: 'li',
       followingsCount: 0,
       followersCount: 1,
-      reputation: reputationValue(FOLLOW_USER)
+      reputation: ReputationKind.reputationValue(ReputationKind.followUser)
     });
 
     expect(link).toMatchObject({
       userId,
       toUserId,
-      unique: '5ab992fe05b6e9bf4c253b53_5abb34e67f9f4cf1429de9b0'
+    });
+
+    expect(notification).toMatchObject({
+      userId,
+      toUserId,
+      kind: NotificationKind.followUser,
+      content: undefined,
+      viewed: false
     });
 
     await clearData();

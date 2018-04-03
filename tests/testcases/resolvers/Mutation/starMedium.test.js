@@ -5,9 +5,11 @@ import User from "../../../../server/usecases/mongoose/User/index";
 import Medium from "../../../../server/usecases/mongoose/Medium/index";
 import StarMediumLink from "../../../../server/usecases/mongoose/StarMediumLink/index";
 import ReputationLink from "../../../../server/usecases/mongoose/ReputationLink/index";
+import Notification from "../../../../server/usecases/mongoose/Notification/index";
 import {ObjectId} from "../../../../server/libraries/mongoose/index";
-import {reputationValue, STAR_MEDIUM} from "../../../../server/usecases/model/ReputationKind";
+import ReputationKind from "../../../../server/usecases/model/ReputationKind";
 import {oneWeek} from "../../../../server/libraries/date/index";
+import NotificationKind from "../../../../server/usecases/model/NotificationKind";
 
 let mongoService;
 let starMedium;
@@ -60,6 +62,7 @@ describe('Resolver Mutation starMedium', () => {
     const toUser = await User.findById(toUserId);
     const starMediumLink = await StarMediumLink.findOne({userId, mediumId});
     const reputationLink = await ReputationLink.findStarMediumLink({userId, mediumId});
+    const notification = await Notification.findOne({userId, mediumId, kind: NotificationKind.starMedium});
 
     expect(medium).toMatchObject({
       _id: mediumId,
@@ -83,7 +86,7 @@ describe('Resolver Mutation starMedium', () => {
       username: 'li',
       followingsCount: 0,
       followersCount: 0,
-      reputation: reputationValue(STAR_MEDIUM),
+      reputation: ReputationKind.reputationValue(ReputationKind.starMedium),
     });
 
     expect(starMediumLink).toMatchObject({
@@ -95,7 +98,16 @@ describe('Resolver Mutation starMedium', () => {
       userId,
       mediumId,
       toUserId,
-      kind: 'STAR_MEDIUM',
+      kind: ReputationKind.starMedium,
+    });
+
+    expect(notification).toMatchObject({
+      userId,
+      toUserId,
+      mediumId,
+      kind: NotificationKind.starMedium,
+      content: undefined,
+      viewed: false
     });
 
     await clearData();

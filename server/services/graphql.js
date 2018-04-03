@@ -8,6 +8,7 @@ import Comment from "../usecases/mongoose/Comment";
 import FollowUserLink from "../usecases/mongoose/FollowUserLink";
 import StarMediumLink from "../usecases/mongoose/StarMediumLink";
 import ReputationLink from "../usecases/mongoose/ReputationLink";
+import Notification from "../usecases/mongoose/Notification";
 
 const resolvers = createResolvers({dependency: {
     User,
@@ -16,6 +17,7 @@ const resolvers = createResolvers({dependency: {
     FollowUserLink,
     StarMediumLink,
     ReputationLink,
+    Notification,
   }});
 
 const schema = makeExecutableSchema({

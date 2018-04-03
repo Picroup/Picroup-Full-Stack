@@ -3,7 +3,7 @@ import mutationResolver from "./mutationResolver";
 import User from "../../../../server/usecases/mongoose/User/index";
 import ReputationLink from "../../../../server/usecases/mongoose/ReputationLink/index";
 import {ObjectId} from "../../../../server/libraries/mongoose/index";
-import {reputationValue, SAVE_MEDIUM} from "../../../../server/usecases/model/ReputationKind";
+import ReputationKind from "../../../../server/usecases/model/ReputationKind";
 import Medium from "../../../../server/usecases/mongoose/Medium/index";
 
 let mongoService;
@@ -62,14 +62,14 @@ describe('Resolver Mutation saveImageMedium', () => {
       userId,
       mediumId,
       toUserId: userId,
-      kind: 'SAVE_MEDIUM',
-      unique: `SAVE_MEDIUM_${mediumId}`
+      kind: ReputationKind.saveMedium,
+      unique: `${ReputationKind.saveMedium}_${mediumId}`
     });
 
     expect(user).toMatchObject({
       _id: userId,
       username: 'luojie',
-      reputation: reputationValue(SAVE_MEDIUM),
+      reputation: ReputationKind.reputationValue(ReputationKind.saveMedium),
     });
 
     await clearData()
