@@ -8,6 +8,11 @@ import FollowUserLink from "../../../../server/usecases/mongoose/FollowUserLink/
 let mongoService;
 let followUser;
 
+const clearData = async () => {
+  await User.remove({});
+  await FollowUserLink.remove({});
+};
+
 beforeAll(async () => {
   mongoService = new MongoTestService({});
   await mongoService.start();
@@ -28,18 +33,15 @@ describe('Resolver Mutation followUser', () => {
     const toUserId = new ObjectId(toUserIdKey);
 
     // initial state
-
     await User.insertMany([
       {_id: userId, username: 'luojie', password: '123' },
       {_id: toUserId, username: 'li', password: '321' },
     ]);
 
     // perform operation
-
     await followUser({}, {userId: userIdKey, toUserId: toUserIdKey});
 
     // check result
-
     const user = await User.findById(userId);
     const toUser = await User.findById(toUserId);
     const link = await FollowUserLink.findOne({userId, toUserId});
@@ -64,6 +66,8 @@ describe('Resolver Mutation followUser', () => {
       userId,
       toUserId,
       unique: '5ab992fe05b6e9bf4c253b53_5abb34e67f9f4cf1429de9b0'
-    })
+    });
+
+    await clearData();
   })
 });

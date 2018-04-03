@@ -2,7 +2,6 @@ import MongoTestService from "../../../usecases/mongdbserver/MongoTestService";
 import mutationResolver from "./mutationResolver";
 import User from "../../../../server/usecases/mongoose/User/index";
 import ReputationLink from "../../../../server/usecases/mongoose/ReputationLink/index";
-import {createSaltedPassword} from "../../../../server/usecases/crypto/index";
 import {ObjectId} from "../../../../server/libraries/mongoose/index";
 import {reputationValue, SAVE_MEDIUM} from "../../../../server/usecases/model/ReputationKind";
 import Medium from "../../../../server/usecases/mongoose/Medium/index";
@@ -12,6 +11,8 @@ let saveImageMedium;
 
 const clearData = async () => {
   await User.remove({});
+  await Medium.remove({});
+  await ReputationLink.remove({});
 };
 
 beforeAll(async () => {
@@ -36,11 +37,9 @@ describe('Resolver Mutation saveImageMedium', () => {
     const category = 'popular';
 
     // initial state
-    await User.create({
-      _id: userId,
-      username: 'luojie',
-      password: createSaltedPassword('123'),
-    });
+    await User.create(
+      { _id: userId, username: 'luojie', password: '123', }
+    );
 
     // perform operation
     const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
@@ -70,7 +69,6 @@ describe('Resolver Mutation saveImageMedium', () => {
     expect(user).toMatchObject({
       _id: userId,
       username: 'luojie',
-      password: createSaltedPassword('123'),
       reputation: reputationValue(SAVE_MEDIUM),
     });
 

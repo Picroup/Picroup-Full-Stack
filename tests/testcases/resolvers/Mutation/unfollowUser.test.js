@@ -7,6 +7,11 @@ import FollowUserLink from "../../../../server/usecases/mongoose/FollowUserLink/
 let mongoService;
 let unfollowUser;
 
+const clearData = async () => {
+  await User.remove({});
+  await FollowUserLink.remove({});
+};
+
 beforeAll(async () => {
   mongoService = new MongoTestService({});
   await mongoService.start();
@@ -58,5 +63,7 @@ describe('Resolver Mutation unfollowUser', () => {
     });
 
     expect(linkCount).toEqual(0);
+
+    await clearData();
   })
 });
