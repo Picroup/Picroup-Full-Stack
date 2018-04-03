@@ -5,7 +5,9 @@ import {ObjectId} from "../../../../server/libraries/mongoose/index";
 import User from "../../../../server/usecases/mongoose/User/index";
 import Medium from "../../../../server/usecases/mongoose/Medium/index";
 import Comment from "../../../../server/usecases/mongoose/Comment/index";
+import Notification from "../../../../server/usecases/mongoose/Notification/index";
 import {expectContains} from "../../../libaries/jest/index";
+import NotificationKind from "../../../../server/usecases/model/NotificationKind";
 
 let mongoService;
 let saveComment;
@@ -44,7 +46,7 @@ describe('Resolver Mutation saveComment', () => {
     ]);
 
     await Medium.create(
-      { _id: mediumId, userId, minioId: 'minioId0', category : 'beauty', kind : 'image' }
+      { _id: mediumId, userId: toUserId, minioId: 'minioId0', category : 'beauty', kind : 'image' }
     );
 
     // perform operation
@@ -54,6 +56,7 @@ describe('Resolver Mutation saveComment', () => {
     const comment = await Comment.findById(savedComment._id);
     const comments = await Comment.find({ mediumId });
     const medium = await Medium.findById(mediumId);
+    const notification = await Notification.findOne({userId, mediumId, kind: NotificationKind.commentMedium});
 
     expect(comment).toMatchObject({
       userId,
@@ -69,10 +72,20 @@ describe('Resolver Mutation saveComment', () => {
 
     expect(medium).toMatchObject({
       _id: mediumId,
+      userId: toUserId,
       minioId: 'minioId0',
-      category : 'beauty',
-      kind : 'image',
+      category: 'beauty',
+      kind: 'image',
       commentsCount: 1
+    });
+
+    expect(notification).toMatchObject({
+      userId,
+      toUserId,
+      mediumId,
+      kind: NotificationKind.commentMedium,
+      content: `That's great!`,
+      viewed: false
     });
 
     await clearData();

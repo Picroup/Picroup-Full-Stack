@@ -1,13 +1,15 @@
 
-export const SAVE_MEDIUM = 'SAVE_MEDIUM';
-export const STAR_MEDIUM = 'STAR_MEDIUM';
-export const FOLLOW_USER = 'FOLLOW_USER';
+export default class ReputationKind {
+  static saveMedium = 'saveMedium';
+  static starMedium = 'starMedium';
+  static followUser = 'followUser';
 
-export const reputationValue = (kind) => {
-  switch (kind) {
-    case SAVE_MEDIUM: return 5;
-    case STAR_MEDIUM: return 10;
-    case FOLLOW_USER: return 50;
-    default: throw new Error('Unknown reputation kind')
-  }
-};
+  static reputationValue = (kind) => {
+    switch (kind) {
+      case ReputationKind.saveMedium: return 5;
+      case ReputationKind.starMedium: return 10;
+      case ReputationKind.followUser: return 50;
+      default: throw new Error('Unknown reputation kind')
+    }
+  };
+}

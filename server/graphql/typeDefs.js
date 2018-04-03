@@ -4,7 +4,7 @@ export default `
     user(userId: ID!): User
     rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
     medium(mediumId: ID!): Medium
- }
+  }
   
   type Mutation {
     register(username: String!, password: String!): User!
@@ -49,6 +49,17 @@ export default `
     content: String!
   }
   
+  type Notification {
+    _id: ID!
+    userId: ID!
+    toUserId: ID!
+    mediumId: ID!
+    content: String
+    createdAt: Float!
+    kind: NotificationKind!
+    viewed: Boolean!
+  }
+  
   enum MediumCategory {
     popular
     laughing
@@ -61,6 +72,12 @@ export default `
   
   enum MediumKind {
     image
+  }
+  
+  enum NotificationKind {
+    commentMedium
+    startMedium
+    followUser
   }
   
   enum RankBy {

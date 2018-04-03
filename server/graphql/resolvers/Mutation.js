@@ -8,6 +8,7 @@ export const createMutationResolver = ({dependency: {
   FollowUserLink,
   StarMediumLink,
   ReputationLink,
+  Notification,
 }}) => ({
 
   register: async (_, args) => {
@@ -28,6 +29,7 @@ export const createMutationResolver = ({dependency: {
     const updatedUser = await User.increaseFollowingsCount(userId);
     const reputation = await ReputationLink.saveFollowUserLink({userId, toUserId});
     await User.increaseReputation({userId: toUserId, reputation: reputation.value});
+    await Notification.saveFollowUserNotification({userId, toUserId});
     return updatedUser;
   },
 
@@ -41,7 +43,8 @@ export const createMutationResolver = ({dependency: {
 
   saveComment: async (_, { userId, mediumId, content }) => {
     const saved = await Comment.create({ userId, mediumId, content });
-    await Medium.increaseCommentsCount(mediumId);
+    const medium = await Medium.increaseCommentsCount(mediumId);
+    await Notification.saveCommentMediumNotification({userId, toUserId: medium.userId, mediumId, content});
     return saved;
   },
 
@@ -51,6 +54,7 @@ export const createMutationResolver = ({dependency: {
     const toUserId = updatedMedium.userId;
     const reputation = await ReputationLink.saveStarMediumLink({userId, mediumId, toUserId});
     await User.increaseReputation({userId: toUserId, reputation: reputation.value});
+    await Notification.saveStartMediumNotification({userId, toUserId, mediumId});
     return updatedMedium
   }
 });

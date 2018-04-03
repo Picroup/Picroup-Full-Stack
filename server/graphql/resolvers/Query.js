@@ -1,4 +1,4 @@
-import {startTimestampFromRankBy} from "../../usecases/model/SortBy";
+import RankBy from "../../usecases/model/RankBy";
 import {createSaltedPassword} from "../../usecases/crypto";
 import { PAGE_LIMIT } from '../../config'
 import {cursorQuery} from "../../libraries/mongoose";
@@ -17,7 +17,7 @@ export const createQueryResolver = ({dependency: {
   user: async (_, { userId }) => await User.findOne({_id: userId}),
 
   rankedMedia: async (_, { category, rankBy, cursor }) => {
-    const startTimestamp = startTimestampFromRankBy(rankBy);
+    const startTimestamp = RankBy.startTimestamp(rankBy);
     let predicate = {
       createdAt: { $gt: startTimestamp },
       endedAt: { $lt: getCurrentTimestamp() }
