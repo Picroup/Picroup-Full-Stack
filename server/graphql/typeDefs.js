@@ -25,6 +25,7 @@ export default `
     followers(cursor: Float): CursorUsers!
     media(cursor: Float): CursorMedia!
     interestedMedia(cursor: Float): CursorMedia!
+    notifications(cursor: Float): CursorNotofications!
  }
   
   type Medium {
@@ -104,5 +105,10 @@ export default `
   type CursorComments {
     cursor: Float
     items: [Comment]!
+  }
+  
+  type CursorNotifications {
+    cursor: Float
+    items: [Notification]!
   }
 `;

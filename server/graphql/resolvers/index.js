@@ -10,6 +10,7 @@ export const createResolvers = ({dependency: {
   FollowUserLink,
   StarMediumLink,
   ReputationLink,
+  Notification,
 }}) => {
 
   const queryResolver = createQueryResolver({dependency: {
@@ -30,6 +31,7 @@ export const createResolvers = ({dependency: {
       User,
       Medium,
       FollowUserLink,
+      Notification,
     }});
 
   const mediumResolver = createMediumResolver({dependency: {

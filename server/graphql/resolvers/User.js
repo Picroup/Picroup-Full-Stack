@@ -6,6 +6,7 @@ export const createUserResolver = ({dependency: {
   User,
   Medium,
   FollowUserLink,
+  Notification,
 }}) => ({
 
   followings: async ({_id: userId}, { cursor }) => {
@@ -42,6 +43,15 @@ export const createUserResolver = ({dependency: {
     }
   },
 
+  media: async ({_id: userId}, {cursor}) => {
+    return await cursorQuery({
+      Model: Medium,
+      predicate: {userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+  },
+
   interestedMedia: async ({_id: userId}, { cursor }) => {
     const links = await FollowUserLink.find({userId});
     const followingUserIds = links.map(link => link.toUserId).concat(new mongoose.Types.ObjectId(userId));
@@ -54,10 +64,10 @@ export const createUserResolver = ({dependency: {
     })({cursor, limit: 1});
   },
 
-  media: async ({_id: userId}, {cursor}) => {
+  notifications: async ({_id: userId},{ cursor }) => {
     return await cursorQuery({
-      Model: Medium,
-      predicate: {userId},
+      Model: Notification,
+      predicate: {toUserId:userId},
       sortBy: 'createdAt',
       ascending: -1
     })({cursor, limit: PAGE_LIMIT});
