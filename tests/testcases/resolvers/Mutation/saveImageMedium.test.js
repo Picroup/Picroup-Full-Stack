@@ -9,12 +9,6 @@ import Medium from "../../../../server/usecases/mongoose/Medium/index";
 let mongoService;
 let saveImageMedium;
 
-const clearData = async () => {
-  await User.remove({});
-  await Medium.remove({});
-  await ReputationLink.remove({});
-};
-
 beforeAll(async () => {
   mongoService = new MongoTestService({});
   await mongoService.start();
@@ -27,7 +21,7 @@ afterAll(async () => {
 
 describe('Resolver Mutation saveImageMedium', () => {
 
-  it('should test saveImageMedium basic', async () => {
+  describe('basic', async () => {
 
     const userIdKey = '5ab992fe05b6e9bf4c253b53';
     const userId = new ObjectId(userIdKey);
@@ -36,43 +30,62 @@ describe('Resolver Mutation saveImageMedium', () => {
     const aspectRatio = '2.5';
     const category = 'popular';
 
-    // initial state
-    await User.create(
-      { _id: userId, username: 'luojie', password: '123', }
-    );
-
-    // perform operation
-    const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
-
-    // check result
-    const mediumId = savedMedium._id;
-    const medium = await Medium.findById(mediumId);
-    const link = await ReputationLink.findSaveMediumLink(mediumId);
-    const user = await User.findById(userId);
-
-    expect(medium).toMatchObject({
-      userId,
-      minioId,
-      category,
-      kind: 'image',
-      detail: { width, aspectRatio }
+    beforeEach(async () => {
+      await User.create(
+        { _id: userId, username: 'luojie', password: '123', }
+      );
     });
 
-    expect(link).toMatchObject({
-      userId,
-      mediumId,
-      toUserId: userId,
-      kind: ReputationKind.saveMedium,
-      unique: `${ReputationKind.saveMedium}_${mediumId}`
+    afterEach(async () => {
+      await User.remove({});
+      await Medium.remove({});
+      await ReputationLink.remove({});
     });
 
-    expect(user).toMatchObject({
-      _id: userId,
-      username: 'luojie',
-      reputation: ReputationKind.reputationValue(ReputationKind.saveMedium),
+    it('should test medium', async () => {
+
+      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      const medium = await Medium.findById(savedMedium._id);
+
+      expect(medium).toMatchObject({
+        userId,
+        minioId,
+        category,
+        kind: 'image',
+        detail: { width, aspectRatio }
+      });
+
     });
 
-    await clearData()
+    it('should test link', async () => {
+
+      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      const mediumId = savedMedium._id;
+      const link = await ReputationLink.findSaveMediumLink(mediumId);
+
+      expect(link).toMatchObject({
+        userId,
+        mediumId,
+        toUserId: userId,
+        kind: ReputationKind.saveMedium,
+        unique: `${ReputationKind.saveMedium}_${mediumId}`
+      });
+
+    });
+
+    it('should test user', async () => {
+
+      await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      const user = await User.findById(userId);
+
+      expect(user).toMatchObject({
+        _id: userId,
+        username: 'luojie',
+        reputation: ReputationKind.reputationValue(ReputationKind.saveMedium),
+      });
+
+    });
+
   });
 
 });
