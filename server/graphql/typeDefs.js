@@ -26,6 +26,7 @@ export default `
     media(cursor: Float): CursorMedia!
     interestedMedia(cursor: Float): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
+    reputationLinks(cursor: Float): CursorReputationLinks!
  }
   
   type Medium {
@@ -54,10 +55,21 @@ export default `
     _id: ID!
     userId: ID!
     toUserId: ID!
-    mediumId: ID!
+    mediumId: ID
     content: String
     createdAt: Float!
     kind: NotificationKind!
+    viewed: Boolean!
+  }
+  
+  type ReputationLink {
+    _id: ID!
+    userId: ID!
+    toUserId: ID!
+    mediumId: ID
+    createdAt: Float!
+    value: Int!
+    kind: ReputationKind!
     viewed: Boolean!
   }
   
@@ -77,7 +89,13 @@ export default `
   
   enum NotificationKind {
     commentMedium
-    startMedium
+    starMedium
+    followUser
+  }
+  
+  enum ReputationKind {
+    saveMedium
+    starMedium
     followUser
   }
   
@@ -110,5 +128,10 @@ export default `
   type CursorNotifications {
     cursor: Float
     items: [Notification]!
+  }
+  
+  type CursorReputationLinks {
+    cursor: Float
+    items: [ReputationLink]!
   }
 `;
