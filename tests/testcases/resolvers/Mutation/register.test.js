@@ -1,4 +1,3 @@
-import '../../../usecases/dependency';
 import MongoTestService from "../../../usecases/mongdbserver/MongoTestService";
 import mutationResolver from './mutationResolver';
 import User from "../../../../server/usecases/mongoose/User/index";

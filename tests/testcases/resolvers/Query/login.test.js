@@ -27,7 +27,7 @@ afterAll(async () => {
 
 describe("Resolver Query login", () => {
 
-  it('should test resolver query login basic', async () => {
+  it('should test login basic', async () => {
     const user = await login({}, {username: 'luojie', password: '123'});
     expect(user).toMatchObject({
       username: 'luojie',
@@ -38,7 +38,7 @@ describe("Resolver Query login", () => {
     });
   });
 
-  it('should test resolver query login not exist', async () => {
+  it('should test login not exist', async () => {
     const user = await login({}, {username: 'luojie', password: '1234'});
     expect(user).toBeNull();
   });

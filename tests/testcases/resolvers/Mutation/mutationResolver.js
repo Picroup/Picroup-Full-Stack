@@ -1,3 +1,4 @@
+import '../../../usecases/dependency';
 import {createMutationResolver} from "../../../../server/graphql/resolvers/Mutation";
 import User from "../../../../server/usecases/mongoose/User";
 import Medium from "../../../../server/usecases/mongoose/Medium";

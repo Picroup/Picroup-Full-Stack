@@ -2,25 +2,24 @@ import MongoTestService from "../../../usecases/mongdbserver/MongoTestService";
 import mutationResolver from "./mutationResolver";
 import {ObjectId} from "../../../../server/libraries/mongoose/index";
 import User from "../../../../server/usecases/mongoose/User/index";
-import {FOLLOW_USER, reputationValue} from "../../../../server/usecases/model/ReputationKind";
 import FollowUserLink from "../../../../server/usecases/mongoose/FollowUserLink/index";
 
 let mongoService;
-let followUser;
+let unfollowUser;
 
 beforeAll(async () => {
   mongoService = new MongoTestService({});
   await mongoService.start();
-  followUser = mutationResolver.followUser;
+  unfollowUser = mutationResolver.unfollowUser;
 });
 
 afterAll(async () => {
   await mongoService.stop()
 });
 
-describe('Resolver Mutation followUser', () => {
+describe('Resolver Mutation unfollowUser', () => {
 
-  it('should test followUser basic', async () => {
+  it('should test unfollowUser basic', async () => {
 
     const userIdKey = '5ab992fe05b6e9bf4c253b53';
     const toUserIdKey = '5abb34e67f9f4cf1429de9b0';
@@ -28,42 +27,36 @@ describe('Resolver Mutation followUser', () => {
     const toUserId = new ObjectId(toUserIdKey);
 
     // initial state
-
     await User.insertMany([
-      {_id: userId, username: 'luojie', password: '123' },
-      {_id: toUserId, username: 'li', password: '321' },
+      {_id: userId, username: 'luojie', password: '123', followingsCount: 2, followersCount: 2, reputation: 10},
+      {_id: toUserId, username: 'li', password: '321', followingsCount: 2, followersCount: 2, reputation: 10},
     ]);
+    await FollowUserLink.create({ userId, toUserId, unique: `${userId}_${toUserId}` });
 
     // perform operation
-
-    await followUser({}, {userId: userIdKey, toUserId: toUserIdKey});
+    await unfollowUser({}, {userId, toUserId});
 
     // check result
-
     const user = await User.findById(userId);
     const toUser = await User.findById(toUserId);
-    const link = await FollowUserLink.findOne({userId, toUserId});
+    const linkCount = await FollowUserLink.count({userId, toUserId});
 
     expect(user).toMatchObject({
       _id: userId,
       username: 'luojie',
       followingsCount: 1,
-      followersCount: 0,
-      reputation: 0
+      followersCount: 2,
+      reputation: 10
     });
 
     expect(toUser).toMatchObject({
       _id: toUserId,
       username: 'li',
-      followingsCount: 0,
+      followingsCount: 2,
       followersCount: 1,
-      reputation: reputationValue(FOLLOW_USER)
+      reputation: 10
     });
 
-    expect(link).toMatchObject({
-      userId,
-      toUserId,
-      unique: '5ab992fe05b6e9bf4c253b53_5abb34e67f9f4cf1429de9b0'
-    })
+    expect(linkCount).toEqual(0);
   })
 });

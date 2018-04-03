@@ -26,7 +26,7 @@ afterAll(async () => {
 
 describe('Resolver Mutation saveImageMedium', () => {
 
-  it('should test save image medium basic', async () => {
+  it('should test saveImageMedium basic', async () => {
 
     const userIdKey = '5ab992fe05b6e9bf4c253b53';
     const userId = new ObjectId(userIdKey);
@@ -35,7 +35,7 @@ describe('Resolver Mutation saveImageMedium', () => {
     const aspectRatio = '2.5';
     const category = 'popular';
 
-    // inject test dependency
+    // initial state
     await User.create({
       _id: userId,
       username: 'luojie',
