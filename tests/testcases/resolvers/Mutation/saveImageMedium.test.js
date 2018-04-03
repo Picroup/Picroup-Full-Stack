@@ -37,7 +37,7 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     // inject test dependency
     await User.create({
-      _id: new ObjectId(userId),
+      _id: userId,
       username: 'luojie',
       password: createSaltedPassword('123'),
     });
@@ -63,7 +63,8 @@ describe('Resolver Mutation saveImageMedium', () => {
       userId,
       mediumId,
       toUserId: userId,
-      kind: SAVE_MEDIUM
+      kind: 'SAVE_MEDIUM',
+      unique: `SAVE_MEDIUM_${mediumId}`
     });
 
     expect(user).toMatchObject({
