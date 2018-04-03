@@ -1,32 +1,28 @@
 import '../usecases/dependency/index';
 import mongoose, {Schema} from 'mongoose'
 import {cursorQuery} from "../../server/libraries/mongoose";
-import {connectMongoServer, createMongoServer} from "../usecases/mongdbserver";
 import {expectContains} from "../libaries/jest";
+import MongoTestService from "../usecases/mongdbserver/MongoTestService";
 
-let mongoServer;
-let Model;
+let mongoTestService;
 
-beforeAll(async () => {
+let Model = mongoose.model('Model', new Schema({ name: String, createdAt: Number }));
 
-  mongoServer = createMongoServer();
-  await connectMongoServer(mongoose, mongoServer);
-
-  Model = mongoose.model('Model', new Schema({
-    name: String,
-    createdAt: Number
-  }));
-
+const importData = async () => {
   await Model.insertMany([
     { createdAt: 0 },
     { createdAt: 1 },
     { createdAt: 2 },
   ])
+};
+
+beforeAll(async () => {
+  mongoTestService = new MongoTestService({onStart: importData});
+  await mongoTestService.start();
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
-  mongoServer.stop()
+  await mongoTestService.stop()
 });
 
 describe("Cursor Query", () => {

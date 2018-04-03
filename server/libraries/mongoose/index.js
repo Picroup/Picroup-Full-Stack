@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 
 export const modelsByIds = async (Model, ids) => {
 
@@ -35,3 +36,5 @@ export const cursorQuery =  ({ Model, predicate, sortBy, ascending, projection }
 export const incrementByKey = async ({Model, _id, key, number}) => {
   return await Model.findByIdAndUpdate(_id, { $inc: {[key]: number} }, {new: true});
 };
+
+export const ObjectId = mongoose.Types.ObjectId;

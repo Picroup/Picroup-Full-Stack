@@ -59,4 +59,10 @@ schema.statics.saveFollowUserLink = async ({userId, toUserId}) => {
   return await reputation.save();
 };
 
+schema.statics.findSaveMediumLink = async (mediumId) => {
+  const reputationUnique = uniqueBySaveMedium(mediumId);
+  return await ReputationLink.findOne({unique: reputationUnique});
+};
+
+
 export default schema;
