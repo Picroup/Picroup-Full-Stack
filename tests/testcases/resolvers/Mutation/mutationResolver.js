@@ -9,13 +9,13 @@ import ReputationLink from "../../../../server/usecases/mongoose/ReputationLink"
 import Notification from "../../../../server/usecases/mongoose/Notification";
 
 const mutationResolver = createMutationResolver({dependency: {
-  User,
-  Medium,
-  Comment,
-  FollowUserLink,
-  StarMediumLink,
-  ReputationLink,
-  Notification,
-}});
+    User,
+    Medium,
+    Comment,
+    FollowUserLink,
+    StarMediumLink,
+    ReputationLink,
+    Notification,
+  }});
 
 export default mutationResolver;
