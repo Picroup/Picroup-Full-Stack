@@ -93,4 +93,13 @@ export const createUserResolver = ({dependency: {
     return await User.clearGainedReputation(userId);
   },
 
+  followed: async ({_id: toUserId}, { byUserId: userId }) => {
+    if (userId === toUserId) return null;
+    return await FollowUserLink
+      .find({userId, toUserId})
+      .limit(1)
+      .count()
+      .exec();
+  },
+
 });

@@ -31,6 +31,7 @@ export default `
     reputationLinks(cursor: Float): CursorReputationLinks!
     markNotificationsAsViewed(): User!
     markReputationLinksAsViewed(): User!
+    followed(byUserId: ID!): Boolean
  }
   
   type Medium {
