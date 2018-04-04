@@ -1,4 +1,4 @@
-import {getCurrentTimestamp} from "../../../libraries/date";
+import {getCurrentTimestamp, maybeOneMonth} from "../../../libraries/date";
 import {Schema} from "mongoose";
 
 const schema = new Schema({
@@ -14,7 +14,7 @@ const schema = new Schema({
   endedAt: {
     type: Number,
     required: true,
-    default: getCurrentTimestamp
+    default: () => getCurrentTimestamp() + maybeOneMonth
   },
   category: {
     type: String,

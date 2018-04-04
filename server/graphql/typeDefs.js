@@ -2,7 +2,7 @@ export default `
   type Query { 
     login(username: String!, password: String!): User
     user(userId: ID!): User
-    rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
+    rankedMedia(category: MediumCategory, rankBy: RankBy, cursor: Float): CursorMedia!
     medium(mediumId: ID!): Medium
   }
   
