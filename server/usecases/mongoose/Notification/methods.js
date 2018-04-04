@@ -38,4 +38,8 @@ schema.statics.saveFollowUserNotification = async ({userId, toUserId}) => {
   return await notification.save();
 };
 
+schema.statics.markNotificationsAsViewed = async (userId) => {
+  return await Notification.update({ toUserId: userId }, { $set: {viewed: true} }, {multi: true});
+};
+
 export default schema;

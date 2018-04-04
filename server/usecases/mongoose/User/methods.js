@@ -47,4 +47,17 @@ schema.statics.increaseReputation = async ({userId, reputation}) => {
   });
 };
 
+schema.statics.increaseNotificationsCount = async (userId) => {
+  return await incrementByKey({
+    Model: User,
+    _id: userId,
+    key: 'notificationsCount',
+    number: 1
+  });
+};
+
+schema.statics.clearNotificationsCount = async (userId) => {
+  return await User.findByIdAndUpdate(userId, { $set: {notificationsCount: 0} }, {new: true});
+};
+
 export default schema;

@@ -24,7 +24,12 @@ const schema = new Schema({
     type: Number,
     required: true,
     default: 0
-  }
+  },
+  notificationsCount: {
+    type: Number,
+    required: true,
+    default: 0
+  },
 });
 
 export default schema;

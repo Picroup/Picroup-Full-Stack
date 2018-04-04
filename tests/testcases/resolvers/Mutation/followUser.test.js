@@ -54,6 +54,7 @@ describe('Resolver Mutation followUser', () => {
         username: 'luojie',
         followingsCount: 1,
         followersCount: 0,
+        notificationsCount: 0,
         reputation: 0
       });
 
@@ -69,6 +70,7 @@ describe('Resolver Mutation followUser', () => {
         username: 'li',
         followingsCount: 0,
         followersCount: 1,
+        notificationsCount: 1,
         reputation: ReputationKind.reputationValue(ReputationKind.followUser)
       });
 

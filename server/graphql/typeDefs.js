@@ -21,12 +21,14 @@ export default `
     reputation: Int!
     followingsCount: Int!
     followersCount: Int!
+    notificationsCount: Int!
     followings(cursor: Float): CursorUsers!
     followers(cursor: Float): CursorUsers!
     media(cursor: Float): CursorMedia!
     interestedMedia(cursor: Float): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
+    markNotificationsAsViewed(): User!
  }
   
   type Medium {

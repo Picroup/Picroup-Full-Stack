@@ -82,4 +82,9 @@ export const createUserResolver = ({dependency: {
       ascending: -1
     })({cursor, limit: PAGE_LIMIT});
   },
+
+  markNotificationsAsViewed: async ({_id: userId}) => {
+    await Notification.markNotificationsAsViewed(userId);
+    return await User.clearNotificationsCount(userId);
+  },
 });
