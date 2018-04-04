@@ -20,6 +20,7 @@ export const createMutationResolver = ({dependency: {
     const savedMedium = await Medium.saveImage({ userId, minioId, width, aspectRatio, category });
     const reputation = await ReputationLink.savePostMediumLink({ userId, mediumId: savedMedium._id, toUserId: userId });
     await User.increaseReputation({userId, reputation: reputation.value});
+    await User.increaseGainedReputation({userId, reputation: reputation.value});
     return savedMedium;
   },
 
@@ -29,6 +30,7 @@ export const createMutationResolver = ({dependency: {
     const updatedUser = await User.increaseFollowingsCount(userId);
     const reputation = await ReputationLink.saveFollowUserLink({userId, toUserId});
     await User.increaseReputation({userId: toUserId, reputation: reputation.value});
+    await User.increaseGainedReputation({userId: toUserId, reputation: reputation.value});
     await Notification.saveFollowUserNotification({userId, toUserId});
     await User.increaseNotificationsCount(toUserId);
     return updatedUser;
@@ -57,6 +59,7 @@ export const createMutationResolver = ({dependency: {
     const toUserId = updatedMedium.userId;
     const reputation = await ReputationLink.saveStarMediumLink({userId, mediumId, toUserId});
     await User.increaseReputation({userId: toUserId, reputation: reputation.value});
+    await User.increaseGainedReputation({userId: toUserId, reputation: reputation.value});
     await Notification.saveStartMediumNotification({userId, toUserId, mediumId});
     await User.increaseNotificationsCount(toUserId);
     return updatedMedium

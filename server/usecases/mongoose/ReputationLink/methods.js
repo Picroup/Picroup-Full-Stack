@@ -1,6 +1,7 @@
 import schema from './schema';
 import ReputationKind from "../../model/ReputationKind";
 import ReputationLink from "./index";
+import Notification from "../Notification";
 
 const uniqueBySaveMedium = (mediumId) => `${ReputationKind.saveMedium}_${mediumId}`;
 const uniqueByStarMedium = ({userId, mediumId}) => `${ReputationKind.starMedium}_${userId}_${mediumId}`;
@@ -67,6 +68,10 @@ schema.statics.findSaveMediumLink = async (mediumId) => {
 schema.statics.findStarMediumLink = async ({userId, mediumId}) => {
   const reputationUnique = uniqueByStarMedium({userId, mediumId});
   return await ReputationLink.findOne({unique: reputationUnique});
+};
+
+schema.statics.markReputationLinksAsViewed = async (userId) => {
+  return await ReputationLink.update({ toUserId: userId }, { $set: {viewed: true} }, {multi: true});
 };
 
 

@@ -38,8 +38,8 @@ describe('Resolver Mutation starMedium', () => {
 
     beforeEach(async () => {
       await User.insertMany([
-        {_id: userId, username: 'luojie', password: '123'},
-        {_id: toUserId, username: 'li', password: '123'},
+        {_id: userId, username: 'luojie', password: '123', reputation: 5 },
+        {_id: toUserId, username: 'li', password: '123', reputation: 10 },
       ]);
 
       await Medium.create(
@@ -80,7 +80,8 @@ describe('Resolver Mutation starMedium', () => {
         username: 'luojie',
         followingsCount: 0,
         followersCount: 0,
-        reputation: 0,
+        reputation: 5,
+        gainedReputation: 0,
       });
 
     });
@@ -95,7 +96,8 @@ describe('Resolver Mutation starMedium', () => {
         username: 'li',
         followingsCount: 0,
         followersCount: 0,
-        reputation: ReputationKind.reputationValue(ReputationKind.starMedium),
+        reputation: 10 + ReputationKind.reputationValue(ReputationKind.starMedium),
+        gainedReputation: ReputationKind.reputationValue(ReputationKind.starMedium),
       });
 
     });

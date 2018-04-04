@@ -16,7 +16,7 @@ export const createUserResolver = ({dependency: {
       predicate: {userId},
       sortBy: 'createdAt',
       ascending: -1
-    })({cursor, limit: 1});
+    })({cursor, limit: PAGE_LIMIT});
 
     const followingUserIds = links.map(link => link.toUserId);
     const users = await modelsByIds(User, followingUserIds);
@@ -62,7 +62,7 @@ export const createUserResolver = ({dependency: {
       predicate: {userId: { $in: followingUserIds }},
       sortBy: 'createdAt',
       ascending: -1
-    })({cursor, limit: 1});
+    })({cursor, limit: PAGE_LIMIT});
   },
 
   notifications: async ({_id: userId},{ cursor }) => {
@@ -87,4 +87,10 @@ export const createUserResolver = ({dependency: {
     await Notification.markNotificationsAsViewed(userId);
     return await User.clearNotificationsCount(userId);
   },
+
+  markReputationLinksAsViewed: async ({_id: userId}) => {
+    await ReputationLink.markReputationLinksAsViewed(userId);
+    return await User.clearGainedReputation(userId);
+  },
+
 });
