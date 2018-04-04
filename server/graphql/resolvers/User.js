@@ -87,4 +87,10 @@ export const createUserResolver = ({dependency: {
     await Notification.markNotificationsAsViewed(userId);
     return await User.clearNotificationsCount(userId);
   },
+
+  markReputationLinksAsViewed: async ({_id: userId}) => {
+    await ReputationLink.markReputationLinksAsViewed(userId);
+    return await User.clearGainedReputation(userId);
+  },
+
 });

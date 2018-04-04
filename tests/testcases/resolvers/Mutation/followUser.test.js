@@ -32,8 +32,8 @@ describe('Resolver Mutation followUser', () => {
 
     beforeEach(async () => {
       await User.insertMany([
-        {_id: userId, username: 'luojie', password: '123' },
-        {_id: toUserId, username: 'li', password: '321' },
+        {_id: userId, username: 'luojie', password: '123', reputation: 5 },
+        {_id: toUserId, username: 'li', password: '321', reputation: 10 },
       ]);
     });
 
@@ -55,7 +55,7 @@ describe('Resolver Mutation followUser', () => {
         followingsCount: 1,
         followersCount: 0,
         notificationsCount: 0,
-        reputation: 0
+        reputation: 5
       });
 
     });
@@ -71,7 +71,8 @@ describe('Resolver Mutation followUser', () => {
         followingsCount: 0,
         followersCount: 1,
         notificationsCount: 1,
-        reputation: ReputationKind.reputationValue(ReputationKind.followUser)
+        reputation: 10 + ReputationKind.reputationValue(ReputationKind.followUser),
+        gainedReputation: ReputationKind.reputationValue(ReputationKind.followUser)
       });
 
     });

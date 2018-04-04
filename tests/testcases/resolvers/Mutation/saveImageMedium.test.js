@@ -32,7 +32,7 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     beforeEach(async () => {
       await User.create(
-        { _id: userId, username: 'luojie', password: '123', }
+        { _id: userId, username: 'luojie', password: '123', reputation: 5, }
       );
     });
 
@@ -81,7 +81,8 @@ describe('Resolver Mutation saveImageMedium', () => {
       expect(user).toMatchObject({
         _id: userId,
         username: 'luojie',
-        reputation: ReputationKind.reputationValue(ReputationKind.saveMedium),
+        reputation: 5 + ReputationKind.reputationValue(ReputationKind.saveMedium),
+        gainedReputation: ReputationKind.reputationValue(ReputationKind.saveMedium),
       });
 
     });

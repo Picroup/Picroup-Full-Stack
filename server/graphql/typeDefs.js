@@ -22,6 +22,7 @@ export default `
     followingsCount: Int!
     followersCount: Int!
     notificationsCount: Int!
+    gainedReputation: Int!
     followings(cursor: Float): CursorUsers!
     followers(cursor: Float): CursorUsers!
     media(cursor: Float): CursorMedia!
@@ -29,6 +30,7 @@ export default `
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
     markNotificationsAsViewed(): User!
+    markReputationLinksAsViewed(): User!
  }
   
   type Medium {
