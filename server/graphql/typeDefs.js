@@ -29,8 +29,8 @@ export default `
     interestedMedia(cursor: Float): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
-    markNotificationsAsViewed(): User!
-    markReputationLinksAsViewed(): User!
+    markNotificationsAsViewed: User!
+    markReputationLinksAsViewed: User!
     followed(byUserId: ID!): Boolean
  }
   
@@ -130,7 +130,7 @@ export default `
     items: [Comment]!
   }
   
-  type CursorNotifications {
+  type CursorNotofications {
     cursor: Float
     items: [Notification]!
   }

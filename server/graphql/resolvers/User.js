@@ -1,13 +1,13 @@
 import {PAGE_LIMIT} from "../../config";
 import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
 import mongoose from "mongoose";
-import ReputationLink from "../../usecases/mongoose/ReputationLink";
 
 export const createUserResolver = ({dependency: {
   User,
   Medium,
   FollowUserLink,
   Notification,
+  ReputationLink,
 }}) => ({
 
   followings: async ({_id: userId}, { cursor }) => {
