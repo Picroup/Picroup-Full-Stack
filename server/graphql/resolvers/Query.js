@@ -14,13 +14,13 @@ export const createQueryResolver = ({dependency: {
     return await User.findOne(args);
   },
 
-  user: async (_, { userId }) => await User.findOne({_id: userId}),
+  user: async (_, { userId }) => await User.findById(userId),
 
   rankedMedia: async (_, { category, rankBy, cursor }) => {
     const startTimestamp = RankBy.startTimestamp(rankBy);
     let predicate = {
       createdAt: { $gt: startTimestamp },
-      endedAt: { $lt: getCurrentTimestamp() }
+      endedAt: { $gt: getCurrentTimestamp() }
     };
     if (category) predicate.category = category;
 
@@ -32,6 +32,6 @@ export const createQueryResolver = ({dependency: {
     })({cursor, limit: PAGE_LIMIT});
   },
 
-  medium: async (_, { mediumId }) => await Medium.findOne({_id: mediumId}),
+  medium: async (_, { mediumId }) => await Medium.findById(mediumId),
 
 });
