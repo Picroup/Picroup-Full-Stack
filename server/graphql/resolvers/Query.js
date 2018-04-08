@@ -1,35 +1,37 @@
-import {startTimestampFromRankBy} from "../../usecase/model/SortBy";
-import Medium from "../../usecase/mongoose/Medium";
-import {createSaltedPassword} from "../../usecase/crypto";
-import User from "../../usecase/mongoose/User";
+import RankBy from "../../usecases/model/RankBy";
+import {createSaltedPassword} from "../../usecases/crypto";
 import { PAGE_LIMIT } from '../../config'
+import {cursorQuery} from "../../libraries/mongoose";
+import {getCurrentTimestamp} from "../../libraries/date";
 
-export default {
+export const createQueryResolver = ({dependency: {
+  User,
+  Medium,
+}}) => ({
 
   login: async (_, args) => {
     args.password = createSaltedPassword(args.password);
     return await User.findOne(args);
   },
 
-  user: async (_, { userId }) => await User.findOne({_id: userId}),
+  user: async (_, { userId }) => await User.findById(userId),
 
   rankedMedia: async (_, { category, rankBy, cursor }) => {
-    const startTimestamp = startTimestampFromRankBy(rankBy);
-    let predicate = { createdAt: { $gt: startTimestamp } };
-    if (category) predicate.category = category;
-    if (cursor) predicate.endedAt = { $lt: cursor };
-
-    const media = await Medium.find(predicate)
-      .sort({endedAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
-
-    const hasMore = media.length === PAGE_LIMIT;
-    const newCursor = hasMore ? media.last().endedAt : null;
-
-    return {
-      cursor: newCursor,
-      items: media
+    let predicate = { endedAt: { $gt: getCurrentTimestamp() } };
+    if (rankBy) {
+      const startTimestamp = RankBy.startTimestamp(rankBy);
+      predicate.createdAt = { $gt: startTimestamp };
     }
+    if (category) predicate.category = category;
+
+    return await cursorQuery({
+      Model: Medium,
+      predicate,
+      sortBy: 'endedAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
   },
-};
+
+  medium: async (_, { mediumId }) => await Medium.findById(mediumId),
+
+});

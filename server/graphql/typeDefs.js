@@ -2,8 +2,9 @@ export default `
   type Query { 
     login(username: String!, password: String!): User
     user(userId: ID!): User
-    rankedMedia(category: MediumCategory, rankBy: RankBy!, cursor: Float): CursorMedia!
- }
+    rankedMedia(category: MediumCategory, rankBy: RankBy, cursor: Float): CursorMedia!
+    medium(mediumId: ID!): Medium
+  }
   
   type Mutation {
     register(username: String!, password: String!): User!
@@ -11,17 +12,26 @@ export default `
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
+    starMedium(userId: ID!, mediumId: ID!): Medium!
   }
   
   type User {
     _id: ID!
     username: String!
+    reputation: Int!
     followingsCount: Int!
     followersCount: Int!
+    notificationsCount: Int!
+    gainedReputation: Int!
     followings(cursor: Float): CursorUsers!
     followers(cursor: Float): CursorUsers!
     media(cursor: Float): CursorMedia!
     interestedMedia(cursor: Float): CursorMedia!
+    notifications(cursor: Float): CursorNotofications!
+    reputationLinks(cursor: Float): CursorReputationLinks!
+    markNotificationsAsViewed: User!
+    markReputationLinksAsViewed: User!
+    followed(byUserId: ID!): Boolean
  }
   
   type Medium {
@@ -35,6 +45,7 @@ export default `
     minioId: ID!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
+    stared(userId: ID!): Boolean!
   }
   
   type Comment {
@@ -43,6 +54,28 @@ export default `
     mediumId: ID!
     createdAt: Float!
     content: String!
+  }
+  
+  type Notification {
+    _id: ID!
+    userId: ID!
+    toUserId: ID!
+    mediumId: ID
+    content: String
+    createdAt: Float!
+    kind: NotificationKind!
+    viewed: Boolean!
+  }
+  
+  type ReputationLink {
+    _id: ID!
+    userId: ID!
+    toUserId: ID!
+    mediumId: ID
+    createdAt: Float!
+    value: Int!
+    kind: ReputationKind!
+    viewed: Boolean!
   }
   
   enum MediumCategory {
@@ -57,6 +90,18 @@ export default `
   
   enum MediumKind {
     image
+  }
+  
+  enum NotificationKind {
+    commentMedium
+    starMedium
+    followUser
+  }
+  
+  enum ReputationKind {
+    saveMedium
+    starMedium
+    followUser
   }
   
   enum RankBy {
@@ -83,5 +128,15 @@ export default `
   type CursorComments {
     cursor: Float
     items: [Comment]!
+  }
+  
+  type CursorNotofications {
+    cursor: Float
+    items: [Notification]!
+  }
+  
+  type CursorReputationLinks {
+    cursor: Float
+    items: [ReputationLink]!
   }
 `;

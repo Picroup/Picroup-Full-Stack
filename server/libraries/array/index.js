@@ -5,3 +5,17 @@ if (!Array.prototype.last) {
   }
 }
 
+if (!Array.prototype.popped) {
+  Array.prototype.popped = function() {
+    this.pop();
+    return this;
+  }
+}
+
+if (!Array.prototype.first) {
+  Array.prototype.first = function() {
+    return this[0];
+  }
+}
+
+

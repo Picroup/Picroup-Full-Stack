@@ -1,91 +1,105 @@
-import Medium from "../../usecase/mongoose/Medium";
 import {PAGE_LIMIT} from "../../config";
-import {modelsByIds} from "../../libraries/mongoose";
-import FollowUserLink from "../../usecase/mongoose/FollowUserLink";
+import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
 import mongoose from "mongoose";
-import User from "../../usecase/mongoose/User";
 
-export default {
+export const createUserResolver = ({dependency: {
+  User,
+  Medium,
+  FollowUserLink,
+  Notification,
+  ReputationLink,
+}}) => ({
 
-  followings: async ({_id}, { cursor }) => {
-    let predicate = { userId: _id };
-    if (cursor) { predicate.createdAt = { $lt: cursor } }
-
-    const links = await FollowUserLink.find(predicate)
-      .sort({createdAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
+  followings: async ({_id: userId}, { cursor }) => {
+    const { cursor: newCursor, items: links } = await cursorQuery({
+      Model: FollowUserLink,
+      predicate: {userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
 
     const followingUserIds = links.map(link => link.toUserId);
     const users = await modelsByIds(User, followingUserIds);
 
-    const hasMore = links.length === PAGE_LIMIT;
-    const newCursor = hasMore ? links.last().createdAt : null;
-
     return {
       cursor: newCursor,
       items: users
     }
   },
 
-  followers: async ({_id}, { cursor }) => {
-    let predicate = { toUserId: _id };
-    if (cursor) { predicate.createdAt = { $lt: cursor } }
-
-    const links = await FollowUserLink.find(predicate)
-      .sort({createdAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
+  followers: async ({_id: userId}, { cursor }) => {
+    const { cursor: newCursor, items: links } = await cursorQuery({
+      Model: FollowUserLink,
+      predicate: { toUserId: userId },
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
 
     const followerUserIds = links.map(link => link.userId);
     const users = await modelsByIds(User, followerUserIds);
 
-    const hasMore = links.length === PAGE_LIMIT;
-    const newCursor = hasMore ? links.last().createdAt : null;
-
     return {
       cursor: newCursor,
       items: users
     }
   },
 
-  interestedMedia: async ({_id}, { cursor }) => {
-    const links = await FollowUserLink.find({userId: _id});
-    const followingUserIds = links.map(link => link.toUserId).concat(new mongoose.Types.ObjectId(_id));
-
-    let predicate = {userId: { $in: followingUserIds }};
-    if (cursor) { predicate.createdAt = { $lt: cursor } }
-
-    const media = await Medium.find(predicate)
-      .sort({createdAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
-
-    const hasMore = media.length === PAGE_LIMIT;
-    const newCursor = hasMore ? media.last().createdAt : null;
-
-    return {
-      cursor: newCursor,
-      items: media
-    }
+  media: async ({_id: userId}, {cursor}) => {
+    return await cursorQuery({
+      Model: Medium,
+      predicate: {userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
   },
 
-  media: async ({_id}, {cursor}) => {
+  interestedMedia: async ({_id: userId}, { cursor }) => {
+    const links = await FollowUserLink.find({userId});
+    const followingUserIds = links.map(link => link.toUserId).concat(new mongoose.Types.ObjectId(userId));
 
-    let predicate = {userId: _id};
-    if (cursor) { predicate.createdAt = { $lt: cursor } }
+    return await cursorQuery({
+      Model: Medium,
+      predicate: {userId: { $in: followingUserIds }},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+  },
 
-    const media =  await Medium.find(predicate)
-      .sort({createdAt: -1})
-      .limit(PAGE_LIMIT)
+  notifications: async ({_id: userId},{ cursor }) => {
+    return await cursorQuery({
+      Model: Notification,
+      predicate: {toUserId:userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+  },
+
+  reputationLinks: async ({_id: userId},{ cursor }) => {
+    return await cursorQuery({
+      Model: ReputationLink,
+      predicate: {toUserId:userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+  },
+
+  markNotificationsAsViewed: async ({_id: userId}) => {
+    await Notification.markNotificationsAsViewed(userId);
+    return await User.clearNotificationsCount(userId);
+  },
+
+  markReputationLinksAsViewed: async ({_id: userId}) => {
+    await ReputationLink.markReputationLinksAsViewed(userId);
+    return await User.clearGainedReputation(userId);
+  },
+
+  followed: async ({_id: toUserId}, { byUserId: userId }) => {
+    if (userId === toUserId) return null;
+    return await FollowUserLink
+      .find({userId, toUserId})
+      .limit(1)
+      .count()
       .exec();
+  },
 
-    const hasMore = media.length === PAGE_LIMIT;
-    const newCursor = hasMore ? media.last().createdAt : null;
-
-    return {
-      cursor: newCursor,
-      items: media
-    }
-  }
-}
+});

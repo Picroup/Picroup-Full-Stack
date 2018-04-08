@@ -1,23 +1,25 @@
 import {PAGE_LIMIT} from "../../config";
-import Comment from "../../usecase/mongoose/Comment";
+import {cursorQuery} from "../../libraries/mongoose";
 
-export default {
+export const createMediumResolver = ({dependency: {
+  Comment,
+  StarMediumLink
+}}) => ({
 
-  comments: async ({_id}, { cursor }) => {
-    let predicate = { mediumId: _id };
-    if (cursor) { predicate.createdAt = { $lt: cursor } }
-
-    const comments = await Comment.find(predicate)
-      .sort({createdAt: -1})
-      .limit(PAGE_LIMIT)
-      .exec();
-
-    const hasMore = comments.length === PAGE_LIMIT;
-    const newCursor = hasMore ? comments.last().createdAt : null;
-
-    return {
-      cursor: newCursor,
-      items: comments
-    }
+  comments: async ({_id: mediumId}, { cursor }) => {
+    return await cursorQuery({
+      Model: Comment,
+      predicate: {mediumId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
   },
-};
+
+  stared: async ({_id: mediumId}, { userId }) => {
+    return await StarMediumLink
+      .find({userId, mediumId})
+      .limit(1)
+      .count()
+      .exec();
+  },
+});

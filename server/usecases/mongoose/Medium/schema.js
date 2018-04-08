@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date";
+import {getCurrentTimestamp, maybeOneMonth} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
@@ -14,7 +14,7 @@ const schema = new Schema({
   endedAt: {
     type: Number,
     required: true,
-    default: getCurrentTimestamp
+    default: () => getCurrentTimestamp() + maybeOneMonth
   },
   category: {
     type: String,
@@ -38,6 +38,4 @@ const schema = new Schema({
   }
 });
 
-const Medium = mongoose.model('Medium', schema, 'media');
-
-export default Medium;
+export default schema;

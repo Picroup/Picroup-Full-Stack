@@ -1,12 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
-import {getCurrentTimestamp} from "../../libraries/date/index";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     require: true,
   },
-  toUserId: {
+  mediumId: {
     type: Schema.Types.ObjectId,
     require: true,
   },
@@ -17,11 +17,9 @@ const schema = new Schema({
   },
   createdAt: {
     type: Number,
-    required: true,
+    require: true,
     default: getCurrentTimestamp
-  },
+  }
 });
 
-const FollowUserLink = mongoose.model('FollowUserLink', schema, 'followUserLinks');
-
-export default FollowUserLink;
+export default schema;

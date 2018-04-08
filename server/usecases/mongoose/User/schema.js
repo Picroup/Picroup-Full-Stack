@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import {Schema} from "mongoose";
 
 const schema = new Schema({
   username: {
@@ -19,9 +19,22 @@ const schema = new Schema({
     type: Number,
     required: true,
     default: 0
-  }
+  },
+  reputation: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  notificationsCount: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  gainedReputation: {
+    type: Number,
+    required: true,
+    default: 0
+  },
 });
 
-const User = mongoose.model('User', schema, 'users');
-
-export default User;
+export default schema;
