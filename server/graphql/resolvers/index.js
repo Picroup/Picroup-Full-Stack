@@ -25,6 +25,7 @@ export const createResolvers = ({dependency: {
       FollowUserLink,
       StarMediumLink,
       ReputationLink,
+      Notification,
     }});
 
   const userResolver = createUserResolver({dependency: {
