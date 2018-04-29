@@ -46,6 +46,7 @@ export default `
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
+    user: User!
   }
   
   type Comment {
