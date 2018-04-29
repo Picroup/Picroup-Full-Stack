@@ -3,6 +3,7 @@ import {createMutationResolver} from "./Mutation";
 import {createUserResolver} from "./User";
 import {createMediumResolver} from "./Medium";
 import {createCommentResolver} from "./Comment";
+import {createReputationLinkResolver} from "./ReputationLink";
 
 export const createResolvers = ({dependency: {
   User,
@@ -47,11 +48,17 @@ export const createResolvers = ({dependency: {
       User,
     }});
 
+  const reputationLinkResolver = createReputationLinkResolver({dependency: {
+      User,
+      Medium,
+    }});
+
   return {
     Query: queryResolver,
     Mutation: mutationResolver,
     User: userResolver,
     Medium: mediumResolver,
-    Comment: commentResolver
+    Comment: commentResolver,
+    ReputationLink: reputationLinkResolver
   }
 };
