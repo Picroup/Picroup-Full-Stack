@@ -78,6 +78,8 @@ export default `
     value: Int!
     kind: ReputationKind!
     viewed: Boolean!
+    user: User!
+    medium: Medium
   }
   
   enum MediumCategory {
