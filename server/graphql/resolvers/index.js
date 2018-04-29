@@ -38,7 +38,8 @@ export const createResolvers = ({dependency: {
 
   const mediumResolver = createMediumResolver({dependency: {
       Comment,
-      StarMediumLink
+      StarMediumLink,
+      User
     }});
 
   return {

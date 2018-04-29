@@ -3,7 +3,8 @@ import {cursorQuery} from "../../libraries/mongoose";
 
 export const createMediumResolver = ({dependency: {
   Comment,
-  StarMediumLink
+  StarMediumLink,
+  User,
 }}) => ({
 
   comments: async ({_id: mediumId}, { cursor }) => {
@@ -22,4 +23,8 @@ export const createMediumResolver = ({dependency: {
       .count()
       .exec();
   },
+
+  user: async ({ userId }) => {
+    return await User.findById(userId);
+  }
 });
