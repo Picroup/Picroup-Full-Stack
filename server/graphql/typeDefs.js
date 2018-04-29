@@ -67,6 +67,8 @@ export default `
     createdAt: Float!
     kind: NotificationKind!
     viewed: Boolean!
+    user: User!
+    medium: Medium
   }
   
   type ReputationLink {
