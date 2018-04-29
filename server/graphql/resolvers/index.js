@@ -2,6 +2,7 @@ import {createQueryResolver} from "./Query";
 import {createMutationResolver} from "./Mutation";
 import {createUserResolver} from "./User";
 import {createMediumResolver} from "./Medium";
+import {createCommentResolver} from "./Comment";
 
 export const createResolvers = ({dependency: {
   User,
@@ -42,10 +43,15 @@ export const createResolvers = ({dependency: {
       User
     }});
 
+  const commentResolver = createCommentResolver({dependency: {
+      User,
+    }});
+
   return {
     Query: queryResolver,
     Mutation: mutationResolver,
     User: userResolver,
-    Medium: mediumResolver
+    Medium: mediumResolver,
+    Comment: commentResolver
   }
 };

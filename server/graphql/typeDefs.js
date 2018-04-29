@@ -55,6 +55,7 @@ export default `
     mediumId: ID!
     createdAt: Float!
     content: String!
+    user: User!
   }
   
   type Notification {
