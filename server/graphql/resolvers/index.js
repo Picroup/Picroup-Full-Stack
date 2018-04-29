@@ -37,6 +37,7 @@ export const createResolvers = ({dependency: {
       FollowUserLink,
       Notification,
       ReputationLink,
+      StarMediumLink,
     }});
 
   const mediumResolver = createMediumResolver({dependency: {

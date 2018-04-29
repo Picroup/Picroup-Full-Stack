@@ -8,6 +8,7 @@ export const createUserResolver = ({dependency: {
   FollowUserLink,
   Notification,
   ReputationLink,
+  StarMediumLink,
 }}) => ({
 
   followings: async ({_id: userId}, { cursor }) => {
@@ -63,6 +64,27 @@ export const createUserResolver = ({dependency: {
       sortBy: 'createdAt',
       ascending: -1
     })({cursor, limit: PAGE_LIMIT});
+  },
+
+  staredMedia: async ({_id: userId}, { cursor }) => {
+
+    const {
+      cursor: newCursor,
+      items: links
+    } = await cursorQuery({
+      Model: StarMediumLink,
+      predicate: {userId},
+      sortBy: 'createdAt',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+
+    const mediumIds = links.map(link => link.mediumId);
+    const media = await modelsByIds(Medium, mediumIds);
+
+    return {
+      cursor: newCursor,
+      items: media
+    };
   },
 
   notifications: async ({_id: userId},{ cursor }) => {
