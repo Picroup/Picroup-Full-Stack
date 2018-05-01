@@ -43,7 +43,7 @@ describe('Resolver Mutation starMedium', () => {
       ]);
 
       await Medium.create(
-        { _id: mediumId, userId: toUserId, minioId: 'minioId0', category : 'beauty', kind : 'image', endedAt }
+        { _id: mediumId, userId: toUserId, minioId: 'minioId0', kind : 'image', endedAt }
       );
     });
 
@@ -63,7 +63,6 @@ describe('Resolver Mutation starMedium', () => {
         _id: mediumId,
         userId: toUserId,
         minioId: 'minioId0',
-        category : 'beauty',
         kind : 'image',
         endedAt: endedAt + oneWeek
       });

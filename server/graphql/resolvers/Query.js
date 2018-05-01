@@ -16,13 +16,12 @@ export const createQueryResolver = ({dependency: {
 
   user: async (_, { userId }) => await User.findById(userId),
 
-  rankedMedia: async (_, { category, rankBy, cursor }) => {
+  rankedMedia: async (_, { rankBy, cursor }) => {
     let predicate = { endedAt: { $gt: getCurrentTimestamp() } };
     if (rankBy) {
       const startTimestamp = RankBy.startTimestamp(rankBy);
       predicate.createdAt = { $gt: startTimestamp };
     }
-    if (category) predicate.category = category;
 
     return await cursorQuery({
       Model: Medium,
