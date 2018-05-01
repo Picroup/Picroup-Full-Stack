@@ -39,7 +39,7 @@ describe('Resolver Mutation saveComment', () => {
     ]);
 
     await Medium.create(
-      { _id: mediumId, userId: toUserId, minioId: 'minioId0', category : 'beauty', kind : 'image' }
+      { _id: mediumId, userId: toUserId, minioId: 'minioId0', kind : 'image' }
     );
   });
 
@@ -74,7 +74,6 @@ describe('Resolver Mutation saveComment', () => {
         _id: mediumId,
         userId: toUserId,
         minioId: 'minioId0',
-        category: 'beauty',
         kind: 'image',
         commentsCount: 1
       });

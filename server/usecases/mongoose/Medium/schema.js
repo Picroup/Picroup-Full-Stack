@@ -16,10 +16,6 @@ const schema = new Schema({
     required: true,
     default: () => getCurrentTimestamp() + maybeOneMonth
   },
-  category: {
-    type: String,
-    required: true,
-  },
   kind: {
     type: String,
     required: true,

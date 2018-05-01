@@ -2,13 +2,13 @@ export default `
   type Query { 
     login(username: String!, password: String!): User
     user(userId: ID!): User
-    rankedMedia(category: MediumCategory, rankBy: RankBy, cursor: Float): CursorMedia!
+    rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
     medium(mediumId: ID!): Medium
   }
   
   type Mutation {
     register(username: String!, password: String!): User!
-    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, category: MediumCategory!): Medium!
+    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
@@ -40,7 +40,6 @@ export default `
     userId: ID!
     createdAt: Float!
     endedAt: Float!
-    category: MediumCategory!
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
@@ -83,16 +82,6 @@ export default `
     viewed: Boolean!
     user: User!
     medium: Medium
-  }
-  
-  enum MediumCategory {
-    popular
-    laughing
-    beauty
-    handsom
-    animal
-    photography
-    design
   }
   
   enum MediumKind {

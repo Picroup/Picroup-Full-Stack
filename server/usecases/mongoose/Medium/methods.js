@@ -2,11 +2,10 @@ import schema from './schema'
 import Medium from "./index";
 import {incrementByKey} from "../../../libraries/mongoose";
 
-schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio, category }) => {
+schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio }) => {
   const medium = new Medium({
     userId,
     minioId,
-    category,
     kind: 'image',
     detail: { width, aspectRatio }
   });
