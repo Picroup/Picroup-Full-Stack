@@ -1,10 +1,12 @@
 import {PAGE_LIMIT} from "../../config";
-import {cursorQuery} from "../../libraries/mongoose";
+import {cursorQuery, modelsByIds} from "../../libraries/mongoose";
 
 export const createMediumResolver = ({dependency: {
   Comment,
   StarMediumLink,
   User,
+  MediumRecommendLink,
+  Medium,
 }}) => ({
 
   comments: async ({_id: mediumId}, { cursor }) => {
@@ -26,5 +28,27 @@ export const createMediumResolver = ({dependency: {
 
   user: async ({ userId }) => {
     return await User.findById(userId);
-  }
+  },
+
+  recommendedMedia: async ({_id: mediumId}, { cursor }) => {
+
+    const {
+      cursor: newCursor,
+      items: links
+    } = await cursorQuery({
+      Model: MediumRecommendLink,
+      predicate: {mediumId},
+      sortBy: 'vote',
+      ascending: -1
+    })({cursor, limit: PAGE_LIMIT});
+
+    const mediumIds = links.map(link => link.recommendMediumId);
+    const media = await modelsByIds(Medium, mediumIds);
+
+    return {
+      cursor: newCursor,
+      items: media
+    };
+  },
+
 });
