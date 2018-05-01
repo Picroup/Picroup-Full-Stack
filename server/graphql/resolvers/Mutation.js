@@ -9,6 +9,7 @@ export const createMutationResolver = ({dependency: {
   StarMediumLink,
   ReputationLink,
   Notification,
+  MediumRecommendLink,
 }}) => ({
 
   register: async (_, args) => {
@@ -63,5 +64,10 @@ export const createMutationResolver = ({dependency: {
     await Notification.saveStartMediumNotification({userId, toUserId, mediumId});
     await User.increaseNotificationsCount(toUserId);
     return updatedMedium
+  },
+
+  recommendMedium: async (_, {mediumId, recommendMediumId}) => {
+    return await MediumRecommendLink.increaseVote({mediumId, recommendMediumId})
+      .then(link => link.vote);
   }
 });

@@ -13,6 +13,7 @@ export default `
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     starMedium(userId: ID!, mediumId: ID!): Medium!
+    recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
   }
   
   type User {
@@ -47,6 +48,7 @@ export default `
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
     user: User!
+    recommendedMedia(cursor: Float): CursorMedia!
   }
   
   type Comment {
