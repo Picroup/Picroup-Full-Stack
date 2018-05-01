@@ -15,7 +15,7 @@ export const cursorQuery =  ({ Model, predicate, sortBy, ascending, projection }
   predicate = predicate || {};
   limit = limit || 12;
   const gtOrLt = ascending > 0 ? '$gt' : '$lt';
-  if (cursor) { predicate[sortBy] =  { [gtOrLt]: cursor } }
+  if (cursor !== null) { predicate[sortBy] =  { [gtOrLt]: cursor } }
 
   const queryCount = limit + 1;
 
