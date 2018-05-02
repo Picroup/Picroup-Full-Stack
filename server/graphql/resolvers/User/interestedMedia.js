@@ -7,7 +7,7 @@ export const createInterestedMediaResolver = ({dependency: {
   FollowUserLink,
   Medium
   }}) => async ({_id: userId}, { cursor }) => {
-  const links = await FollowUserLink.find({userId});
+  const links = await FollowUserLink.find({userId}).limit(0);
   const followingUserIds = links.map(link => link.toUserId).concat(new mongoose.Types.ObjectId(userId));
 
   return await cursorQuery({
