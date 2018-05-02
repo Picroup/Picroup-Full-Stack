@@ -1,7 +1,7 @@
 
 export const createReputationLinkResolver = ({dependency: {
-    User,
-    Medium,
+  User,
+  Medium,
 }}) => ({
 
   user: async ({ userId }) => {
