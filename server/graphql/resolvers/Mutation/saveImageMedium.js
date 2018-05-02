@@ -1,5 +1,5 @@
 
-export const saveImageMedium = ({dependency: {
+export const createSaveImageMediumResolver = ({dependency: {
   Medium,
   ReputationLink,
   User,

@@ -1,5 +1,5 @@
 
-export const unfollowUser = ({dependency: {
+export const createUnfollowUserResolver = ({dependency: {
   FollowUserLink,
   User,
   }}) => async (_, {userId, toUserId}) => {

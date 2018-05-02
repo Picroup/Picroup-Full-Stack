@@ -1,5 +1,5 @@
 
-export const recommendMedium = ({dependency: {
+export const createRecommendMediumResolver = ({dependency: {
   MediumRecommendLink
   }}) => async (_, {mediumId, recommendMediumId}) => {
   return await MediumRecommendLink.increaseVote({mediumId, recommendMediumId})

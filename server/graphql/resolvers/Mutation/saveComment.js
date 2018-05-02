@@ -1,5 +1,5 @@
 
-export const saveComment = ({dependency: {
+export const createSaveCommentResolver = ({dependency: {
   Comment,
   Medium,
   Notification,

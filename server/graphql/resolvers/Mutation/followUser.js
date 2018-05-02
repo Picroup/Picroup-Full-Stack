@@ -1,5 +1,5 @@
 
-export const followUser = ({dependency: {
+export const createFollowUserResolver = ({dependency: {
   FollowUserLink,
   User,
   ReputationLink,

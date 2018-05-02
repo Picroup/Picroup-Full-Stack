@@ -1,6 +1,6 @@
 import {oneWeek} from "../../../libraries/date";
 
-export const starMedium = ({dependency: {
+export const createStarMediumResolver = ({dependency: {
   StarMediumLink,
   Medium,
   ReputationLink,

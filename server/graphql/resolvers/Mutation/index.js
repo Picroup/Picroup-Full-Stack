@@ -1,10 +1,10 @@
-import {register} from "./register";
-import {saveImageMedium} from "./saveImageMedium";
-import {followUser} from "./followUser";
-import {unfollowUser} from "./unfollowUser";
-import {saveComment} from "./saveComment";
-import {starMedium} from "./starMedium";
-import {recommendMedium} from "./recommendMedium";
+import {createRegisterResolver} from "./register";
+import {createSaveImageMediumResolver} from "./saveImageMedium";
+import {createFollowUserResolver} from "./followUser";
+import {createUnfollowUserResolver} from "./unfollowUser";
+import {createSaveCommentResolver} from "./saveComment";
+import {createStarMediumResolver} from "./starMedium";
+import {createRecommendMediumResolver} from "./recommendMedium";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -15,46 +15,56 @@ export const createMutationResolver = ({dependency: {
   ReputationLink,
   Notification,
   MediumRecommendLink,
-}}) => ({
+}}) => {
 
-  register: register({dependency: {
+  const register = createRegisterResolver({dependency: {
       User,
-    }}),
+    }});
 
-  saveImageMedium: saveImageMedium({dependency: {
+  const saveImageMedium = createSaveImageMediumResolver({dependency: {
       Medium,
       ReputationLink,
       User,
-    }}),
+    }});
 
-  followUser: followUser({dependency: {
+  const followUser = createFollowUserResolver({dependency: {
       FollowUserLink,
       User,
       ReputationLink,
       Notification,
-    }}),
+    }});
 
-  unfollowUser: unfollowUser({dependency: {
+  const unfollowUser = createUnfollowUserResolver({dependency: {
       FollowUserLink,
       User,
-    }}),
+    }});
 
-  saveComment: saveComment({dependency: {
+  const saveComment = createSaveCommentResolver({dependency: {
       Comment,
       Medium,
       Notification,
       User
-    }}),
+    }});
 
-  starMedium: starMedium({dependency: {
+  const starMedium = createStarMediumResolver({dependency: {
       StarMediumLink,
       Medium,
       ReputationLink,
       User,
       Notification
-    }}),
+    }});
 
-  recommendMedium: recommendMedium({dependency: {
-      MediumRecommendLink
-    }}),
-});
+  const recommendMedium = createRecommendMediumResolver({dependency: {
+      MediumRecommendLink,
+    }});
+
+  return {
+    register,
+    saveImageMedium,
+    followUser,
+    unfollowUser,
+    saveComment,
+    starMedium,
+    recommendMedium,
+  }
+};
