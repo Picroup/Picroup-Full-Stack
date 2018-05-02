@@ -19,6 +19,7 @@ export default `
   type User {
     _id: ID!
     username: String!
+    avatarId: String
     reputation: Int!
     followingsCount: Int!
     followersCount: Int!

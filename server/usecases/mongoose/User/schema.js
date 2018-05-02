@@ -10,6 +10,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  avatarId: {
+    type: String,
+    required: false,
+  },
   followingsCount: {
     type: Number,
     required: true,
