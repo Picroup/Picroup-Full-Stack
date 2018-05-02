@@ -4,6 +4,7 @@ export default `
     user(userId: ID!): User
     rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
     medium(mediumId: ID!): Medium
+    searchUser(username: String!): User
   }
   
   type Mutation {
