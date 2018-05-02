@@ -1,7 +1,7 @@
-import {comments} from "./comments";
-import {stared} from "./stared";
-import {user} from "./user";
-import {recommendedMedia} from "./recommendedMedia";
+import {createCommentsResolver} from "./comments";
+import {createStaredResolver} from "./stared";
+import {createUserResolver} from "./user";
+import {createRecommendedMediaResolver} from "./recommendedMedia";
 
 export const createMediumResolver = ({dependency: {
   Comment,
@@ -9,22 +9,29 @@ export const createMediumResolver = ({dependency: {
   User,
   MediumRecommendLink,
   Medium,
-}}) => ({
+}}) => {
 
-  comments: comments({dependency: {
+  const comments = createCommentsResolver({dependency: {
       Comment,
-    }}),
+    }});
 
-  stared: stared({dependency: {
+  const stared = createStaredResolver({dependency: {
       StarMediumLink,
-    }}),
+    }});
 
-  user: user({dependency: {
+  const user = createUserResolver({dependency: {
       User,
-    }}),
+    }});
 
-  recommendedMedia: recommendedMedia({dependency: {
+  const recommendedMedia = createRecommendedMediaResolver({dependency: {
       MediumRecommendLink,
       Medium,
-    }}),
-});
+    }});
+
+  return {
+    comments,
+    stared,
+    user,
+    recommendedMedia,
+  }
+};

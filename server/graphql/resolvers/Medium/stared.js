@@ -1,5 +1,5 @@
 
-export const stared = ({dependency: {
+export const createStaredResolver = ({dependency: {
   StarMediumLink,
 }}) => async ({_id: mediumId}, { userId }) => {
   return await StarMediumLink

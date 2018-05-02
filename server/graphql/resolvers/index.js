@@ -17,12 +17,12 @@ export const createResolvers = ({dependency: {
   MediumRecommendLink,
 }}) => {
 
-  const queryResolver = createQueryResolver({dependency: {
+  const query = createQueryResolver({dependency: {
       User,
-      Medium
+      Medium,
     }});
 
-  const mutationResolver = createMutationResolver({dependency: {
+  const mutation = createMutationResolver({dependency: {
       User,
       Medium,
       Comment,
@@ -33,7 +33,7 @@ export const createResolvers = ({dependency: {
       MediumRecommendLink,
     }});
 
-  const userResolver = createUserResolver({dependency: {
+  const user = createUserResolver({dependency: {
       User,
       Medium,
       FollowUserLink,
@@ -42,7 +42,7 @@ export const createResolvers = ({dependency: {
       StarMediumLink,
     }});
 
-  const mediumResolver = createMediumResolver({dependency: {
+  const medium = createMediumResolver({dependency: {
       Comment,
       StarMediumLink,
       User,
@@ -50,27 +50,27 @@ export const createResolvers = ({dependency: {
       Medium,
     }});
 
-  const commentResolver = createCommentResolver({dependency: {
+  const comment = createCommentResolver({dependency: {
       User,
     }});
 
-  const reputationLinkResolver = createReputationLinkResolver({dependency: {
+  const reputationLink = createReputationLinkResolver({dependency: {
       User,
       Medium,
     }});
 
-  const notificationResolver = createNotificationResolver({dependency: {
+  const notification = createNotificationResolver({dependency: {
       User,
       Medium,
     }});
 
   return {
-    Query: queryResolver,
-    Mutation: mutationResolver,
-    User: userResolver,
-    Medium: mediumResolver,
-    Comment: commentResolver,
-    ReputationLink: reputationLinkResolver,
-    Notification: notificationResolver,
+    Query: query,
+    Mutation: mutation,
+    User: user,
+    Medium: medium,
+    Comment: comment,
+    ReputationLink: reputationLink,
+    Notification: notification,
   }
 };

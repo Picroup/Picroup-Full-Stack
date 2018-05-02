@@ -1,7 +1,7 @@
 import {cursorQuery, modelsByIds} from "../../../libraries/mongoose";
 import {PAGE_LIMIT} from "../../../config";
 
-export const recommendedMedia = ({dependency: {
+export const createRecommendedMediaResolver = ({dependency: {
     MediumRecommendLink,
     Medium,
 }}) => async ({_id: mediumId}, { cursor }) => {

@@ -1,7 +1,7 @@
 import {cursorQuery} from "../../../libraries/mongoose";
 import {PAGE_LIMIT} from "../../../config";
 
-export const comments = ({dependency: {
+export const createCommentsResolver = ({dependency: {
   Comment,
 }}) => async ({_id: mediumId}, { cursor }) => {
   return await cursorQuery({
