@@ -117,26 +117,26 @@ export default `
   
   type CursorMedia {
     cursor: Float
-    items: [Medium]!
+    items: [Medium!]!
   }
   
   type CursorUsers {
     cursor: Float
-    items: [User]!
+    items: [User!]!
   }
   
   type CursorComments {
     cursor: Float
-    items: [Comment]!
+    items: [Comment!]!
   }
   
   type CursorNotofications {
     cursor: Float
-    items: [Notification]!
+    items: [Notification!]!
   }
   
   type CursorReputationLinks {
     cursor: Float
-    items: [ReputationLink]!
+    items: [ReputationLink!]!
   }
 `;
