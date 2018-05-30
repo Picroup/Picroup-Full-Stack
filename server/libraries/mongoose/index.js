@@ -37,4 +37,8 @@ export const incrementByKey = async ({Model, _id, key, number}) => {
   return await Model.findByIdAndUpdate(_id, { $inc: {[key]: number} }, {new: true});
 };
 
+export const setById = async ({Model, _id, value}) => {
+  return await Model.findByIdAndUpdate(_id, { $set: value }, {new: true});
+};
+
 export const ObjectId = mongoose.Types.ObjectId;

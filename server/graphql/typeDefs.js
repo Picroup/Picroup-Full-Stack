@@ -37,6 +37,10 @@ export default `
     markNotificationsAsViewed: User!
     markReputationLinksAsViewed: User!
     followed(byUserId: ID!): Boolean
+    
+    setDisplayName(displayName: String!): User!
+    setAvatarId(avatarId: String!): User!
+    setPassword(password: String!, oldPassword: String!): User!
  }
   
   type Medium {
