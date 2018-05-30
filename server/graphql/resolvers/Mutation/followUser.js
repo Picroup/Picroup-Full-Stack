@@ -17,6 +17,7 @@ export const createFollowUserResolver = ({dependency: {
   ReputationLink,
   Notification,
 }}) => async (_, {userId, toUserId}) => {
+  if (userId === toUserId) throw new Error("Can't follow my self.");
   await FollowUserLink.saveLink({userId, toUserId});
   const updatedUser = await User.increaseFollowersCount(toUserId);
   await User.increaseFollowingsCount(userId);
