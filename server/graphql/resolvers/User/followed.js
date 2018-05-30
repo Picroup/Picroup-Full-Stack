@@ -9,3 +9,4 @@ export const createFollowedResolver = ({dependency: {
     .count()
     .exec();
 };
+

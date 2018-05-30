@@ -20,6 +20,7 @@ export default `
   type User {
     _id: ID!
     username: String!
+    displayName: String!
     avatarId: String
     reputation: Int!
     followingsCount: Int!
@@ -36,6 +37,10 @@ export default `
     markNotificationsAsViewed: User!
     markReputationLinksAsViewed: User!
     followed(byUserId: ID!): Boolean
+    
+    setDisplayName(displayName: String!): User!
+    setAvatarId(avatarId: String!): User!
+    setPassword(password: String!, oldPassword: String!): User!
  }
   
   type Medium {

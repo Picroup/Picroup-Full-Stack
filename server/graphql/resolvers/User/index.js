@@ -8,6 +8,9 @@ import {createReputationLinksResolver} from "./reputationLinks";
 import {createMarkNotificationsAsViewedResolver} from "./markNotificationsAsViewed";
 import {createMarkReputationLinksAsViewedResolver} from "./markReputationLinksAsViewed";
 import {createFollowedResolver} from "./followed";
+import {createSetDisplayNameResolver} from "./setDisplayName";
+import {createSetAvatarIdResolver} from "./setAvatarId";
+import {createSetPasswordResolver} from "./setPassword";
 
 export const createUserResolver = ({dependency: {
   User,
@@ -64,6 +67,18 @@ export const createUserResolver = ({dependency: {
       FollowUserLink
     }});
 
+  const setDisplayName = createSetDisplayNameResolver({dependency: {
+    User
+  }});
+
+  const setAvatarId = createSetAvatarIdResolver({dependency: {
+    User
+  }});
+
+  const setPassword = createSetPasswordResolver({dependency: {
+    User
+  }});
+
   return {
     followings,
     followers,
@@ -75,5 +90,8 @@ export const createUserResolver = ({dependency: {
     markNotificationsAsViewed,
     markReputationLinksAsViewed,
     followed,
+    setDisplayName,
+    setAvatarId,
+    setPassword,
   }
 };
