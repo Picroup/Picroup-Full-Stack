@@ -13,6 +13,7 @@ export const createStarMediumResolver = ({dependency: {
   const reputation = await ReputationLink.saveStarMediumLink({userId, mediumId, toUserId});
   await User.increaseReputation({userId: toUserId, reputation: reputation.value});
   await User.increaseGainedReputation({userId: toUserId, reputation: reputation.value});
+  if (toUserId.equals(userId)) return updatedMedium;
   await Notification.saveStartMediumNotification({userId, toUserId, mediumId});
   await User.increaseNotificationsCount(toUserId);
   return updatedMedium
