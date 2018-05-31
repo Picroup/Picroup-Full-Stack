@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Picroup/Picroup-Full-Stack#readme",
   "dependencies": {
     "apollo-server-express": "^1.3.2",
+    "aws-sdk": "^2.249.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",

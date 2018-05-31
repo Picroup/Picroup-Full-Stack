@@ -11,6 +11,7 @@ import ReputationLink from "../usecases/mongoose/ReputationLink";
 import Notification from "../usecases/mongoose/Notification";
 import MediumRecommendLink from "../usecases/mongoose/MediumRecommendLink";
 import Feedback from "../usecases/mongoose/Feedback";
+import VerifyCode from "../usecases/mongoose/VerifyCode";
 
 const resolvers = createResolvers({dependency: {
     User,
@@ -22,6 +23,7 @@ const resolvers = createResolvers({dependency: {
     Notification,
     MediumRecommendLink,
     Feedback,
+    VerifyCode,
   }});
 
 const schema = makeExecutableSchema({

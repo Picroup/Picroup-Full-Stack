@@ -16,6 +16,7 @@ export const createResolvers = ({dependency: {
   Notification,
   MediumRecommendLink,
   Feedback,
+  VerifyCode,
 }}) => {
 
   const query = createQueryResolver({dependency: {
@@ -33,6 +34,7 @@ export const createResolvers = ({dependency: {
       Notification,
       MediumRecommendLink,
       Feedback,
+      VerifyCode,
     }});
 
   const user = createUserResolver({dependency: {

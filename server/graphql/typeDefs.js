@@ -16,6 +16,8 @@ export default `
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
     
+    getVerifyCode(phoneNumber: String): String!
+    
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
     saveAppFeedback(userId: ID!, content: String!): Feedback!
