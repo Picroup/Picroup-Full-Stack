@@ -3,9 +3,9 @@ export const createUnfollowUserResolver = ({dependency: {
   FollowUserLink,
   User,
   }}) => async (_, {userId, toUserId}) => {
-  const removed = await FollowUserLink.findOneAndDelete({userId, toUserId});
-  const nothingRemoved = removed === null;
-  if (nothingRemoved) { return await User.findById(toUserId) }
+  const deleted = await FollowUserLink.findOneAndDelete({userId, toUserId});
+  const nothingDeleted = deleted === null;
+  if (nothingDeleted) { return await User.findById(toUserId) }
   await User.decreaseFollowingsCount(userId);
   return await User.decreaseFollowersCount(toUserId);
 };

@@ -15,6 +15,8 @@ export default `
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
+    
+    deleteComment(commentId: String!): String!
   }
   
   type User {
