@@ -13,6 +13,9 @@ const schema = new Schema({
   displayName: {
     type: String,
     required: true,
+    default: function () {
+      return this.username;
+    }
   },
   avatarId: {
     type: String,
