@@ -6,6 +6,9 @@ import {createSaveCommentResolver} from "./saveComment";
 import {createStarMediumResolver} from "./starMedium";
 import {createRecommendMediumResolver} from "./recommendMedium";
 import {createDeleteCommentResolver} from "./deleteComment";
+import {createSaveUserFeedbackResolver} from "./saveUserFeedback";
+import {createSaveMediumFeedbackResolver} from "./saveMediumFeedback";
+import {createSaveAppFeedbackResolver} from "./saveAppFeedback";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -16,6 +19,7 @@ export const createMutationResolver = ({dependency: {
   ReputationLink,
   Notification,
   MediumRecommendLink,
+  Feedback,
 }}) => {
 
   const register = createRegisterResolver({dependency: {
@@ -64,6 +68,18 @@ export const createMutationResolver = ({dependency: {
       Medium,
     }});
 
+  const saveUserFeedback = createSaveUserFeedbackResolver({dependency: {
+      Feedback,
+    }});
+
+  const saveMediumFeedback = createSaveMediumFeedbackResolver({dependency: {
+      Feedback,
+    }});
+
+  const saveAppFeedback = createSaveAppFeedbackResolver({dependency: {
+      Feedback,
+    }});
+
   return {
     register,
     saveImageMedium,
@@ -72,6 +88,9 @@ export const createMutationResolver = ({dependency: {
     saveComment,
     starMedium,
     recommendMedium,
-    deleteComment
+    deleteComment,
+    saveUserFeedback,
+    saveMediumFeedback,
+    saveAppFeedback,
   }
 };
