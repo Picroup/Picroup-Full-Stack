@@ -16,6 +16,10 @@ export default `
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
     
+    saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
+    saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
+    saveAppFeedback(userId: ID!, content: String!): Feedback!
+    
     deleteComment(commentId: String!): String!
   }
   
@@ -43,7 +47,7 @@ export default `
     setDisplayName(displayName: String!): User!
     setAvatarId(avatarId: String!): User!
     setPassword(password: String!, oldPassword: String!): User!
- }
+  }
   
   type Medium {
     _id: ID!
@@ -95,6 +99,16 @@ export default `
     medium: Medium
   }
   
+  type Feedback {
+    _id: ID!
+    userId: ID!
+    toUserId: ID
+    mediumId: ID
+    createdAt: Float!
+    kind: FeedbackKind!
+    content: String!
+  }
+  
   enum MediumKind {
     image
   }
@@ -115,6 +129,12 @@ export default `
     today
     thisWeek
     thisMonth
+  }
+  
+  enum FeedbackKind {
+    user
+    medium
+    app
   }
   
   type MediumDetail {
