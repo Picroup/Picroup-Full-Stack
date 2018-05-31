@@ -21,6 +21,15 @@ schema.statics.increaseCommentsCount = async (mediumId) => {
   })
 };
 
+schema.statics.decreaseCommentsCount = async (mediumId) => {
+  return await incrementByKey({
+    Model: Medium,
+    _id: mediumId,
+    key: 'commentsCount',
+    number: -1
+  })
+};
+
 schema.statics.increaseEndedAt = async ({mediumId, duration}) => {
   return await incrementByKey({
     Model: Medium,

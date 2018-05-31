@@ -33,8 +33,10 @@ describe('Resolver User notifications', () => {
 
   it('should test basic', async () => {
 
-    const users = await User.find();
+    // const users = await User.find();
+    //
+    // console.log(users)
 
-    console.log(users)
+    console.log('it works!')
   });
 });

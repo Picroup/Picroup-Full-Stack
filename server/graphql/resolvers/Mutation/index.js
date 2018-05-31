@@ -5,6 +5,7 @@ import {createUnfollowUserResolver} from "./unfollowUser";
 import {createSaveCommentResolver} from "./saveComment";
 import {createStarMediumResolver} from "./starMedium";
 import {createRecommendMediumResolver} from "./recommendMedium";
+import {createDeleteCommentResolver} from "./deleteComment";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -58,6 +59,11 @@ export const createMutationResolver = ({dependency: {
       MediumRecommendLink,
     }});
 
+  const deleteComment = createDeleteCommentResolver({dependency: {
+      Comment,
+      Medium,
+    }});
+
   return {
     register,
     saveImageMedium,
@@ -66,5 +72,6 @@ export const createMutationResolver = ({dependency: {
     saveComment,
     starMedium,
     recommendMedium,
+    deleteComment
   }
 };
