@@ -30,7 +30,7 @@
     "graphql-tools": "^2.23.0",
     "jsonwebtoken": "^8.1.1",
     "minio": "^4.0.0",
-    "mongoose": "^5.0.10"
+    "mongoose": "^5.1.0"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
