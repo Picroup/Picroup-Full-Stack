@@ -8,15 +8,15 @@ export default `
   }
   
   type Mutation {
-    register(username: String!, password: String!): User!
+    getVerifyCode(phoneNumber: String!): String!
+    register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
+    
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
-    
-    getVerifyCode(phoneNumber: String): String!
     
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!

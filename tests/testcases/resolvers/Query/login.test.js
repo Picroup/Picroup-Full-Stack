@@ -8,7 +8,7 @@ let mongoTestService;
 let login;
 
 const importData = async () => {
-  await User.create({ username: 'luojie', password: createSaltedPassword('123') });
+  await User.create({ username: 'luojie', password: createSaltedPassword('123'), phoneNumber: "0" });
 };
 
 const clearData = async () => {

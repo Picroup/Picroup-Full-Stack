@@ -31,7 +31,7 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     beforeEach(async () => {
       await User.create(
-        { _id: userId, username: 'luojie', password: '123', reputation: 5, }
+        { _id: userId, username: 'luojie', password: '123', phoneNumber: "0", reputation: 5, }
       );
     });
 

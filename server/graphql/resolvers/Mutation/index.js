@@ -26,6 +26,7 @@ export const createMutationResolver = ({dependency: {
 
   const register = createRegisterResolver({dependency: {
       User,
+      VerifyCode,
     }});
 
   const saveImageMedium = createSaveImageMediumResolver({dependency: {

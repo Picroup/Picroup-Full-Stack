@@ -30,7 +30,7 @@ describe('Resolver User markReputationLinksAsViewed', () => {
 
   beforeEach(async () => {
     await User.create(
-      {_id: toUserId, username: 'luojie', password: '123', gainedReputation: 70 }
+      {_id: toUserId, username: 'luojie', password: '123', phoneNumber: "0", gainedReputation: 70 }
     );
     await ReputationLink.insertMany([
       { userId,           mediumId, toUserId,         kind: ReputationKind.starMedium, unique: '0', value: 10, createdAt: 0 },

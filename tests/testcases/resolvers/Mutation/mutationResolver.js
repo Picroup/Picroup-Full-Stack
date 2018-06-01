@@ -7,6 +7,7 @@ import FollowUserLink from "../../../../server/usecases/mongoose/FollowUserLink"
 import StarMediumLink from "../../../../server/usecases/mongoose/StarMediumLink";
 import ReputationLink from "../../../../server/usecases/mongoose/ReputationLink";
 import Notification from "../../../../server/usecases/mongoose/Notification";
+import VerifyCode from "../../../../server/usecases/mongoose/VerifyCode";
 
 const mutationResolver = createMutationResolver({dependency: {
     User,
@@ -16,6 +17,7 @@ const mutationResolver = createMutationResolver({dependency: {
     StarMediumLink,
     ReputationLink,
     Notification,
+    VerifyCode,
   }});
 
 export default mutationResolver;
