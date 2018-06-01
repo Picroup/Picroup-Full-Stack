@@ -10,6 +10,7 @@ import {createSaveUserFeedbackResolver} from "./saveUserFeedback";
 import {createSaveMediumFeedbackResolver} from "./saveMediumFeedback";
 import {createSaveAppFeedbackResolver} from "./saveAppFeedback";
 import {createGetVerifyCodeResolver} from "./getVerifyCode";
+import {createDeleteMediumResolver} from "./deleteMedium";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -24,6 +25,10 @@ export const createMutationResolver = ({dependency: {
   VerifyCode,
 }}) => {
 
+  const getVerifyCode = createGetVerifyCodeResolver({dependency: {
+      VerifyCode,
+    }});
+
   const register = createRegisterResolver({dependency: {
       User,
       VerifyCode,
@@ -33,6 +38,25 @@ export const createMutationResolver = ({dependency: {
       Medium,
       ReputationLink,
       User,
+    }});
+
+  const saveComment = createSaveCommentResolver({dependency: {
+      Comment,
+      Medium,
+      Notification,
+      User
+    }});
+
+  const saveUserFeedback = createSaveUserFeedbackResolver({dependency: {
+      Feedback,
+    }});
+
+  const saveMediumFeedback = createSaveMediumFeedbackResolver({dependency: {
+      Feedback,
+    }});
+
+  const saveAppFeedback = createSaveAppFeedbackResolver({dependency: {
+      Feedback,
     }});
 
   const followUser = createFollowUserResolver({dependency: {
@@ -45,13 +69,6 @@ export const createMutationResolver = ({dependency: {
   const unfollowUser = createUnfollowUserResolver({dependency: {
       FollowUserLink,
       User,
-    }});
-
-  const saveComment = createSaveCommentResolver({dependency: {
-      Comment,
-      Medium,
-      Notification,
-      User
     }});
 
   const starMedium = createStarMediumResolver({dependency: {
@@ -71,34 +88,26 @@ export const createMutationResolver = ({dependency: {
       Medium,
     }});
 
-  const saveUserFeedback = createSaveUserFeedbackResolver({dependency: {
-      Feedback,
-    }});
-
-  const saveMediumFeedback = createSaveMediumFeedbackResolver({dependency: {
-      Feedback,
-    }});
-
-  const saveAppFeedback = createSaveAppFeedbackResolver({dependency: {
-      Feedback,
-    }});
-
-  const getVerifyCode = createGetVerifyCodeResolver({dependency: {
-      VerifyCode,
+  const deleteMedium = createDeleteMediumResolver({dependency: {
+      StarMediumLink,
+      MediumRecommendLink,
+      Comment,
+      Medium,
     }});
 
   return {
+    getVerifyCode,
     register,
     saveImageMedium,
-    followUser,
-    unfollowUser,
     saveComment,
-    starMedium,
-    recommendMedium,
-    deleteComment,
     saveUserFeedback,
     saveMediumFeedback,
     saveAppFeedback,
-    getVerifyCode,
+    followUser,
+    unfollowUser,
+    starMedium,
+    recommendMedium,
+    deleteComment,
+    deleteMedium,
   }
 };
