@@ -12,16 +12,17 @@ export default `
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
     
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
-    followUser(userId: ID!, toUserId: ID!): User!
-    unfollowUser(userId: ID!, toUserId: ID!): User!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
-    starMedium(userId: ID!, mediumId: ID!): Medium!
-    recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
-    
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
     saveAppFeedback(userId: ID!, content: String!): Feedback!
+
+    followUser(userId: ID!, toUserId: ID!): User!
+    unfollowUser(userId: ID!, toUserId: ID!): User!
+    starMedium(userId: ID!, mediumId: ID!): Medium!
+    recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
     
+    deleteMedium(mediumId: String!): String!
     deleteComment(commentId: String!): String!
   }
   
