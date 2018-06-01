@@ -8,7 +8,9 @@ export default `
   }
   
   type Mutation {
-    register(username: String!, password: String!): User!
+    getVerifyCode(phoneNumber: String!): String!
+    register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
+    
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!

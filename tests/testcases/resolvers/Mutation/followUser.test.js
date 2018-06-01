@@ -32,8 +32,8 @@ describe('Resolver Mutation followUser', () => {
 
     beforeEach(async () => {
       await User.insertMany([
-        {_id: userId, username: 'luojie', password: '123', reputation: 5 },
-        {_id: toUserId, username: 'li', password: '321', reputation: 10 },
+        {_id: userId, username: 'luojie', password: '123', phoneNumber: "0", reputation: 5 },
+        {_id: toUserId, username: 'li', password: '321', phoneNumber: "01", reputation: 10 },
       ]);
     });
 

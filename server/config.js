@@ -13,6 +13,10 @@ export const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
 export const MONGODB_USER = process.env.MONGODB_USER;
 export const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
 
+export const ALICLOUD_ACCESS_KEY = process.env.ALICLOUD_ACCESS_KEY;
+export const ALICLOUD_SECRET_Key = process.env.ALICLOUD_SECRET_Key;
+export const ALICLOUD_TEMPLATE_CODE = process.env.ALICLOUD_TEMPLATE_CODE;
+
 export const JWT_SECRET = process.env.JWT_SECRET;
 
 export const PAGE_LIMIT = 24;

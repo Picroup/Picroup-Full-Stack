@@ -9,6 +9,7 @@ import {createDeleteCommentResolver} from "./deleteComment";
 import {createSaveUserFeedbackResolver} from "./saveUserFeedback";
 import {createSaveMediumFeedbackResolver} from "./saveMediumFeedback";
 import {createSaveAppFeedbackResolver} from "./saveAppFeedback";
+import {createGetVerifyCodeResolver} from "./getVerifyCode";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -20,10 +21,12 @@ export const createMutationResolver = ({dependency: {
   Notification,
   MediumRecommendLink,
   Feedback,
+  VerifyCode,
 }}) => {
 
   const register = createRegisterResolver({dependency: {
       User,
+      VerifyCode,
     }});
 
   const saveImageMedium = createSaveImageMediumResolver({dependency: {
@@ -80,6 +83,10 @@ export const createMutationResolver = ({dependency: {
       Feedback,
     }});
 
+  const getVerifyCode = createGetVerifyCodeResolver({dependency: {
+      VerifyCode,
+    }});
+
   return {
     register,
     saveImageMedium,
@@ -92,5 +99,6 @@ export const createMutationResolver = ({dependency: {
     saveUserFeedback,
     saveMediumFeedback,
     saveAppFeedback,
+    getVerifyCode,
   }
 };

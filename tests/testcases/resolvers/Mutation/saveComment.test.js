@@ -34,8 +34,8 @@ describe('Resolver Mutation saveComment', () => {
 
   beforeEach(async () => {
     await User.insertMany([
-      {_id: userId, username: 'luojie', password: '123'},
-      {_id: toUserId, username: 'li', password: '123'},
+      {_id: userId, username: 'luojie', password: '123', phoneNumber: "0"},
+      {_id: toUserId, username: 'li', password: '123', phoneNumber: "01"},
     ]);
 
     await Medium.create(

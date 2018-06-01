@@ -28,8 +28,8 @@ describe('Resolver Mutation unfollowUser', () => {
 
     beforeEach(async () => {
       await User.insertMany([
-        {_id: userId, username: 'luojie', password: '123', followingsCount: 2, followersCount: 2, reputation: 10},
-        {_id: toUserId, username: 'li', password: '321', followingsCount: 2, followersCount: 2, reputation: 10},
+        {_id: userId, username: 'luojie', password: '123', phoneNumber: "0", followingsCount: 2, followersCount: 2, reputation: 10},
+        {_id: toUserId, username: 'li', password: '321', phoneNumber: "01", followingsCount: 2, followersCount: 2, reputation: 10},
       ]);
       await FollowUserLink.create({ userId, toUserId, unique: `${userId}_${toUserId}` });
     });
