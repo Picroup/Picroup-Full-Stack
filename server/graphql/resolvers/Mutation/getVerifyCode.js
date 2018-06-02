@@ -1,6 +1,6 @@
-import {sendVerifyCode} from "../../../usecases/sns";
+// import {sendVerifyCode} from "../../../usecases/sns";
 import {getCurrentTimestamp, oneMinute} from "../../../libraries/date";
-// import {sendVerifyCode} from "../../../usecases/sms";
+import {sendVerifyCode} from "../../../usecases/sms";
 
 export const createGetVerifyCodeResolver = ({dependency: {
   VerifyCode,
