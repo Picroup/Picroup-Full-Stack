@@ -11,6 +11,7 @@ import {createSaveMediumFeedbackResolver} from "./saveMediumFeedback";
 import {createSaveAppFeedbackResolver} from "./saveAppFeedback";
 import {createGetVerifyCodeResolver} from "./getVerifyCode";
 import {createDeleteMediumResolver} from "./deleteMedium";
+import {createSaveCommentFeedbackResolver} from "./saveCommentFeedback";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -55,7 +56,7 @@ export const createMutationResolver = ({dependency: {
       Feedback,
     }});
 
-  const saveCommentFeedback = createSaveCommentResolver({dependency: {
+  const saveCommentFeedback = createSaveCommentFeedbackResolver({dependency: {
       Feedback,
     }});
 
