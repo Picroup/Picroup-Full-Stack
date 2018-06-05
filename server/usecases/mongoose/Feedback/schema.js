@@ -14,6 +14,10 @@ const schema = new Schema({
     type: Schema.Types.ObjectId,
     require: false,
   },
+  commentId: {
+    type: Schema.Types.ObjectId,
+    require: false,
+  },
   createdAt: {
     type: Number,
     required: true,

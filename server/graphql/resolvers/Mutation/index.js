@@ -55,6 +55,10 @@ export const createMutationResolver = ({dependency: {
       Feedback,
     }});
 
+  const saveCommentFeedback = createSaveCommentResolver({dependency: {
+      Feedback,
+    }});
+
   const saveAppFeedback = createSaveAppFeedbackResolver({dependency: {
       Feedback,
     }});
@@ -102,6 +106,7 @@ export const createMutationResolver = ({dependency: {
     saveComment,
     saveUserFeedback,
     saveMediumFeedback,
+    saveCommentFeedback,
     saveAppFeedback,
     followUser,
     unfollowUser,

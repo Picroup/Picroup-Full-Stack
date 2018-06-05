@@ -15,6 +15,7 @@ export default `
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
+    saveCommentFeedback(userId: ID!, commentId: ID!, content: String!): Feedback!
     saveAppFeedback(userId: ID!, content: String!): Feedback!
 
     followUser(userId: ID!, toUserId: ID!): User!
@@ -107,6 +108,7 @@ export default `
     userId: ID!
     toUserId: ID
     mediumId: ID
+    commentId: ID
     createdAt: Float!
     kind: FeedbackKind!
     content: String!
@@ -137,6 +139,7 @@ export default `
   enum FeedbackKind {
     user
     medium
+    comment
     app
   }
   
