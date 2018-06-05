@@ -22,8 +22,8 @@ export default `
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
     
-    deleteMedium(mediumId: String!): String!
-    deleteComment(commentId: String!): String!
+    deleteMedium(mediumId: ID!): ID!
+    deleteComment(commentId: ID!): ID!
   }
   
   type User {
