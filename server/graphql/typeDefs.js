@@ -3,6 +3,7 @@ export default `
     login(username: String!, password: String!): User
     user(userId: ID!): User
     rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
+    hotMedia: CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
   }
