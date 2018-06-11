@@ -2,8 +2,8 @@ import express from 'express';
 import { graphql, graphiql} from "./services/graphql";
 import bodyParser from 'body-parser';
 import {s3, signed} from './services/minio';
-import {PORT} from "./config";
 import {connectMongoose} from "./services/mongoose";
+import {createServer} from "./createServer";
 
 const app = express();
 
@@ -14,4 +14,4 @@ app.use('/signed', signed);
 
 connectMongoose();
 
-app.listen(PORT, () => console.info('Start listen on:', PORT));
+const server = createServer(app);

@@ -17,6 +17,9 @@ export const ALICLOUD_ACCESS_KEY = process.env.ALICLOUD_ACCESS_KEY;
 export const ALICLOUD_SECRET_Key = process.env.ALICLOUD_SECRET_Key;
 export const ALICLOUD_TEMPLATE_CODE = process.env.ALICLOUD_TEMPLATE_CODE;
 
+export const SSL_CERT_PATH = process.env.SSL_CERT_PATH;
+export const SSL_KEY_PATH = process.env.SSL_KEY_PATH;
+
 export const JWT_SECRET = process.env.JWT_SECRET;
 
 export const PAGE_LIMIT = 24;
