@@ -1,5 +1,7 @@
 export const PORT = parseInt(process.env.PORT);
 
+export const NODE_ENV = process.env.NODE_ENV;
+
 export const MINIO_ENDPOINT = process.env.MINIO_ENDPOINT;
 export const MINIO_PORT = parseInt(process.env.MINIO_PORT);
 export const MINIO_SECURE = process.env.MINIO_SECURE === 'true';
