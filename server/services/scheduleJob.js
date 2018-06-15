@@ -16,7 +16,7 @@ const deleteMedium = createDeleteMediumResolver({dependency: {
 const clearExpiredMedia = async () => {
   const now = getCurrentTimestamp();
   const criticalEndedAt = now - maybeOneMonth;
-  const expiredMedia = await Medium.find({endedAt: { $lt: criticalEndedAt }}).select({_id: 1}).limit(0);
+  const expiredMedia = await Medium.find({endedAt: { $lt: criticalEndedAt }}).select({_id: 1, endedAt: 1}).limit(0);
   const mediumIds = expiredMedia.map(medium => medium._id);
   for (const mediumId of mediumIds) await deleteMedium({}, {mediumId})
   console.log(`clearExpiredMedia expiredMedia: ${expiredMedia}`);
