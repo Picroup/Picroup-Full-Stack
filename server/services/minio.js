@@ -26,7 +26,7 @@ const signed = async (request, response) => {
   response.json({signedURL});
 };
 
-const deleteS3Object = async ({name}) => {
+const deleteS3Object = async (name) => {
   await client.removeObject(MINIO_BUCKET, name)
 };
 
