@@ -37,16 +37,12 @@ describe('Resolver User notifications', () => {
 
   it('should test basic', async () => {
 
-    // const  result = await User.findOne().sort({reputation: 1});
-    //
-    // console.log('result', result);
+    const  result = await User.findByIdAndDelete('5abb34e67f944cf1429de9b0');
 
-    console.log(Math.random());
-    console.log(Math.random());
-    console.log(Math.random());
-    console.log(Math.random());
-    console.log(Math.random());
-    console.log(Math.random());
-    console.log(Math.random());
+    console.log('result', result);
+
+    // const ids = [0, 1, 2, 3];
+    // for (const id of ids) console.log({id});
+
   });
 });
