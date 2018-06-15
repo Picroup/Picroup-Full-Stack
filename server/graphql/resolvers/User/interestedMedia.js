@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import {cursorQuery} from "../../../libraries/mongoose";
 import {PAGE_LIMIT} from "../../../config";
+import {getCurrentTimestamp} from "../../../libraries/date";
 
 
 export const createInterestedMediaResolver = ({dependency: {
@@ -12,7 +13,7 @@ export const createInterestedMediaResolver = ({dependency: {
 
   return await cursorQuery({
     Model: Medium,
-    predicate: {userId: { $in: followingUserIds }},
+    predicate: {userId: { $in: followingUserIds }, endedAt: {$gt: getCurrentTimestamp()}},
     sortBy: 'createdAt',
     ascending: -1
   })({cursor, limit: PAGE_LIMIT});

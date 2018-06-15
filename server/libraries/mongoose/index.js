@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-export const modelsByIds = async (Model, ids) => {
-
+export const modelsByIds = async (Model, ids, predicate) => {
+  predicate = predicate || {};
   const query = [
-    {$match: {_id: {$in: ids}}},
+    {$match: { _id: {$in: ids}, ...predicate }},
     {$addFields: {"__order": {$indexOfArray: [ids, "$_id" ]}}},
     {$sort: {"__order": 1}}
   ];
