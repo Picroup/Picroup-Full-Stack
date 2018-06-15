@@ -1,4 +1,4 @@
-import {cursorQuery, modelsByIds} from "../../../libraries/mongoose";
+import {cursorQuery} from "../../../libraries/mongoose";
 import {PAGE_LIMIT} from "../../../config";
 
 export const createRecommendedMediaResolver = ({dependency: {
@@ -17,7 +17,7 @@ export const createRecommendedMediaResolver = ({dependency: {
   })({cursor, limit: PAGE_LIMIT});
 
   const mediumIds = links.map(link => link.recommendMediumId);
-  const media = await modelsByIds(Medium, mediumIds);
+  const media = await Medium.validModelsByIds(mediumIds);
 
   return {
     cursor: newCursor,
