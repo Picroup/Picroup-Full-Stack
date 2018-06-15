@@ -19,8 +19,9 @@ const clearExpiredMedia = async () => {
   const expiredMedia = await Medium.find({endedAt: { $lt: criticalEndedAt }}).select({_id: 1}).limit(0);
   const mediumIds = expiredMedia.map(medium => medium._id);
   for (const mediumId of mediumIds) await deleteMedium({}, {mediumId})
-  console.log(`clearExpiredMedia count: ${mediumIds.count}`);
+  console.log(`clearExpiredMedia expiredMedia: ${expiredMedia}`);
   console.log(`clearExpiredMedia ids: ${mediumIds}`);
+  console.log(`clearExpiredMedia count: ${mediumIds.length}`);
 };
 
 export const scheduleJob = () => {
