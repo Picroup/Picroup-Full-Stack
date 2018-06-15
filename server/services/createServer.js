@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {PORT, SSL_CERT_PATH, SSL_KEY_PATH} from "./config";
+import {PORT, SSL_CERT_PATH, SSL_KEY_PATH} from "../config";
 import https from 'https';
 
 const httpsOptions = {

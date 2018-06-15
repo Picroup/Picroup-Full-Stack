@@ -26,4 +26,8 @@ const signed = async (request, response) => {
   response.json({signedURL});
 };
 
-export { s3, signed };
+const deleteS3Object = async ({name}) => {
+  await client.removeObject(MINIO_BUCKET, name)
+};
+
+export { s3, signed, deleteS3Object };

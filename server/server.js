@@ -3,7 +3,8 @@ import { graphql, graphiql} from "./services/graphql";
 import bodyParser from 'body-parser';
 import {s3, signed} from './services/minio';
 import {connectMongoose} from "./services/mongoose";
-import {createServer} from "./createServer";
+import {scheduleJob} from "./services/scheduleJob";
+import {createServer} from "./services/createServer";
 
 const app = express();
 
@@ -13,5 +14,6 @@ app.use('/s3', s3);
 app.use('/signed', signed);
 
 connectMongoose();
+scheduleJob();
 
 const server = createServer(app);
