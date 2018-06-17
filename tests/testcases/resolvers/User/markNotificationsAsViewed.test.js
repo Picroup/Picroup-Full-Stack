@@ -30,7 +30,7 @@ describe('Resolver User markNotificationsAsViewed', () => {
 
   beforeEach(async () => {
     await User.create(
-      {_id: toUserId, username: 'luojie', password: '123', notificationsCount: 3 }
+      {_id: toUserId, username: 'luojie', password: '123', phoneNumber: "0", notificationsCount: 3 }
     );
     await Notification.insertMany([
       { userId, toUserId, kind: NotificationKind.followUser, createdAt: 0 },

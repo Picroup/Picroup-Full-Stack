@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-export const modelsByIds = async (Model, ids) => {
-
+export const modelsByIds = async (Model, ids, predicate) => {
+  predicate = predicate || {};
   const query = [
-    {$match: {_id: {$in: ids}}},
+    {$match: { _id: {$in: ids}, ...predicate }},
     {$addFields: {"__order": {$indexOfArray: [ids, "$_id" ]}}},
     {$sort: {"__order": 1}}
   ];
@@ -35,6 +35,10 @@ export const cursorQuery =  ({ Model, predicate, sortBy, ascending, projection }
 
 export const incrementByKey = async ({Model, _id, key, number}) => {
   return await Model.findByIdAndUpdate(_id, { $inc: {[key]: number} }, {new: true});
+};
+
+export const setById = async ({Model, _id, value}) => {
+  return await Model.findByIdAndUpdate(_id, { $set: value }, {new: true});
 };
 
 export const ObjectId = mongoose.Types.ObjectId;

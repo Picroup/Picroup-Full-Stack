@@ -1,12 +1,12 @@
 import schema from './schema'
 import Medium from "./index";
-import {incrementByKey} from "../../../libraries/mongoose";
+import {incrementByKey, modelsByIds} from "../../../libraries/mongoose";
+import {getCurrentTimestamp} from "../../../libraries/date";
 
-schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio, category }) => {
+schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio }) => {
   const medium = new Medium({
     userId,
     minioId,
-    category,
     kind: 'image',
     detail: { width, aspectRatio }
   });
@@ -22,6 +22,15 @@ schema.statics.increaseCommentsCount = async (mediumId) => {
   })
 };
 
+schema.statics.decreaseCommentsCount = async (mediumId) => {
+  return await incrementByKey({
+    Model: Medium,
+    _id: mediumId,
+    key: 'commentsCount',
+    number: -1
+  })
+};
+
 schema.statics.increaseEndedAt = async ({mediumId, duration}) => {
   return await incrementByKey({
     Model: Medium,
@@ -29,6 +38,10 @@ schema.statics.increaseEndedAt = async ({mediumId, duration}) => {
     key: 'endedAt',
     number: duration
   })
+};
+
+schema.statics.validModelsByIds = async (ids) => {
+  return await modelsByIds(Medium, ids, {endedAt: {$gt: getCurrentTimestamp()}});
 };
 
 export default schema;

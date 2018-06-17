@@ -28,11 +28,10 @@ describe('Resolver Mutation saveImageMedium', () => {
     const minioId = 'minioId0';
     const width = '300';
     const aspectRatio = '2.5';
-    const category = 'popular';
 
     beforeEach(async () => {
       await User.create(
-        { _id: userId, username: 'luojie', password: '123', reputation: 5, }
+        { _id: userId, username: 'luojie', password: '123', phoneNumber: "0", reputation: 5, }
       );
     });
 
@@ -44,13 +43,12 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     it('should test medium', async () => {
 
-      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, });
       const medium = await Medium.findById(savedMedium._id);
 
       expect(medium).toMatchObject({
         userId,
         minioId,
-        category,
         kind: 'image',
         detail: { width, aspectRatio }
       });
@@ -59,7 +57,7 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     it('should test link', async () => {
 
-      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      const savedMedium = await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio });
       const mediumId = savedMedium._id;
       const link = await ReputationLink.findSaveMediumLink(mediumId);
 
@@ -75,7 +73,7 @@ describe('Resolver Mutation saveImageMedium', () => {
 
     it('should test user', async () => {
 
-      await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, category });
+      await saveImageMedium({}, { userId: userIdKey, minioId, width, aspectRatio, });
       const user = await User.findById(userId);
 
       expect(user).toMatchObject({

@@ -38,12 +38,12 @@ describe('Resolver Mutation starMedium', () => {
 
     beforeEach(async () => {
       await User.insertMany([
-        {_id: userId, username: 'luojie', password: '123', reputation: 5 },
-        {_id: toUserId, username: 'li', password: '123', reputation: 10 },
+        {_id: userId, username: 'luojie', password: '123', phoneNumber: "0", reputation: 5 },
+        {_id: toUserId, username: 'li', password: '123', phoneNumber: "01", reputation: 10 },
       ]);
 
       await Medium.create(
-        { _id: mediumId, userId: toUserId, minioId: 'minioId0', category : 'beauty', kind : 'image', endedAt }
+        { _id: mediumId, userId: toUserId, minioId: 'minioId0', kind : 'image', endedAt }
       );
     });
 
@@ -63,7 +63,6 @@ describe('Resolver Mutation starMedium', () => {
         _id: mediumId,
         userId: toUserId,
         minioId: 'minioId0',
-        category : 'beauty',
         kind : 'image',
         endedAt: endedAt + oneWeek
       });

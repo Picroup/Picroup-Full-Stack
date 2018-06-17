@@ -34,12 +34,12 @@ describe('Resolver Mutation saveComment', () => {
 
   beforeEach(async () => {
     await User.insertMany([
-      {_id: userId, username: 'luojie', password: '123'},
-      {_id: toUserId, username: 'li', password: '123'},
+      {_id: userId, username: 'luojie', password: '123', phoneNumber: "0"},
+      {_id: toUserId, username: 'li', password: '123', phoneNumber: "01"},
     ]);
 
     await Medium.create(
-      { _id: mediumId, userId: toUserId, minioId: 'minioId0', category : 'beauty', kind : 'image' }
+      { _id: mediumId, userId: toUserId, minioId: 'minioId0', kind : 'image' }
     );
   });
 
@@ -74,7 +74,6 @@ describe('Resolver Mutation saveComment', () => {
         _id: mediumId,
         userId: toUserId,
         minioId: 'minioId0',
-        category: 'beauty',
         kind: 'image',
         commentsCount: 1
       });

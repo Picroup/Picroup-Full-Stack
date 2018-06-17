@@ -6,9 +6,25 @@ const schema = new Schema({
     required: true,
     unique: true,
   },
+  phoneNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   password: {
     type: String,
     required: true,
+  },
+  displayName: {
+    type: String,
+    required: true,
+    default: function () {
+      return this.username;
+    }
+  },
+  avatarId: {
+    type: String,
+    required: false,
   },
   followingsCount: {
     type: Number,

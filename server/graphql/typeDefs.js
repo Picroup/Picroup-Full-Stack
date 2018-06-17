@@ -2,22 +2,37 @@ export default `
   type Query { 
     login(username: String!, password: String!): User
     user(userId: ID!): User
-    rankedMedia(category: MediumCategory, rankBy: RankBy, cursor: Float): CursorMedia!
+    rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
+    hotMedia: CursorMedia!
     medium(mediumId: ID!): Medium
+    searchUser(username: String!): User
   }
   
   type Mutation {
-    register(username: String!, password: String!): User!
-    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, category: MediumCategory!): Medium!
+    getVerifyCode(phoneNumber: String!): String!
+    register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
+    
+    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
+    saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
+    saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
+    saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
+    saveCommentFeedback(userId: ID!, commentId: ID!, content: String!): Feedback!
+    saveAppFeedback(userId: ID!, content: String!): Feedback!
+
     followUser(userId: ID!, toUserId: ID!): User!
     unfollowUser(userId: ID!, toUserId: ID!): User!
-    saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     starMedium(userId: ID!, mediumId: ID!): Medium!
+    recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
+    
+    deleteMedium(mediumId: ID!): ID!
+    deleteComment(commentId: ID!): ID!
   }
   
   type User {
     _id: ID!
     username: String!
+    displayName: String!
+    avatarId: String
     reputation: Int!
     followingsCount: Int!
     followersCount: Int!
@@ -27,25 +42,31 @@ export default `
     followers(cursor: Float): CursorUsers!
     media(cursor: Float): CursorMedia!
     interestedMedia(cursor: Float): CursorMedia!
+    staredMedia(cursor: Float): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
     markNotificationsAsViewed: User!
     markReputationLinksAsViewed: User!
     followed(byUserId: ID!): Boolean
- }
+    
+    setDisplayName(displayName: String!): User!
+    setAvatarId(avatarId: String!): User!
+    setPassword(password: String!, oldPassword: String!): User!
+  }
   
   type Medium {
     _id: ID!
     userId: ID!
     createdAt: Float!
     endedAt: Float!
-    category: MediumCategory!
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
+    user: User!
+    recommendedMedia(cursor: Float): CursorMedia!
   }
   
   type Comment {
@@ -54,6 +75,7 @@ export default `
     mediumId: ID!
     createdAt: Float!
     content: String!
+    user: User!
   }
   
   type Notification {
@@ -65,6 +87,8 @@ export default `
     createdAt: Float!
     kind: NotificationKind!
     viewed: Boolean!
+    user: User!
+    medium: Medium
   }
   
   type ReputationLink {
@@ -76,16 +100,19 @@ export default `
     value: Int!
     kind: ReputationKind!
     viewed: Boolean!
+    user: User!
+    medium: Medium
   }
   
-  enum MediumCategory {
-    popular
-    laughing
-    beauty
-    handsom
-    animal
-    photography
-    design
+  type Feedback {
+    _id: ID!
+    userId: ID!
+    toUserId: ID
+    mediumId: ID
+    commentId: ID
+    createdAt: Float!
+    kind: FeedbackKind!
+    content: String!
   }
   
   enum MediumKind {
@@ -110,6 +137,13 @@ export default `
     thisMonth
   }
   
+  enum FeedbackKind {
+    user
+    medium
+    comment
+    app
+  }
+  
   type MediumDetail {
     width: Float
     aspectRatio: Float
@@ -117,26 +151,26 @@ export default `
   
   type CursorMedia {
     cursor: Float
-    items: [Medium]!
+    items: [Medium!]!
   }
   
   type CursorUsers {
     cursor: Float
-    items: [User]!
+    items: [User!]!
   }
   
   type CursorComments {
     cursor: Float
-    items: [Comment]!
+    items: [Comment!]!
   }
   
   type CursorNotofications {
     cursor: Float
-    items: [Notification]!
+    items: [Notification!]!
   }
   
   type CursorReputationLinks {
     cursor: Float
-    items: [ReputationLink]!
+    items: [ReputationLink!]!
   }
 `;

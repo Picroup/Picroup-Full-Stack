@@ -2,6 +2,9 @@ import {createQueryResolver} from "./Query";
 import {createMutationResolver} from "./Mutation";
 import {createUserResolver} from "./User";
 import {createMediumResolver} from "./Medium";
+import {createCommentResolver} from "./Comment";
+import {createReputationLinkResolver} from "./ReputationLink";
+import {createNotificationResolver} from "./Notification";
 
 export const createResolvers = ({dependency: {
   User,
@@ -11,39 +14,67 @@ export const createResolvers = ({dependency: {
   StarMediumLink,
   ReputationLink,
   Notification,
+  MediumRecommendLink,
+  Feedback,
+  VerifyCode,
 }}) => {
 
-  const queryResolver = createQueryResolver({dependency: {
+  const query = createQueryResolver({dependency: {
       User,
-      Medium
+      Medium,
     }});
 
-  const mutationResolver = createMutationResolver({dependency: {
+  const mutation = createMutationResolver({dependency: {
       User,
       Medium,
       Comment,
       FollowUserLink,
       StarMediumLink,
       ReputationLink,
+      Notification,
+      MediumRecommendLink,
+      Feedback,
+      VerifyCode,
     }});
 
-  const userResolver = createUserResolver({dependency: {
+  const user = createUserResolver({dependency: {
       User,
       Medium,
       FollowUserLink,
       Notification,
       ReputationLink,
+      StarMediumLink,
     }});
 
-  const mediumResolver = createMediumResolver({dependency: {
+  const medium = createMediumResolver({dependency: {
       Comment,
-      StarMediumLink
+      StarMediumLink,
+      User,
+      MediumRecommendLink,
+      Medium,
+    }});
+
+  const comment = createCommentResolver({dependency: {
+      User,
+    }});
+
+  const reputationLink = createReputationLinkResolver({dependency: {
+      User,
+      Medium,
+    }});
+
+  const notification = createNotificationResolver({dependency: {
+      User,
+      Medium,
     }});
 
   return {
-    Query: queryResolver,
-    Mutation: mutationResolver,
-    User: userResolver,
-    Medium: mediumResolver
+    Query: query,
+    Mutation: mutation,
+    User: user,
+    Medium: medium,
+    Comment: comment,
+    ReputationLink: reputationLink,
+    Notification: notification,
   }
 };
