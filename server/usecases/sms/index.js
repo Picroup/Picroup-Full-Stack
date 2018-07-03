@@ -11,7 +11,7 @@ export const sendVerifyCode = async ({phoneNumber, code}) => {
 
   const param = {
     PhoneNumbers: phoneNumber,
-    SignName: '匹酷普',
+    SignName: 'Picroup',
     TemplateCode: TemplateCode,
     TemplateParam: `{"code":"${code}"}`
   };
