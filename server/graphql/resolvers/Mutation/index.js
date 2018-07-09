@@ -24,6 +24,7 @@ export const createMutationResolver = ({dependency: {
   MediumRecommendLink,
   Feedback,
   VerifyCode,
+  TagLink,
 }}) => {
 
   const getVerifyCode = createGetVerifyCodeResolver({dependency: {
@@ -39,6 +40,7 @@ export const createMutationResolver = ({dependency: {
       Medium,
       ReputationLink,
       User,
+      TagLink,
     }});
 
   const saveComment = createSaveCommentResolver({dependency: {

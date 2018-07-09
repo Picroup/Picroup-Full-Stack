@@ -3,7 +3,7 @@ import {createUserResolver} from "./user";
 import {createRankedMediaResolver} from "./rankedMedia";
 import {createMediumResolver} from "./medium";
 import {createSearchUserResolver} from "./searchUser";
-import {createHotMediaResolver} from "./hotMedia";
+import {createHotMediaByTagResolver, createHotMediaResolver} from "./hotMedia";
 
 export const createQueryResolver = ({dependency: {
   User,
@@ -26,6 +26,10 @@ export const createQueryResolver = ({dependency: {
       Medium
     }});
 
+  const hotMediaByTag = createHotMediaByTagResolver({dependency: {
+      Medium
+    }});
+
   const medium = createMediumResolver({dependency: {
       Medium
     }});
@@ -38,6 +42,7 @@ export const createQueryResolver = ({dependency: {
     login,
     user,
     rankedMedia,
+    hotMediaByTag,
     hotMedia,
     medium,
     searchUser

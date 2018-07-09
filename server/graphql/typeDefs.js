@@ -4,6 +4,7 @@ export default `
     user(userId: ID!): User
     rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
     hotMedia: CursorMedia!
+    hotMediaByTag(tag: String): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
   }
@@ -12,7 +13,7 @@ export default `
     getVerifyCode(phoneNumber: String!): String!
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
     
-    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!): Medium!
+    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
@@ -59,6 +60,7 @@ export default `
     userId: ID!
     createdAt: Float!
     endedAt: Float!
+    tags: [String!]
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
@@ -67,6 +69,9 @@ export default `
     stared(userId: ID!): Boolean!
     user: User!
     recommendedMedia(cursor: Float): CursorMedia!
+    
+    addTag(tag: String!, byUserId: ID!): Medium!
+    removeTag(tag: String!, byUserId: ID!): Medium!
   }
   
   type Comment {

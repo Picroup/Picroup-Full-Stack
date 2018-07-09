@@ -3,10 +3,11 @@ import Medium from "./index";
 import {incrementByKey, modelsByIds} from "../../../libraries/mongoose";
 import {getCurrentTimestamp} from "../../../libraries/date";
 
-schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio }) => {
+schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio, tags }) => {
   const medium = new Medium({
     userId,
     minioId,
+    tags,
     kind: 'image',
     detail: { width, aspectRatio }
   });
