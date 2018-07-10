@@ -23,6 +23,7 @@ export const createResolvers = ({dependency: {
   const query = createQueryResolver({dependency: {
       User,
       Medium,
+      TagLink,
     }});
 
   const mutation = createMutationResolver({dependency: {

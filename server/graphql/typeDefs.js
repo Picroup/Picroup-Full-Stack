@@ -4,9 +4,10 @@ export default `
     user(userId: ID!): User
     rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
     hotMedia: CursorMedia!
-    hotMediaByTag(tag: String): CursorMedia!
+    hotMediaByTags(tags: [String!]): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
+    searchTag(tag: String, cursor: Float): CursorTags!
   }
   
   type Mutation {
@@ -177,5 +178,10 @@ export default `
   type CursorReputationLinks {
     cursor: Float
     items: [ReputationLink!]!
+  }
+  
+  type CursorTags {
+    cursor: Float
+    items: [String!]!
   }
 `;

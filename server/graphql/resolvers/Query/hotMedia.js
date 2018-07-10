@@ -19,13 +19,13 @@ export const createHotMediaResolver = ({dependency: {
   };
 };
 
-export const createHotMediaByTagResolver = ({dependency: {
+export const createHotMediaByTagsResolver = ({dependency: {
   Medium
-}}) => async (_, { tag }) => {
+}}) => async (_, { tags }) => {
 
   const now = getCurrentTimestamp();
   const endedAt = now + 2 * oneWeek;
-  const tagsPredicate = tag && { tags: tag };
+  const tagsPredicate = tags && { tags: { $all: tags } };
 
   const items = await Medium.aggregate([
     {$match: {endedAt: {$gt: endedAt}, ...tagsPredicate}},
