@@ -22,7 +22,8 @@ const s3 = async (request, response) => {
 };
 
 const signed = async (request, response) => {
-  const signedURL = await client.presignedPutObject(MINIO_BUCKET, request.query.name, 60);
+  // const signedURL = await client.presignedPutObject(MINIO_BUCKET, request.query.name, 60);
+  const signedURL = `http://minio.picroup.com:9000/${MINIO_BUCKET}/${request.query.name}`;
   response.json({signedURL});
 };
 
