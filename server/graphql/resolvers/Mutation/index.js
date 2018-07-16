@@ -12,6 +12,7 @@ import {createSaveAppFeedbackResolver} from "./saveAppFeedback";
 import {createGetVerifyCodeResolver} from "./getVerifyCode";
 import {createDeleteMediumResolver} from "./deleteMedium";
 import {createSaveCommentFeedbackResolver} from "./saveCommentFeedback";
+import {createSaveVideoMediumResolver} from "./saveVideoMedium";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -37,6 +38,13 @@ export const createMutationResolver = ({dependency: {
     }});
 
   const saveImageMedium = createSaveImageMediumResolver({dependency: {
+      Medium,
+      ReputationLink,
+      User,
+      TagLink,
+    }});
+
+  const saveVideoMedium = createSaveVideoMediumResolver({dependency: {
       Medium,
       ReputationLink,
       User,
@@ -106,6 +114,7 @@ export const createMutationResolver = ({dependency: {
     getVerifyCode,
     register,
     saveImageMedium,
+    saveVideoMedium,
     saveComment,
     saveUserFeedback,
     saveMediumFeedback,

@@ -15,6 +15,7 @@ export default `
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
     
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
+    saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
@@ -123,6 +124,7 @@ export default `
   
   enum MediumKind {
     image
+    video
   }
   
   enum NotificationKind {
@@ -153,6 +155,7 @@ export default `
   type MediumDetail {
     width: Float
     aspectRatio: Float
+    videoMinioId: ID
   }
   
   type CursorMedia {

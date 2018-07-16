@@ -17,13 +17,13 @@ const client = new Client({
 });
 
 const s3 = async (request, response) => {
-  const url = await client.presignedGetObject(MINIO_BUCKET, request.query.name, 60);
+  // const url = await client.presignedGetObject(MINIO_BUCKET, request.query.name, 60);
+  const url = `http://minio.picroup.com:9000/${MINIO_BUCKET}/${request.query.name}`;
   response.redirect(url);
 };
 
 const signed = async (request, response) => {
-  // const signedURL = await client.presignedPutObject(MINIO_BUCKET, request.query.name, 60);
-  const signedURL = `http://minio.picroup.com:9000/${MINIO_BUCKET}/${request.query.name}`;
+  const signedURL = await client.presignedPutObject(MINIO_BUCKET, request.query.name, 60);
   response.json({signedURL});
 };
 

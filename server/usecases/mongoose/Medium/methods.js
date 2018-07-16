@@ -2,14 +2,26 @@ import schema from './schema'
 import Medium from "./index";
 import {incrementByKey, modelsByIds} from "../../../libraries/mongoose";
 import {getCurrentTimestamp} from "../../../libraries/date";
+import MediumKind from "../../model/MediumKind";
 
 schema.statics.saveImage = async ({ userId, minioId, width, aspectRatio, tags }) => {
   const medium = new Medium({
     userId,
     minioId,
     tags,
-    kind: 'image',
+    kind: MediumKind.image,
     detail: { width, aspectRatio }
+  });
+  return await medium.save();
+};
+
+schema.statics.saveVideo = async ({ userId, minioId, videoMinioId, width, aspectRatio, tags }) => {
+  const medium = new Medium({
+    userId,
+    minioId,
+    tags,
+    kind: MediumKind.video,
+    detail: { width, aspectRatio, videoMinioId }
   });
   return await medium.save();
 };
