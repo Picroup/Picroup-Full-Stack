@@ -17,11 +17,13 @@ export const createResolvers = ({dependency: {
   MediumRecommendLink,
   Feedback,
   VerifyCode,
+  TagLink,
 }}) => {
 
   const query = createQueryResolver({dependency: {
       User,
       Medium,
+      TagLink,
     }});
 
   const mutation = createMutationResolver({dependency: {
@@ -35,6 +37,7 @@ export const createResolvers = ({dependency: {
       MediumRecommendLink,
       Feedback,
       VerifyCode,
+      TagLink,
     }});
 
   const user = createUserResolver({dependency: {
@@ -52,6 +55,7 @@ export const createResolvers = ({dependency: {
       User,
       MediumRecommendLink,
       Medium,
+      TagLink,
     }});
 
   const comment = createCommentResolver({dependency: {

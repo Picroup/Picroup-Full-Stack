@@ -12,6 +12,7 @@ import Notification from "../usecases/mongoose/Notification";
 import MediumRecommendLink from "../usecases/mongoose/MediumRecommendLink";
 import Feedback from "../usecases/mongoose/Feedback";
 import VerifyCode from "../usecases/mongoose/VerifyCode";
+import TagLink from "../usecases/mongoose/TagLink";
 
 const resolvers = createResolvers({dependency: {
     User,
@@ -24,6 +25,7 @@ const resolvers = createResolvers({dependency: {
     MediumRecommendLink,
     Feedback,
     VerifyCode,
+    TagLink,
   }});
 
 const schema = makeExecutableSchema({

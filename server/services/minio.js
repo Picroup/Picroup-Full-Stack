@@ -17,7 +17,13 @@ const client = new Client({
 });
 
 const s3 = async (request, response) => {
-  const url = await client.presignedGetObject(MINIO_BUCKET, request.query.name, 60);
+  // const url = await client.presignedGetObject(MINIO_BUCKET, request.query.name, 60);
+  const url = `http://minio.picroup.com:9000/${MINIO_BUCKET}/${request.query.name}`;
+  response.redirect(url);
+};
+
+const files = async (request, response) => {
+  const url = `http://minio.picroup.com:9000/${MINIO_BUCKET}${request.path}`;
   response.redirect(url);
 };
 
@@ -30,4 +36,4 @@ const deleteS3Object = async (name) => {
   await client.removeObject(MINIO_BUCKET, name)
 };
 
-export { s3, signed, deleteS3Object };
+export { s3, files, signed, deleteS3Object };

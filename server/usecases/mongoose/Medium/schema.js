@@ -14,7 +14,11 @@ const schema = new Schema({
   endedAt: {
     type: Number,
     required: true,
-    default: () => getCurrentTimestamp() + maybeOneMonth
+    default: () => getCurrentTimestamp() + 2 * maybeOneMonth
+  },
+  tags: {
+    type: [String],
+    required: false,
   },
   kind: {
     type: String,

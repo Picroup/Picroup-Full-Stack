@@ -2,6 +2,8 @@ import {createCommentsResolver} from "./comments";
 import {createStaredResolver} from "./stared";
 import {createUserResolver} from "./user";
 import {createRecommendedMediaResolver} from "./recommendedMedia";
+import {createAddTagResolver} from "./addTag";
+import {createRemoveTagResolver} from "./removeTag";
 
 export const createMediumResolver = ({dependency: {
   Comment,
@@ -9,6 +11,7 @@ export const createMediumResolver = ({dependency: {
   User,
   MediumRecommendLink,
   Medium,
+  TagLink,
 }}) => {
 
   const comments = createCommentsResolver({dependency: {
@@ -28,10 +31,21 @@ export const createMediumResolver = ({dependency: {
       Medium,
     }});
 
+  const addTag = createAddTagResolver({dependency: {
+      Medium,
+      TagLink,
+    }});
+
+  const removeTag = createRemoveTagResolver({dependency: {
+      Medium,
+    }});
+
   return {
     comments,
     stared,
     user,
     recommendedMedia,
+    addTag,
+    removeTag,
   }
 };
