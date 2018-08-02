@@ -2,6 +2,22 @@ import schema from './schema';
 import User from "./index";
 import {incrementByKey} from "../../../libraries/mongoose";
 
+schema.statics.addBlockingUserId = async ({userId, blockingUserId}) => {
+  return await await User.findByIdAndUpdate(userId, {$addToSet: {blockingUserIds: blockingUserId}}, {new: true});
+};
+
+schema.statics.pullBlockingUserId = async ({userId, blockingUserId}) => {
+  return await await User.findByIdAndUpdate(userId, {$pull: {blockingUserIds: blockingUserId}}, {new: true});
+};
+
+schema.statics.addBlockedUserId = async ({userId, blockedUserId}) => {
+  return await await User.findByIdAndUpdate(userId, {$addToSet: {blockedUserIds: blockedUserId}}, {new: true});
+};
+
+schema.statics.pullBlockedUserId = async ({userId, blockedUserId}) => {
+  return await await User.findByIdAndUpdate(userId, {$pull: {blockedUserIds: blockedUserId}}, {new: true});
+};
+
 schema.statics.increaseFollowingsCount = async (userId) => {
   return await incrementByKey({
     Model: User,

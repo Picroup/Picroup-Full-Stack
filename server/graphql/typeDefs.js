@@ -4,7 +4,7 @@ export default `
     user(userId: ID!): User
     rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
     hotMedia: CursorMedia!
-    hotMediaByTags(tags: [String!]): CursorMedia!
+    hotMediaByTags(tags: [String!], queryUserId: ID): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
     searchTag(tag: String, cursor: Float): CursorTags!
@@ -27,6 +27,9 @@ export default `
     starMedium(userId: ID!, mediumId: ID!): Medium!
     recommendMedium(mediumId: ID!, recommendMediumId: ID!): Int!
     
+    blockUser(userId: ID!, blockingUserId: ID!): User!
+    unblockUser(userId: ID!, blockingUserId: ID!): User!
+
     deleteMedium(mediumId: ID!): ID!
     deleteComment(commentId: ID!): ID!
   }
@@ -43,8 +46,8 @@ export default `
     gainedReputation: Int!
     followings(cursor: Float): CursorUsers!
     followers(cursor: Float): CursorUsers!
-    media(cursor: Float): CursorMedia!
-    interestedMedia(cursor: Float): CursorMedia!
+    media(cursor: Float, queryUserId: ID): CursorMedia!
+    interestedMedia(cursor: Float, queryUserId: ID): CursorMedia!
     staredMedia(cursor: Float): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
@@ -52,6 +55,8 @@ export default `
     markReputationLinksAsViewed: User!
     followed(byUserId: ID!): Boolean
     
+    blockingUsers: [User!]!
+
     setDisplayName(displayName: String!): User!
     setAvatarId(avatarId: String!): User!
     setPassword(password: String!, oldPassword: String!): User!

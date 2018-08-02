@@ -1,5 +1,6 @@
 import {PAGE_LIMIT} from "../../../config";
 import {getCurrentTimestamp, oneWeek} from "../../../libraries/date";
+import {predicateApplyBlockingStrategy} from "../../../usecases/mongoose/Blocking";
 
 export const createHotMediaResolver = ({dependency: {
   Medium
@@ -20,15 +21,19 @@ export const createHotMediaResolver = ({dependency: {
 };
 
 export const createHotMediaByTagsResolver = ({dependency: {
-  Medium
-}}) => async (_, { tags }) => {
+  Medium,
+  User,
+}}) => async (_, { tags, queryUserId }) => {
 
   const now = getCurrentTimestamp();
   const endedAt = now + 2 * oneWeek;
   const tagsPredicate = tags && { tags: { $all: tags } };
-
+  const predicate = await predicateApplyBlockingStrategy({User})({
+    userId: queryUserId,
+    predicate: {endedAt: {$gt: endedAt}, ...tagsPredicate}
+  });
   const items = await Medium.aggregate([
-    {$match: {endedAt: {$gt: endedAt}, ...tagsPredicate}},
+    {$match: predicate},
     {$sample: {size: PAGE_LIMIT }}
   ]);
 

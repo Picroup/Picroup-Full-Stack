@@ -29,7 +29,8 @@ export const createQueryResolver = ({dependency: {
     }});
 
   const hotMediaByTags = createHotMediaByTagsResolver({dependency: {
-      Medium
+      Medium,
+      User,
     }});
 
   const medium = createMediumResolver({dependency: {
