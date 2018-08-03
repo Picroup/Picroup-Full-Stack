@@ -11,6 +11,7 @@ import {createFollowedResolver} from "./followed";
 import {createSetDisplayNameResolver} from "./setDisplayName";
 import {createSetAvatarIdResolver} from "./setAvatarId";
 import {createSetPasswordResolver} from "./setPassword";
+import {createBlockingUsersResolver} from "./blockingUsers";
 
 export const createUserResolver = ({dependency: {
   User,
@@ -32,17 +33,20 @@ export const createUserResolver = ({dependency: {
     }});
 
   const media = createMediaResolver({dependency: {
-      Medium
+      Medium,
+      User
     }});
 
   const interestedMedia = createInterestedMediaResolver({dependency: {
       FollowUserLink,
-      Medium
+      Medium,
+      User,
     }});
 
   const staredMedia = createStaredMediaResolver({dependency: {
       StarMediumLink,
-      Medium
+      Medium,
+      User,
     }});
 
   const notifications = createNotificationsResolver({dependency: {
@@ -55,29 +59,33 @@ export const createUserResolver = ({dependency: {
 
   const markNotificationsAsViewed = createMarkNotificationsAsViewedResolver({dependency: {
       Notification,
-      User
+      User,
     }});
 
   const markReputationLinksAsViewed = createMarkReputationLinksAsViewedResolver({dependency: {
       ReputationLink,
-      User
+      User,
     }});
 
   const followed = createFollowedResolver({dependency: {
-      FollowUserLink
+      FollowUserLink,
+    }});
+
+  const blockingUsers = createBlockingUsersResolver({dependency: {
+      User
     }});
 
   const setDisplayName = createSetDisplayNameResolver({dependency: {
-    User
-  }});
+      User
+    }});
 
   const setAvatarId = createSetAvatarIdResolver({dependency: {
-    User
-  }});
+      User
+    }});
 
   const setPassword = createSetPasswordResolver({dependency: {
-    User
-  }});
+      User
+    }});
 
   return {
     followings,
@@ -90,6 +98,7 @@ export const createUserResolver = ({dependency: {
     markNotificationsAsViewed,
     markReputationLinksAsViewed,
     followed,
+    blockingUsers,
     setDisplayName,
     setAvatarId,
     setPassword,
