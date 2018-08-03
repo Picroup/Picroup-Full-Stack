@@ -2,6 +2,10 @@ import schema from './schema';
 import User from "./index";
 import {incrementByKey} from "../../../libraries/mongoose";
 
+schema.statics.addBlockingMediumId = async ({userId, mediumId}) => {
+  return await await User.findByIdAndUpdate(userId, {$addToSet: {blockingMediumIds: mediumId}}, {new: true});
+};
+
 schema.statics.addBlockingUserId = async ({userId, blockingUserId}) => {
   return await await User.findByIdAndUpdate(userId, {$addToSet: {blockingUserIds: blockingUserId}}, {new: true});
 };

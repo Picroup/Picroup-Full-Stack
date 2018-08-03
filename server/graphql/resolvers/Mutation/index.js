@@ -15,6 +15,7 @@ import {createSaveCommentFeedbackResolver} from "./saveCommentFeedback";
 import {createSaveVideoMediumResolver} from "./saveVideoMedium";
 import {createBlockUserResolver} from "./blockUser";
 import {createUnblockUserResolver} from "./unblockUser";
+import {createBlockMediumResolver} from "./blockMedium";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -108,6 +109,10 @@ export const createMutationResolver = ({dependency: {
       User
     }});
 
+  const blockMedium = createBlockMediumResolver({dependency: {
+      User
+    }});
+
   const deleteComment = createDeleteCommentResolver({dependency: {
       Comment,
       Medium,
@@ -136,6 +141,7 @@ export const createMutationResolver = ({dependency: {
     recommendMedium,
     blockUser,
     unblockUser,
+    blockMedium,
     deleteComment,
     deleteMedium,
   }

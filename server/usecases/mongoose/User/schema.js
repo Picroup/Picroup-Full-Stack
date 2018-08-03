@@ -61,6 +61,11 @@ const schema = new Schema({
     required: true,
     default: []
   },
+  blockingMediumIds: {
+    type: [Schema.Types.ObjectId],
+    required: true,
+    default: []
+  },
 });
 
 export default schema;
