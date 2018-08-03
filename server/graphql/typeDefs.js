@@ -2,8 +2,8 @@ export default `
   type Query { 
     login(username: String!, password: String!): User
     user(userId: ID!): User
-    rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!
-    hotMedia: CursorMedia!
+    rankedMedia(rankBy: RankBy, cursor: Float): CursorMedia!  # deprecated use 'hotMediaByTags' instead
+    hotMedia: CursorMedia!                                    # deprecated use 'hotMediaByTags' instead
     hotMediaByTags(tags: [String!], queryUserId: ID): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
@@ -48,7 +48,7 @@ export default `
     followers(cursor: Float): CursorUsers!
     media(cursor: Float, queryUserId: ID): CursorMedia!
     interestedMedia(cursor: Float, queryUserId: ID): CursorMedia!
-    staredMedia(cursor: Float): CursorMedia!
+    staredMedia(cursor: Float, queryUserId: ID): CursorMedia!
     notifications(cursor: Float): CursorNotofications!
     reputationLinks(cursor: Float): CursorReputationLinks!
     markNotificationsAsViewed: User!
@@ -75,7 +75,7 @@ export default `
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
     user: User!
-    recommendedMedia(cursor: Float): CursorMedia!
+    recommendedMedia(cursor: Float, queryUserId: ID): CursorMedia!
     
     addTag(tag: String!, byUserId: ID!): Medium!
     removeTag(tag: String!, byUserId: ID!): Medium!

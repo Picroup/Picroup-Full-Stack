@@ -45,7 +45,8 @@ export const createUserResolver = ({dependency: {
 
   const staredMedia = createStaredMediaResolver({dependency: {
       StarMediumLink,
-      Medium
+      Medium,
+      User,
     }});
 
   const notifications = createNotificationsResolver({dependency: {
@@ -58,16 +59,16 @@ export const createUserResolver = ({dependency: {
 
   const markNotificationsAsViewed = createMarkNotificationsAsViewedResolver({dependency: {
       Notification,
-      User
+      User,
     }});
 
   const markReputationLinksAsViewed = createMarkReputationLinksAsViewedResolver({dependency: {
       ReputationLink,
-      User
+      User,
     }});
 
   const followed = createFollowedResolver({dependency: {
-      FollowUserLink
+      FollowUserLink,
     }});
 
   const blockingUsers = createBlockingUsersResolver({dependency: {
