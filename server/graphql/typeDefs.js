@@ -29,6 +29,8 @@ export default `
     
     blockUser(userId: ID!, blockingUserId: ID!): User!
     unblockUser(userId: ID!, blockingUserId: ID!): User!
+    
+    blockMedium(userId: ID!, mediumId: ID!): User!
 
     deleteMedium(mediumId: ID!): ID!
     deleteComment(commentId: ID!): ID!
