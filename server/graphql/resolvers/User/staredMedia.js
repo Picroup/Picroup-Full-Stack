@@ -1,10 +1,13 @@
-import {cursorQuery} from "../../../libraries/mongoose";
+import {cursorQuery, modelsByIds} from "../../../libraries/mongoose";
 import {PAGE_LIMIT} from "../../../config";
+import {getCurrentTimestamp} from "../../../libraries/date";
+import {predicateApplyBlockingStrategy} from "../../../usecases/mongoose/Blocking";
 
 export const createStaredMediaResolver = ({dependency: {
   StarMediumLink,
-  Medium
-  }}) => async ({_id: userId}, { cursor }) => {
+  Medium,
+  User,
+  }}) => async ({_id: userId}, { cursor, queryUserId }) => {
 
   const {
     cursor: newCursor,
@@ -17,7 +20,11 @@ export const createStaredMediaResolver = ({dependency: {
   })({cursor, limit: PAGE_LIMIT});
 
   const mediumIds = links.map(link => link.mediumId);
-  const media = await Medium.validModelsByIds(mediumIds);
+  const predicate = await predicateApplyBlockingStrategy({User})({
+    userId: queryUserId,
+    predicate: {endedAt: {$gt: getCurrentTimestamp()}}
+  });
+  const media = await modelsByIds(Medium, mediumIds, predicate);
 
   return {
     cursor: newCursor,

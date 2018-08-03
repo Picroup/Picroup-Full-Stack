@@ -29,6 +29,7 @@ export const createMediumResolver = ({dependency: {
   const recommendedMedia = createRecommendedMediaResolver({dependency: {
       MediumRecommendLink,
       Medium,
+      User,
     }});
 
   const addTag = createAddTagResolver({dependency: {

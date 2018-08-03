@@ -13,6 +13,9 @@ import {createGetVerifyCodeResolver} from "./getVerifyCode";
 import {createDeleteMediumResolver} from "./deleteMedium";
 import {createSaveCommentFeedbackResolver} from "./saveCommentFeedback";
 import {createSaveVideoMediumResolver} from "./saveVideoMedium";
+import {createBlockUserResolver} from "./blockUser";
+import {createUnblockUserResolver} from "./unblockUser";
+import {createBlockMediumResolver} from "./blockMedium";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -98,6 +101,18 @@ export const createMutationResolver = ({dependency: {
       MediumRecommendLink,
     }});
 
+  const blockUser = createBlockUserResolver({dependency: {
+      User
+    }});
+
+  const unblockUser = createUnblockUserResolver({dependency: {
+      User
+    }});
+
+  const blockMedium = createBlockMediumResolver({dependency: {
+      User
+    }});
+
   const deleteComment = createDeleteCommentResolver({dependency: {
       Comment,
       Medium,
@@ -124,6 +139,9 @@ export const createMutationResolver = ({dependency: {
     unfollowUser,
     starMedium,
     recommendMedium,
+    blockUser,
+    unblockUser,
+    blockMedium,
     deleteComment,
     deleteMedium,
   }

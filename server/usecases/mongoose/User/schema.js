@@ -51,6 +51,21 @@ const schema = new Schema({
     required: true,
     default: 0
   },
+  blockingUserIds: {
+    type: [Schema.Types.ObjectId],
+    required: true,
+    default: []
+  },
+  blockedUserIds: {
+    type: [Schema.Types.ObjectId],
+    required: true,
+    default: []
+  },
+  blockingMediumIds: {
+    type: [Schema.Types.ObjectId],
+    required: true,
+    default: []
+  },
 });
 
 export default schema;
