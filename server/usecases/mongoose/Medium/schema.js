@@ -25,7 +25,10 @@ const schema = new Schema({
     required: true,
   },
   detail: {
-    type: Object
+    width: { type: Number, required: false, },
+    aspectRatio: { type: Number, required: false, },
+    videoMinioId: { type: String, required: false, },
+    placeholderColor: { type: String, required: false, },
   },
   minioId: {
     type: String,

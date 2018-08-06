@@ -14,8 +14,8 @@ export default `
     getVerifyCode(phoneNumber: String!): String!
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
     
-    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
-    saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
+    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
+    saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
@@ -165,6 +165,7 @@ export default `
     aspectRatio: Float
     videoMinioId: ID
     videoUrl: String
+    placeholderColor: String
   }
   
   type CursorMedia {
