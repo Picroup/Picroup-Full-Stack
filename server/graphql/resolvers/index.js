@@ -5,6 +5,7 @@ import {createMediumResolver} from "./Medium";
 import {createCommentResolver} from "./Comment";
 import {createReputationLinkResolver} from "./ReputationLink";
 import {createNotificationResolver} from "./Notification";
+import {createMediumDetailResolver} from "./MediumDetail/index";
 
 export const createResolvers = ({dependency: {
   User,
@@ -72,6 +73,10 @@ export const createResolvers = ({dependency: {
       Medium,
     }});
 
+  const mediumDetail = createMediumDetailResolver({dependency: {
+
+  }});
+
   return {
     Query: query,
     Mutation: mutation,
@@ -80,5 +85,6 @@ export const createResolvers = ({dependency: {
     Comment: comment,
     ReputationLink: reputationLink,
     Notification: notification,
+    MediumDetail: mediumDetail
   }
 };

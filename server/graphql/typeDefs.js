@@ -73,6 +73,7 @@ export default `
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
+    url: String!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
@@ -163,6 +164,7 @@ export default `
     width: Float
     aspectRatio: Float
     videoMinioId: ID
+    videoUrl: String
   }
   
   type CursorMedia {

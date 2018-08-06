@@ -7,6 +7,7 @@ import {
   MINIO_SECRET_Key,
   MINIO_SECURE
 } from "../config";
+import {urlFor} from "../usecases/url/index";
 
 const client = new Client({
   endPoint: MINIO_ENDPOINT,
@@ -23,7 +24,7 @@ const s3 = async (request, response) => {
 };
 
 const files = async (request, response) => {
-  const url = `http://minio.picroup.com:9000/${MINIO_BUCKET}${request.path}`;
+  const url = urlFor({minioId: request.path});
   response.redirect(url);
 };
 
