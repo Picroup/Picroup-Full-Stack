@@ -2,6 +2,14 @@ import {PAGE_LIMIT} from "../../../config";
 import {getCurrentTimestamp, oneWeek} from "../../../libraries/date";
 import {predicateApplyBlockingStrategy} from "../../../usecases/mongoose/Blocking";
 
+const distinctItems = (items) => {
+  const itemByIds = items.reduce((total, item) => ({
+    ...total,
+    [item._id]: item
+  }), {});
+  return Object.values(itemByIds)
+};
+
 export const createHotMediaResolver = ({dependency: {
   Medium
 }}) => async () => {
@@ -16,7 +24,7 @@ export const createHotMediaResolver = ({dependency: {
 
   return {
     cursor: null,
-    items
+     items: distinctItems(items)
   };
 };
 
@@ -39,6 +47,6 @@ export const createHotMediaByTagsResolver = ({dependency: {
 
   return {
     cursor: null,
-    items
+    items: distinctItems(items)
   };
 };
