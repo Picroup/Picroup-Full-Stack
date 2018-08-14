@@ -9,9 +9,5 @@ export const createSetPasswordResolver = ({dependency: {
   oldPassword = createSaltedPassword(oldPassword);
   const user = await User.findById(_id);
   if (user.password !== oldPassword) throw new Error('旧密码不匹配！');
-  return await setById({
-    Model: User,
-    _id,
-    value: { password }
-  })
+  return await setById({ Model: User, _id, value: { password } })
 };

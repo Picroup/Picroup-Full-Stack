@@ -1,21 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-
-const schema = new Schema({
-  phoneNumber: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  code: {
-    type: Number,
-    required: true,
-  },
-  expiredAt: {
-    type: Number,
-    required: true,
-  },
-});
-
+import schema from './methods';
 
 const VerifyCode = mongoose.model('VerifyCode', schema, 'verifyCodes');
 

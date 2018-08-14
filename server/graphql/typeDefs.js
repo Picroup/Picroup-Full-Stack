@@ -7,12 +7,15 @@ export default `
     hotMediaByTags(tags: [String!], queryUserId: ID): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
+    searchUserByPhoneNumber(phoneNumber: String!): User
     searchTag(tag: String, cursor: Float): CursorTags!
-  }
+    verifyCode(phoneNumber: String!, code: Float!): String!
+   }
   
   type Mutation {
     getVerifyCode(phoneNumber: String!): String!
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
+    resetPassword(phoneNumber: String!, password: String!, token: String!): String! 
     
     saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
     saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
