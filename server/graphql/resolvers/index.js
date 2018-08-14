@@ -25,6 +25,7 @@ export const createResolvers = ({dependency: {
       User,
       Medium,
       TagLink,
+      VerifyCode,
     }});
 
   const mutation = createMutationResolver({dependency: {

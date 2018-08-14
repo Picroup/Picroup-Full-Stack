@@ -16,6 +16,7 @@ import {createSaveVideoMediumResolver} from "./saveVideoMedium";
 import {createBlockUserResolver} from "./blockUser";
 import {createUnblockUserResolver} from "./unblockUser";
 import {createBlockMediumResolver} from "./blockMedium";
+import {createResetPasswordResolver} from "./resetPassword";
 
 export const createMutationResolver = ({dependency: {
   User,
@@ -39,6 +40,10 @@ export const createMutationResolver = ({dependency: {
       User,
       VerifyCode,
     }});
+
+  const resetPassword = createResetPasswordResolver({dependency: {
+    User,
+  }});
 
   const saveImageMedium = createSaveImageMediumResolver({dependency: {
       Medium,
@@ -128,6 +133,7 @@ export const createMutationResolver = ({dependency: {
   return {
     getVerifyCode,
     register,
+    resetPassword,
     saveImageMedium,
     saveVideoMedium,
     saveComment,
