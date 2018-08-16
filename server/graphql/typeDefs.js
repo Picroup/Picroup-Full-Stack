@@ -44,6 +44,7 @@ export default `
     username: String!
     displayName: String!
     avatarId: String
+    url: String
     reputation: Int!
     followingsCount: Int!
     followersCount: Int!
@@ -167,7 +168,7 @@ export default `
     width: Float
     aspectRatio: Float
     videoMinioId: ID
-    videoUrl: String
+    videoURL: String
     placeholderColor: String
   }
   

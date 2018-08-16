@@ -4,7 +4,7 @@ import {createUserResolver} from "./user";
 import {createRecommendedMediaResolver} from "./recommendedMedia";
 import {createAddTagResolver} from "./addTag";
 import {createRemoveTagResolver} from "./removeTag";
-import {createUrlResolver} from "./url";
+import {createURLResolver} from "./url";
 
 export const createMediumResolver = ({dependency: {
   Comment,
@@ -15,7 +15,7 @@ export const createMediumResolver = ({dependency: {
   TagLink,
 }}) => {
 
-  const url = createUrlResolver({dependency: {
+  const url = createURLResolver({dependency: {
 
   }});
 

@@ -7,5 +7,5 @@ import {urlFor} from "../../../usecases/url/index";
 export const createMediumDetailResolver = ({dependency: {
 
 }}) => ({
-  videoUrl: async ({videoMinioId}) => videoMinioId && urlFor({minioId: videoMinioId})
+  videoURL: async ({videoMinioId}) => videoMinioId && urlFor({minioId: videoMinioId})
 });

@@ -12,6 +12,7 @@ import {createSetDisplayNameResolver} from "./setDisplayName";
 import {createSetAvatarIdResolver} from "./setAvatarId";
 import {createSetPasswordResolver} from "./setPassword";
 import {createBlockingUsersResolver} from "./blockingUsers";
+import {createURLResolver} from "./url";
 
 export const createUserResolver = ({dependency: {
   User,
@@ -21,6 +22,10 @@ export const createUserResolver = ({dependency: {
   ReputationLink,
   StarMediumLink,
 }}) => {
+
+  const url = createURLResolver({dependency: {
+
+  }});
 
   const followings = createFollowingsResolver({dependency: {
       FollowUserLink,
@@ -88,6 +93,7 @@ export const createUserResolver = ({dependency: {
     }});
 
   return {
+    url,
     followings,
     followers,
     media,
