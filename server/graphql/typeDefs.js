@@ -10,6 +10,8 @@ export default `
     searchUserByPhoneNumber(phoneNumber: String!): User
     searchTag(tag: String, cursor: Float): CursorTags!
     verifyCode(phoneNumber: String!, code: Float!): String!
+    
+    presignedPutURL(minioId: ID!): String
    }
   
   type Mutation {

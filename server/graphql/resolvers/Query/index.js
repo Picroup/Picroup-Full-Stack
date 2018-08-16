@@ -7,6 +7,7 @@ import {createHotMediaByTagsResolver, createHotMediaResolver} from "./hotMedia";
 import {createSearchTagResolver} from "./searchTag";
 import {createSearchUserByPhoneNumberResolver} from "./searchUserByPhoneNumber";
 import {createVerifyCodeResolver} from "./verifyCode";
+import {createPresignedPutURLResolver} from "./presignedPutURL";
 
 export const createQueryResolver = ({dependency: {
   User,
@@ -57,6 +58,10 @@ export const createQueryResolver = ({dependency: {
     VerifyCode,
   }});
 
+  const presignedPutURL = createPresignedPutURLResolver({dependency: {
+
+  }});
+
   return {
     login,
     user,
@@ -68,5 +73,6 @@ export const createQueryResolver = ({dependency: {
     searchUserByPhoneNumber,
     searchTag,
     verifyCode,
+    presignedPutURL,
   }
 };

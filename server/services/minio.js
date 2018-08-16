@@ -1,40 +1,20 @@
-import { Client } from 'minio';
-import {
-  MINIO_ACCESS_KEY,
-  MINIO_BUCKET,
-  MINIO_ENDPOINT,
-  MINIO_PORT,
-  MINIO_SECRET_Key,
-  MINIO_SECURE
-} from "../config";
-import {urlFor} from "../usecases/url/index";
+import {presignedPutURL, urlFor} from "../usecases/minio/index";
 
-const client = new Client({
-  endPoint: MINIO_ENDPOINT,
-  port: MINIO_PORT,
-  secure: MINIO_SECURE,
-  accessKey: MINIO_ACCESS_KEY,
-  secretKey: MINIO_SECRET_Key
-});
-
+// this is deprecated since the url is not available for mp4:   http://host.com/s3?name=abc.mp4
 const s3 = async (request, response) => {
-  // const url = await client.presignedGetObject(MINIO_BUCKET, request.query.name, 60);
-  const url = `http://minio.picroup.com:9000/${MINIO_BUCKET}/${request.query.name}`;
+  const url = urlFor({minioId: request.query.name});
   response.redirect(url);
 };
 
+// this is preferred way:   http://host.com/files/abc.mp4
 const files = async (request, response) => {
   const url = urlFor({minioId: request.path});
   response.redirect(url);
 };
 
 const signed = async (request, response) => {
-  const signedURL = await client.presignedPutObject(MINIO_BUCKET, request.query.name, 60);
+  const signedURL = await presignedPutURL({minioId: request.query.name});
   response.json({signedURL});
 };
 
-const deleteS3Object = async (name) => {
-  await client.removeObject(MINIO_BUCKET, name)
-};
-
-export { s3, files, signed, deleteS3Object };
+export { s3, files, signed };

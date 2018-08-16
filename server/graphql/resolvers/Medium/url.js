@@ -3,8 +3,7 @@
  */
 
 
-import {urlFor} from "../../../usecases/url/index";
-
+import {urlFor} from "../../../usecases/minio/index";
 export const createURLResolver = ({dependency: {
 
 }}) => async ({minioId}) => urlFor({minioId});
