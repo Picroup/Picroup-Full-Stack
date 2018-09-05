@@ -7,15 +7,20 @@ export default `
     hotMediaByTags(tags: [String!], queryUserId: ID): CursorMedia!
     medium(mediumId: ID!): Medium
     searchUser(username: String!): User
+    searchUserByPhoneNumber(phoneNumber: String!): User
     searchTag(tag: String, cursor: Float): CursorTags!
-  }
+    verifyCode(phoneNumber: String!, code: Float!): String!
+    
+    presignedPutURL(minioId: ID!): String
+   }
   
   type Mutation {
     getVerifyCode(phoneNumber: String!): String!
     register(username: String!, password: String!, phoneNumber: String!, code: Float!): User!
+    resetPassword(phoneNumber: String!, password: String!, token: String!): String! 
     
-    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
-    saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, tags: [String!]): Medium!
+    saveImageMedium(userId: ID!, minioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
+    saveVideoMedium(userId: ID!, thumbnailMinioId: ID!, videoMinioId: ID!, width: Float!, aspectRatio: Float!, placeholderColor: String, tags: [String!]): Medium!
     saveComment(userId: ID!, mediumId: ID!, content: String!): Comment!
     saveUserFeedback(userId: ID!, toUserId: ID!, content: String!): Feedback!
     saveMediumFeedback(userId: ID!, mediumId: ID!, content: String!): Feedback!
@@ -41,6 +46,7 @@ export default `
     username: String!
     displayName: String!
     avatarId: String
+    url: String
     reputation: Int!
     followingsCount: Int!
     followersCount: Int!
@@ -73,6 +79,7 @@ export default `
     kind: MediumKind!
     detail: MediumDetail
     minioId: ID!
+    url: String!
     commentsCount: Int!
     comments(cursor: Float): CursorComments!
     stared(userId: ID!): Boolean!
@@ -163,6 +170,8 @@ export default `
     width: Float
     aspectRatio: Float
     videoMinioId: ID
+    videoURL: String
+    placeholderColor: String
   }
   
   type CursorMedia {

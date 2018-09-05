@@ -1,6 +1,6 @@
 
 export const createSearchUserResolver = ({dependency: {
-  User
+  User,
 }}) => async (_, {username}) => {
   return await User.findOne({username});
 };

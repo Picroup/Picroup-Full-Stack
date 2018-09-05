@@ -5,11 +5,15 @@ import {createMediumResolver} from "./medium";
 import {createSearchUserResolver} from "./searchUser";
 import {createHotMediaByTagsResolver, createHotMediaResolver} from "./hotMedia";
 import {createSearchTagResolver} from "./searchTag";
+import {createSearchUserByPhoneNumberResolver} from "./searchUserByPhoneNumber";
+import {createVerifyCodeResolver} from "./verifyCode";
+import {createPresignedPutURLResolver} from "./presignedPutURL";
 
 export const createQueryResolver = ({dependency: {
   User,
   Medium,
   TagLink,
+  VerifyCode,
 }}) => {
 
   const login = createLoginResolver({dependency: {
@@ -34,16 +38,29 @@ export const createQueryResolver = ({dependency: {
     }});
 
   const medium = createMediumResolver({dependency: {
-      Medium
+      Medium,
     }});
 
   const searchUser = createSearchUserResolver({dependency: {
-      User
+      User,
     }});
+
+  const searchUserByPhoneNumber = createSearchUserByPhoneNumberResolver({dependency: {
+    User,
+  }});
 
   const searchTag = createSearchTagResolver({dependency: {
       TagLink,
     }});
+
+  const verifyCode = createVerifyCodeResolver({dependency: {
+    User,
+    VerifyCode,
+  }});
+
+  const presignedPutURL = createPresignedPutURLResolver({dependency: {
+
+  }});
 
   return {
     login,
@@ -53,6 +70,9 @@ export const createQueryResolver = ({dependency: {
     hotMedia,
     medium,
     searchUser,
+    searchUserByPhoneNumber,
     searchTag,
+    verifyCode,
+    presignedPutURL,
   }
 };

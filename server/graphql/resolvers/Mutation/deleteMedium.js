@@ -1,4 +1,4 @@
-import {deleteS3Object} from "../../../services/minio";
+import {remove} from "../../../usecases/minio/index";
 
 export const createDeleteMediumResolver = ({dependency: {
   StarMediumLink,
@@ -10,7 +10,8 @@ export const createDeleteMediumResolver = ({dependency: {
   await MediumRecommendLink.deleteMany({mediumId});
   await MediumRecommendLink.deleteMany({recommendMediumId: mediumId});
   await Comment.deleteMany({mediumId});
-  const {minioId} = await Medium.findByIdAndDelete(mediumId);
-  if (minioId) (async () => await deleteS3Object(minioId))();
+  const {minioId, detail} = await Medium.findByIdAndDelete(mediumId);
+  if (minioId) (async () => await remove({minioId}))();
+  if (detail && detail.videoMinioId) (async () => await remove({minioId: detail.videoMinioId}))();
   return mediumId;
 };
